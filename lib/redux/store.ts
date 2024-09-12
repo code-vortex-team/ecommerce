@@ -1,8 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
+import BasketSlice from "@/lib/redux/features/Basket/basketSlice";
 
 export const makeStore = () => {
     return configureStore({
-        reducer: {}
+        reducer: {
+            basket: BasketSlice
+        }
     })
 }
 
