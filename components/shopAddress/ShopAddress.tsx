@@ -1,12 +1,5 @@
 "use client";
-import {
-  Box,
-  Heading,
-  ListItem,
-  Text,
-  UnorderedList,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Box, Text, useColorMode } from "@chakra-ui/react";
 
 interface propsType {
   title: string;
@@ -17,32 +10,38 @@ const ShopAddress = ({ title, data }: propsType) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Box dir="rtl" width='28.594vw'>
-      <Heading
+    <Box dir="rtl" width="28.594vw" h="fit-content">
+      <Text
+        color={colorMode === "light" ? "black" : "white"}
         mb="24px"
-        mr="1rem"
-        as="h4"
-        size="20px"
+        fontSize="20px"
         fontWeight="500"
         lineHeight="32px"
       >
         {title}
-      </Heading>
-      <UnorderedList styleType='""'>
-        {data.map((item, index) => (
-          <ListItem key={index} mb="16px">
-            <Text display="inline-block" color="#DB2777">
-              {item.title} :&nbsp;
-            </Text>
-            <Text
-              display="inline-block"
-              color={colorMode === "light" ? "black" : "white"}
-            >
-              {item.value}
-            </Text>
-          </ListItem>
-        ))}
-      </UnorderedList>
+      </Text>
+      {data.map((item, index) => (
+        <Box key={index} mb="16px">
+          <Text
+            display="inline"
+            color="#DB2777"
+            fontSize="16px"
+            fontWeight="700"
+            lineHeight="24px"
+          >
+            {item.title} :&nbsp;
+          </Text>
+          <Text
+            fontSize="16px"
+            fontWeight="400"
+            lineHeight="24px"
+            display="inline"
+            color={colorMode === "light" ? "black" : "white"}
+          >
+            {item.value}
+          </Text>
+        </Box>
+      ))}
     </Box>
   );
 };
