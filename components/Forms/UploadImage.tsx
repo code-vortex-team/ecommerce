@@ -14,7 +14,7 @@ const UploadImage = ({title = "آپلود عکس", ...reset}) => {
                 border={"1px dashed"}
                 borderColor={useColorModeValue("#CED2D7", "#3e4042")}
                 color={useColorModeValue("#58616c", "gray-400")}
-                py={"51px"}
+                py={20}
             >
                 {title}
             </Center>
