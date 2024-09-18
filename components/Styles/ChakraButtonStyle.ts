@@ -1,4 +1,4 @@
-import { defineStyleConfig } from '@chakra-ui/react';
+import {defineStyleConfig} from '@chakra-ui/react';
 
 export const ChakraButtonStyle = defineStyleConfig({
 
@@ -19,7 +19,7 @@ export const ChakraButtonStyle = defineStyleConfig({
         regularPinkButton: {
             bg: '#DB2777',
             color: 'white',
-            minWidthad: '8.25rem',
+            minWidth: '8.25rem',
             height: '2.25rem',
             padding: '0.5rem 0.75rem',
             gap: '0rem',
