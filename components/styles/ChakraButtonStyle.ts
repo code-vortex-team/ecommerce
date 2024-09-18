@@ -6,7 +6,7 @@ export const ChakraButtonStyle = defineStyleConfig({
     button1: {
       bg: '#DB2777',
       color: 'white',
-      width: '8.4375rem', 
+      minWidth: '8.4375rem', 
       height: '3rem',     
       padding: '0.5rem 2rem', 
       gap: '0rem',        
@@ -19,7 +19,7 @@ export const ChakraButtonStyle = defineStyleConfig({
     button2: {
       bg: '#DB2777',
       color: 'white',
-      width: '8.25rem',  
+      minWidth: '8.25rem',  
       height: '2.25rem',
       padding: '0.5rem 0.75rem', 
       gap: '0rem',     
