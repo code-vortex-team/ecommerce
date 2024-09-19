@@ -1,6 +1,6 @@
 "use client";
 import TextField from "@/components/textField/TextField";
-import { useColorMode, Button } from "@chakra-ui/react";
+import { useColorMode, Button, Input } from "@chakra-ui/react";
 
 const Page = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -10,8 +10,8 @@ const Page = () => {
       <Button onClick={toggleColorMode}>
         Toggle {colorMode === "light" ? "Dark" : "Light"} Mode
       </Button>
-
-      <TextField title="قیمت" status="changeable" value="value" />
+        <Input variant={"test"}/>
+      {/* <TextField title="قیمت" status="changeable" value="value" /> */}
     </>
   );
 };
