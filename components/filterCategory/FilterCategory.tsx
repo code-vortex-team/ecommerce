@@ -33,7 +33,7 @@ export default function FilterProducts({
       ...category,
       active: values.includes(category.name),
     }));
-    // console.log(values)
+    console.log(values)
     if (onchange) {
       onchange(updatedCategories);
     }
@@ -43,16 +43,19 @@ export default function FilterProducts({
     <Box>
       <Box
         borderRadius={"full"}
-        padding={3}
+        padding={"8px 51.97px 8px 51.97px"}
         textAlign={"center"}
+        fontSize={"16px"}
+        fontWeight={"400"}
         bg={useColorModeValue("#edf2f7", "black")}
+        color={useColorModeValue("black", "white")}
       >
         {title}
       </Box>
       <CheckboxGroup value={selectedCategories} onChange={handleChange}>
-        <Stack marginTop={12} spacing={3} direction="column">
+        <Stack marginTop={12} spacing={"8px"} direction="column">
           {categories.map((item, index) => (
-            <Checkbox key={index} value={item.name}>
+            <Checkbox key={index} value={item.name} fontSize={"14px"} fontWeight={"400"} color={useColorModeValue("black", "white")}>
               {item.name}
             </Checkbox>
           ))}
