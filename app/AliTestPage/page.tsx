@@ -4,6 +4,8 @@ import { IoHomeOutline } from "react-icons/io5";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
+import SideMenuMain from "@/components/sidemenu/SideMenuMain";
+import {Box, Flex} from "@chakra-ui/react";
 
 
 const sidemenulist = [
@@ -15,9 +17,9 @@ const sidemenulist = [
 
 const Page = () => {
   return (
-    <>
-      <SideMenu sidemenudata={sidemenulist} />
-    </>
+    <Flex>
+      <SideMenuMain list={sidemenulist}/>
+    </Flex>
   );
 };
 
