@@ -1,6 +1,7 @@
 import {extendTheme, type ThemeConfig, ThemeOverride} from '@chakra-ui/react'
 import {color} from "@/components/colors";
 import {ColorVariable, replaceDotsWithVar} from "@/components/styles/ChakraColorStyle";
+import {Input} from "@/components/styles/ChakraInputStyle";
 
 const config: ThemeConfig = {
     initialColorMode: 'light',
@@ -17,6 +18,9 @@ const ThemeConfig: ThemeOverride = {
     colors: {
         ...replaceDotsWithVar(color),
     },
+    components:{
+        Input
+    }
 
 }
 
