@@ -1,3 +1,5 @@
+ 
+import BadgeStyleConfig from '@/components/Style/BadgeConfigStyle'
 import {extendTheme, type ThemeConfig, ThemeOverride} from '@chakra-ui/react'
 import {color} from "@/components/colors";
 import {ColorVariable, replaceDotsWithVar} from "@/components/styles/ChakraColorStyle";
@@ -8,7 +10,7 @@ const config: ThemeConfig = {
     useSystemColorMode: false,
 }
 
-
+ 
 const ThemeConfig: ThemeOverride = {
     styles: {
         global: (props) => ({
@@ -19,12 +21,14 @@ const ThemeConfig: ThemeOverride = {
         ...replaceDotsWithVar(color),
     },
     components:{
-        Input
+        Input,
+        Badge : BadgeStyleConfig
     }
 
 }
 
 
 const theme = extendTheme({config, ...ThemeConfig})
+ 
 
 export default theme
