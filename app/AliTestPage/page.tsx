@@ -1,5 +1,4 @@
 import SideMenu from "@/components/sidemenu/SideMenu";
-import color from "@/components/colors"
 import { IoHomeOutline } from "react-icons/io5";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { MdOutlineShoppingCart } from "react-icons/md";
