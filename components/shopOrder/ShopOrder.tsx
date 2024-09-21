@@ -1,67 +1,43 @@
 import React from 'react';
-import { useTable } from 'react-table';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Image } from '@chakra-ui/react';
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Image, Divider } from '@chakra-ui/react';
 
-const ShopOrder = ({ products }: { products: Array<any> }) => {
-  const data = React.useMemo(
-    () => products,
-    [products]
-  );
+interface Product {
+  image: string;
+  name: string;
+  quantity: number;
+  price: number;
+  finalPrice: number;
+}
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'عکس',
-        accessor: 'image', // accessor is the key in your data
-        Cell: ({ value }) => <Image boxSize="50px" src={value} alt="product image" />,
-      },
-      {
-        Header: 'نام محصول',
-        accessor: 'name',
-      },
-      {
-        Header: 'تعداد',
-        accessor: 'quantity',
-      },
-      {
-        Header: 'قیمت',
-        accessor: 'price',
-        Cell: ({ value }) => `${value} ریال`,
-      },
-      {
-        Header: 'قیمت نهایی',
-        accessor: 'finalPrice',
-        Cell: ({ value }) => `${value} ریال`,
-      },
-    ],
-    []
-  );
+interface ShopOrderProps {
+  products: Product[];
+}
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
+const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
+  const Theader = ["عکس", "نام محصول", "تعداد", "قیمت", "قیمت نهایی"]
 
   return (
-    <Box>
-      <Table {...getTableProps()} variant="striped" colorScheme="gray">
-        <Thead>
-          {headerGroups.map(headerGroup => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
-              ))}
+    <Box overflowX="auto" padding="20px">
+      <Table variant="" colorScheme="">
+        <Thead borderBottom={"1px solid #CED2D7"}>
+          <Tr>
+            {Theader.map((title, index) => (
+              <Th key={index} fontFamily={"IRANYekanXFaNum"} fontSize={"16px"} fontWeight={"400"} textAlign={index >= 2 ? "center": "start"}>{title}</Th>
+            ))}
+          </Tr>
+        </Thead>
+        <Tbody>
+          {products.map((product, index) => (
+            <Tr key={index}>
+              <Td>
+                <Image boxSize="50px" src={product?.image} alt="product image" />
+              </Td>
+              <Td>{product?.name}</Td>
+              <Td textAlign={"center"}>{product?.quantity}</Td>
+              <Td textAlign={"center"}>{product?.price} تومان</Td>
+              <Td textAlign={"center"}>{product?.finalPrice} تومان</Td>
             </Tr>
           ))}
-        </Thead>
-        <Tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row);
-            return (
-              <Tr {...row.getRowProps()}>
-                {row.cells.map(cell => (
-                  <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
-                ))}
-              </Tr>
-            );
-          })}
         </Tbody>
       </Table>
     </Box>
