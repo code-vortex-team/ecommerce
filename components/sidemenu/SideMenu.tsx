@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Flex, useColorModeValue, Select, Text } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import color from "@/components/colors";
 import { motion } from "framer-motion";
 import { IoMdPersonAdd } from "react-icons/io";
 
@@ -24,7 +25,7 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
         h="100vh"
-        bg={useColorModeValue("white", "black")}
+        bg={color.base.menu}
         position="fixed"
         right="0"
         p="16px"
@@ -40,14 +41,14 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
               alignItems="center"
               _active={{
                 bg: "#DB277714",
-                color: "#DB2777",
+                color: color.primary.main,
               }}
               _hover={{
-                color: "#DB2777",
-                '.notif-badge': {
-                  color: 'black',
-                  transition: '0.4s'
-                }
+                color: color.primary.main,
+                ".notif-badge": {
+                  color: "black",
+                  transition: "0.4s",
+                },
               }}
               transition="0.4s"
               display="flex"
@@ -61,28 +62,26 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
                 push(item.pathName);
               }}
             >
-                <Box fontSize="20px" >
-                  {item.icon}
-                </Box>
-                {item.notif != null && (
-                  <Box
+              <Box fontSize="20px">{item.icon}</Box>
+              {item.notif != null && (
+                <Box
                   className="notif-badge"
-                  fontSize='10px'
-                  top='6px'
-                  right='7px'
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    borderRadius="9999px"
-                    width="12px"
-                    height="12px"
-                    padding="0px 4px"
-                    bg="#DB2777"
-                    position="absolute"
-                  >
-                    {item.notif}
-                  </Box>
-                )}
+                  fontSize="10px"
+                  top="6px"
+                  right="7px"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  borderRadius="9999px"
+                  width="12px"
+                  height="12px"
+                  padding="0px 4px"
+                  bg={color.primary.main}
+                  position="absolute"
+                >
+                  {item.notif}
+                </Box>
+              )}
 
               <motion.div
                 initial={{ width: "8px", opacity: 0, x: 20 }}
@@ -108,10 +107,10 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
             alignItems="center"
             _active={{
               bg: "#DB277714",
-              color: "#DB2777",
+              color: color.primary.main,
             }}
             _hover={{
-              color: "#DB2777",
+              color: color.primary.main,
             }}
             transition="0.4s"
             display="flex"

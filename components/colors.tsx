@@ -83,3 +83,4 @@ export const color = {
         textFieldStroke: "base.textFieldStroke",
     },
 };
+export default color
