@@ -1,148 +1,148 @@
 "use client";
-import {
-  Box,
-  Text,
-  Flex,
-  Badge,
-  useColorMode,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Flex, useColorModeValue, Select, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { useState, useCallback } from "react";
-import { IoEnterOutline } from "react-icons/io5";
 import { IoMdPersonAdd } from "react-icons/io";
-import SideMenuItem from "./SideMenuItem";
 
-interface sidemenuProps {
-  sidemenudata: { title: string; pathName: string; icon: any }[];
+interface sideMenuType {
+  list: Array<{
+    title: string;
+    pathName: string;
+    icon: React.ReactNode;
+    notif: number | null;
+  }>;
 }
 
-const SideMenu = ({ sidemenudata }: sidemenuProps) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const [isOpen, setISOpen] = useState(false);
-
-  const menuWidth = useBreakpointValue({
-    base: isOpen ? "75vw" : "10vw",
-    md: isOpen ? "18.75vw" : "4.167vw",
-  });
-  const itemWidth = useBreakpointValue({
-    base: isOpen ? "70vw" : "8vw",
-    md: isOpen ? "17.083vw" : "1.25vw",
-  });
-
-  const handleMouseEnter = useCallback(() => {
-    setISOpen(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setISOpen(false);
-  }, []);
+const SideMenu: React.FC<sideMenuType> = ({ list }) => {
+  const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const { push } = useRouter();
 
   return (
-    <Flex
-      justifyContent="space-between"
-      direction="column"
-      minH="100vh"
-      w={menuWidth}
-      position="fixed"
-      right="0"
-      dir="rtl"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      bg={colorMode === "light" ? "white" : "black"}
-      transition="width 0.3s ease-in-out"
-      padding="16px"
-    >
-      <Box>
-        {sidemenudata.map((item) => {
-          return (
-            <SideMenuItem
-              key={item.pathName}
-              item={item}
-              isOpen={isOpen}
-              colorMode={colorMode}
-              itemWidth={itemWidth}
-            />
-          );
-        })}
-      </Box>
-
-      <Box
-        display="flex"
-        justifyContent="end"
+    <Box position={"relative"}>
+      <Flex
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+        h="100vh"
+        bg={useColorModeValue("white", "black")}
+        position="fixed"
+        right="0"
+        p="16px"
+        alignItems="center"
         flexDirection="column"
-        mb="16px"
-        gap="10px"
+        dir="rtl"
+        justifyContent="space-between"
       >
-        <Box
-          w={isOpen ? "17.083vw" : "1.25vw"}
-          borderRadius="4px"
-          p="8px"
-          alignItems="center"
-          textAlign="center"
-          display="flex"
-          h="4.2vh"
-          color={colorMode === "light" ? "black" : "white"}
-          fontSize="16px"
-          _active={{
-            bg: "#DB277714",
-            color: "#DB2777",
-            transition: "all 0.15s ease-in-out",
-          }}
-        >
-          <Flex
-            alignItems="center"
-            justifyContent="center"
-            ml="10px"
-            lineHeight="21px"
-            fontSize="20px"
-          >
-            <IoEnterOutline />
-          </Flex>
-          <motion.div
-            initial={{ x: 0, opacity: 0 }}
-            animate={{ x: isOpen ? 0 : 100, opacity: isOpen ? 1 : 0 }}
-            style={{ overflow: "hidden", whiteSpace: "nowrap" }}
-            transition={{ duration: 0.3 }}
-          >
-            <Text> ورود </Text>
-          </motion.div>
+        <Box display="flex" gap="4.8vh" flexDir="column">
+          {list.map((item) => (
+            <Box
+              key={item.pathName}
+              alignItems="center"
+              _active={{
+                bg: "#DB277714",
+                color: "#DB2777",
+              }}
+              _hover={{
+                color: "#DB2777",
+                '.notif-badge': {
+                  color: 'black',
+                  transition: '0.4s'
+                }
+              }}
+              transition="0.4s"
+              display="flex"
+              gap="10px"
+              w="100%"
+              p="8px"
+              borderRadius="4px"
+              cursor="pointer"
+              position="relative"
+              onClick={() => {
+                push(item.pathName);
+              }}
+            >
+                <Box fontSize="20px" >
+                  {item.icon}
+                </Box>
+                {item.notif != null && (
+                  <Box
+                  className="notif-badge"
+                  fontSize='10px'
+                  top='6px'
+                  right='7px'
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    borderRadius="9999px"
+                    width="12px"
+                    height="12px"
+                    padding="0px 4px"
+                    bg="#DB2777"
+                    position="absolute"
+                  >
+                    {item.notif}
+                  </Box>
+                )}
+
+              <motion.div
+                initial={{ width: "8px", opacity: 0, x: 20 }}
+                animate={{
+                  width: isOpen ? "15vw" : "8px",
+                  x: isOpen ? 0 : 20,
+                  opacity: isOpen ? 1 : 0,
+                }}
+                transition={{ duration: 0.4, type: "spring", damping: 15 }}
+                style={{ overflow: "hidden", whiteSpace: "nowrap" }}
+              >
+                <Box fontSize="16px" fontWeight="400">
+                  {item.title}
+                </Box>
+              </motion.div>
+            </Box>
+          ))}
         </Box>
-        <Box
-          w={isOpen ? "17.083vw" : "1.25vw"}
-          borderRadius="4px"
-          p="8px"
-          alignItems="center"
-          display="flex"
-          h="4.2vh"
-          color={colorMode === "light" ? "black" : "white"}
-          fontSize="16px"
-          _active={{
-            bg: "#DB277714",
-            color: "#DB2777",
-            transition: "all 0.15s ease-in-out",
-          }}
-        >
-          <Flex
+
+        {/*---------------- for add drop down component ----------------- */}
+        <Box display="flex" gap="4.8vh" flexDir="column">
+          <Box
             alignItems="center"
-            justifyContent="center"
-            ml="10px"
-            lineHeight="21px"
-            fontSize="20px"
+            _active={{
+              bg: "#DB277714",
+              color: "#DB2777",
+            }}
+            _hover={{
+              color: "#DB2777",
+            }}
+            transition="0.4s"
+            display="flex"
+            gap="10px"
+            w="100%"
+            p="8px"
+            borderRadius="4px"
+            cursor="pointer"
           >
-            <IoMdPersonAdd />
-          </Flex>
-          <motion.div
-            initial={{ x: 0, opacity: 0 }}
-            animate={{ x: isOpen ? 0 : 100, opacity: isOpen ? 1 : 0 }}
-            style={{ overflow: "hidden", whiteSpace: "nowrap" }}
-            transition={{ duration: 0.3 }}
-          >
-            <Text> ثبت نام </Text>
-          </motion.div>
+            <Box fontSize="20px">
+              <IoMdPersonAdd />
+            </Box>
+            <motion.div
+              initial={{ width: "8px", opacity: 0, x: 20 }}
+              animate={{
+                width: isOpen ? "15vw" : "8px",
+                x: isOpen ? 0 : 20,
+                opacity: isOpen ? 1 : 0,
+              }}
+              transition={{ duration: 0.4, type: "spring", damping: 15 }}
+              style={{ overflow: "hidden", whiteSpace: "nowrap" }}
+            >
+              <Text fontSize="16px" fontWeight="400">
+                ثبت نام
+              </Text>
+            </motion.div>
+          </Box>
         </Box>
-      </Box>
-    </Flex>
+        {/* ---------------- for add drop down component ----------------- */}
+      </Flex>
+    </Box>
   );
 };
 
