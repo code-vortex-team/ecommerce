@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Flex, useColorModeValue, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import color from "@/components/colors";
+import {color} from "@/components/colors";
 import { motion } from "framer-motion";
 import { IoMdPersonAdd } from "react-icons/io";
 

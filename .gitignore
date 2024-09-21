@@ -3,4 +3,4 @@
 /package-lock.json
 .idea
 .DS_Store
-/app/AliTestPage/page.tsx
+app/AliTestPage/page.tsx
