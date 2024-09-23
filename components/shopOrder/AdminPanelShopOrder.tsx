@@ -11,6 +11,7 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
+import { color } from "../colors";
 
 interface Product {
   image: string;
@@ -45,13 +46,13 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
       case 0:
         return {
           label: "در حال ارسال",
-          bgColor: "#00B8D9",
-          textColor: "#CAFDF5",
+          bgColor: color.info.main,
+          textColor: color.info.lighter,
         };
       case 1:
-        return { label: "ارسال شده", bgColor: "#22C55E", textColor: "#D3FCD2" };
+        return { label: "ارسال شده", bgColor: color.success.main, textColor: color.success.lighter };
       case 2:
-        return { label: "ارسال نشده", bgColor: "#B71D18", textColor: "#FFE9D5" };
+        return { label: "ارسال نشده", bgColor: color.error.main, textColor: color.error.lighter };
       default:
         return {
           label: "وضعیت نامشخص",
@@ -64,9 +65,9 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
   function getPaymentStatus(code: number) {
     switch (code) {
       case 0:
-        return { label: "پرداخت نشده", bgColor: "#B71D18", textColor: "#FFE9D5" };
+        return { label: "پرداخت نشده", bgColor: color.error.main, textColor: color.error.lighter };
       case 1:
-        return { label: "پرداخت شده", bgColor: "#22C55E", textColor: "#D3FCD2" };
+        return { label: "پرداخت شده", bgColor: color.success.main, textColor: color.success.lighter };
       default:
         return {
           label: "وضعیت نامشخص",
@@ -76,17 +77,26 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
     }
   }
 
+  const textStyle = {
+    color: color.text.primary,
+    fontSize: "16px",
+    fontWeight: "400",
+    lineHeight: "24px"
+  }
+
   return (
     <Box overflowX="auto" padding="20px">
       <Table variant="" colorScheme="">
-        <Thead borderBottom={"1px solid #CED2D7"}>
+        <Thead borderBottom={"1px solid"} borderColor={color.base.textFieldStroke}>
           <Tr>
             {Theader.map((title, index) => (
               <Th
                 key={index}
                 fontFamily={"IRANYekanXFaNum"}
+                letterSpacing={"0px"}
                 fontSize={"16px"}
                 fontWeight={"400"}
+                color={color.text.primary}
                 textAlign={index >= 2 ? "center" : "start"}
               >
                 {title}
@@ -96,24 +106,23 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
         </Thead>
         <Tbody>
           {products.map((product, index) => {
-            const shippingStatus = getShippingStatus(
-              product?.shippingStatusCode
-            );
+            const shippingStatus = getShippingStatus(product?.shippingStatusCode);
             const paymentStatus = getPaymentStatus(product?.paymentStatusCode);
 
             return (
               <Tr key={index}>
                 <Td>
                   <Image
-                    boxSize="50px"
+                    boxSize="64px"
+                    minWidth={"64px"}
                     src={product?.image}
-                    alt="product image"
+                    alt={product?.name + " image"}
                   />
                 </Td>
-                <Td>{product?.name}</Td>
-                <Td textAlign={"center"}>{product?.date}</Td>
-                <Td textAlign={"center"}>{product?.customer}</Td>
-                <Td textAlign={"center"}>{product?.finalPrice} تومان</Td>
+                <Td style={textStyle}>{product?.name} </Td>
+                <Td style={textStyle} textAlign={"center"}>{product?.date}</Td>
+                <Td style={textStyle} textAlign={"center"}>{product?.customer}</Td>
+                <Td style={textStyle} textAlign={"center"}>{product?.finalPrice} تومان</Td>
                 <Td>
                   <Text
                     bg={paymentStatus.bgColor}
@@ -121,7 +130,9 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
                     padding="2px 8px"
                     borderRadius="12px"
                     fontSize={"14px"}
+                    textAlign={"center"}
                     width={"fit-content"}
+                    minWidth={"max-content"}
                     mx="auto"
                   >
                     {paymentStatus.label}
@@ -134,7 +145,9 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
                     padding="2px 8px"
                     borderRadius="12px"
                     fontSize={"14px"}
+                    textAlign={"center"}
                     width={"fit-content"}
+                    minWidth={"max-content"}
                     mx="auto"
                   >
                     {shippingStatus.label}
@@ -142,14 +155,16 @@ const ShopOrder: React.FC<ShopOrderProps> = ({ products }) => {
                 </Td>
                 <Td>
                   <Text
-                    bg={"#DB2777"}
-                    color={"white"}
+                    bg={color.primary.main}
+                    color={color.text.button}
                     padding="8px 12px"
                     borderRadius="8px"
                     fontSize={"14px"}
+                    textAlign={"center"}
                     width={"fit-content"}
+                    minWidth={"max-content"}
                     mx="auto"
-                    _hover={{cursor: "pointer", background: "pink"}}
+                    _hover={{cursor: "pointer", background: color.primary.light}}
                   >
                     جزییات
                   </Text>
