@@ -1,0 +1,17 @@
+@font-face {
+    font-family: IRANYekanXFaNum;
+    font-style: normal;
+    font-weight: bold;
+    src: url('/fonts/iranYekan/Webfonts/Woff/IRANYekanXFaNum-Bold.woff') format('woff'),
+    url('/fonts/iranYekan/Webfonts/Woff2/IRANYekanXFaNum-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: IRANYekanXFaNum;
+    font-style: normal;
+    font-weight: normal;
+    src: url('/fonts/iranYekan/Webfonts/Woff/IRANYekanXFaNum-Regular.woff') format('woff'),
+    url('/fonts/iranYekan/Webfonts/Woff2/IRANYekanXFaNum-Regular.woff2') format('woff2');
+}
+
+
