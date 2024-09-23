@@ -30,7 +30,8 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                             <Box transform={isOpen ? "rotate(180deg)" : ""} transition={"all 0.6s"}>
                                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.6666 0.999959L5.99996 5.66663L1.33329 0.999959" stroke="black"
+                                    <path d="M10.6666 0.999959L5.99996 5.66663L1.33329 0.999959"
+                                          stroke={color.icon.primary}
                                           strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
 
@@ -51,7 +52,7 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                                       bg: color.base.side,
                                       color: color.text.primary,
                                       _hover: {
-                                          bgColor: color.primary.main,
+                                          bgColor: color.primary.main, opacity: 0.08,
                                           color: color.primary.main,
                                       },
                                   },
@@ -69,9 +70,8 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                                 opacity: 1,
                                 transition: "all 0.3s",
                                 _hover: {
-
-                                    opacity: 1,
-                                    bgColor: color.primary.main,
+                                    
+                                    bgColor: color.primary.main, opacity: 0.08,
                                     color: color.primary.main,
                                 },
                             }} onClick={() => router.push(item.url)}>
