@@ -40,19 +40,19 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                     </MenuButton>
                     <MenuList minWidth="10.5rem"
                               sx={{
-                                  bgColor: color.base.slide,
-                                  borderColor: "#3F4043",
+                                  bgColor: color.base.side,
+                                  borderColor: color.base.textFieldStroke,
                                   fontWeight: "400",
                                   fontSize: "1rem",
                                   button: {
                                       borderRadius: "0.25rem",
                                       fontWeight: "400",
                                       fontSize: "1rem",
-                                      bg: "#151515",
-                                      color: "#FFFFFF",
+                                      bg: color.base.side,
+                                      color: color.text.primary,
                                       _hover: {
-                                          bgColor: "#3F4043",
-                                          color: "#DB2777",
+                                          bgColor: color.primary.main,
+                                          color: color.primary.main,
                                       },
                                   },
                               }}>
@@ -71,8 +71,8 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                                 _hover: {
 
                                     opacity: 1,
-                                    bgColor: "#DB2777",
-                                    color: "#DB2777",
+                                    bgColor: color.primary.main,
+                                    color: color.primary.main,
                                 },
                             }} onClick={() => router.push(item.url)}>
                                 {item.name}
