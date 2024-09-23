@@ -1,6 +1,6 @@
 "use client";
 import FilterCategory from "@/components/filterCategory/FilterCategory";
-import { Button, useColorMode } from "@chakra-ui/react";
+import { Button, Input, useColorMode } from "@chakra-ui/react";
 
 const Page = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -14,10 +14,6 @@ const Page = () => {
   ];
   return (
     <>
-      <Button onClick={toggleColorMode}>
-        Toggle {colorMode === "light" ? "Dark" : "Light"} Mode
-      </Button>
-      <FilterCategory title={title} categories={categories} />
     </>
   );
 };
