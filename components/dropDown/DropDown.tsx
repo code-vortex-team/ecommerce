@@ -1,6 +1,6 @@
 'use client';
 import {Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/menu";
-import {Box, Flex} from "@chakra-ui/react";
+import {Box, Flex, useColorModeValue} from "@chakra-ui/react";
 import React from "react";
 import {useRouter} from "next/navigation";
 import {color} from "@/components/colors";
@@ -31,7 +31,7 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.6666 0.999959L5.99996 5.66663L1.33329 0.999959"
-                                          stroke={color.icon.primary}
+                                          stroke={useColorModeValue("black", "white")}
                                           strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
 
@@ -51,10 +51,10 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                                       fontSize: "1rem",
                                       bg: color.base.side,
                                       color: color.text.primary,
-                                      _hover: {
-                                          bgColor: color.primary.main, opacity: 0.08,
-                                          color: color.primary.main,
-                                      },
+                                      // _hover: {
+                                      //     bgColor: color.primary.main, opacity: 0.08,
+                                      //     color: color.primary.main,
+                                      // },
                                   },
                               }}>
 
@@ -70,8 +70,9 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                                 opacity: 1,
                                 transition: "all 0.3s",
                                 _hover: {
-                                    
-                                    bgColor: color.primary.main, opacity: 0.08,
+
+
+                                    bgColor: useColorModeValue(color.primary.main, "rgba(219, 39, 119, 0.08)"),
                                     color: color.primary.main,
                                 },
                             }} onClick={() => router.push(item.url)}>
@@ -79,6 +80,7 @@ const DropDown: React.FC<IDropDown> = ({title, list}) => {
                             </MenuItem>
                         ))}
                     </MenuList>
+
                 </>
             )}
 
