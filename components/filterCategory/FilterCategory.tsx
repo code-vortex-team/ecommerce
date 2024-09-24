@@ -7,6 +7,7 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { color } from "../colors";
 
 export default function FilterProducts({
   title,
@@ -33,7 +34,7 @@ export default function FilterProducts({
       ...category,
       active: values.includes(category.name),
     }));
-    console.log(values)
+    // console.log(values)
     if (onchange) {
       onchange(updatedCategories);
     }
@@ -47,15 +48,15 @@ export default function FilterProducts({
         textAlign={"center"}
         fontSize={"16px"}
         fontWeight={"400"}
-        bg={useColorModeValue("#edf2f7", "black")}
-        color={useColorModeValue("black", "white")}
+        bg={useColorModeValue("#edf2f7", color.grey._1000)}
+        color={useColorModeValue("black", color.text.primary)}
       >
         {title}
       </Box>
       <CheckboxGroup value={selectedCategories} onChange={handleChange}>
         <Stack marginTop={12} spacing={"8px"} direction="column">
           {categories.map((item, index) => (
-            <Checkbox key={index} value={item.name} fontSize={"14px"} fontWeight={"400"} color={useColorModeValue("black", "white")}>
+            <Checkbox key={index} value={item.name} fontSize={"14px"} fontWeight={"400"} color={useColorModeValue("black",color.text.primary)}>
               {item.name}
             </Checkbox>
           ))}
