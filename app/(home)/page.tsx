@@ -4,7 +4,7 @@ import SoheilPage from "../SoheilTestPage/page"
 export default function Home() {
   return (
     <div>
-      {/* <TestDarkMode /> */}
+      <TestDarkMode />
       <SoheilPage/>
     </div>
   );
