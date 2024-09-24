@@ -1,11 +1,6 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Checkbox,
-  CheckboxGroup,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 import { color } from "../colors";
 
 export default function FilterProducts({
@@ -55,7 +50,23 @@ export default function FilterProducts({
       <CheckboxGroup value={selectedCategories} onChange={handleChange}>
         <Stack marginTop={12} spacing={"8px"} direction="column">
           {categories.map((item, index) => (
-            <Checkbox key={index} value={item.name} fontSize={"14px"} fontWeight={"400"} color={color.text.primary}>
+            <Checkbox
+              key={index}
+              value={item.name}
+              fontSize={"14px"}
+              fontWeight={"400"}
+              color={color.text.primary}
+              colorScheme="blue"
+              sx={{
+                ".chakra-checkbox__control": {
+                  border: "8px solid white",
+                  // borderRadius:"full"
+                },
+              }}
+              _checked={{
+                border: "none"
+              }}
+            >
               {item.name}
             </Checkbox>
           ))}

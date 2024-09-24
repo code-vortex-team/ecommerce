@@ -9,9 +9,11 @@ export default function Filter() {
     { name: "Samsung", active: false },
     { name: "Asus", active: false },
   ];
-//   function handleButtonClick(params:type) {
-    
-//   }
+  function handleButtonClick(params: Array<{ name: string; active: boolean }>): undefined {
+    params.map((param) => {
+        param.active = false
+    })
+  }
   return (
     <Box padding={"15px"} bg={color.base.side}>
       <FilterCategory title="فیلتر برند" categories={categories} />
@@ -48,7 +50,7 @@ export default function Filter() {
         border={"1px solid"}
         borderColor={color.grey._400}
         color={color.text.primary}
-        // onClick={handleButtonClick()}
+        onClick={handleButtonClick(categories)}
       >
         حذف فیلترها
       </Button>
