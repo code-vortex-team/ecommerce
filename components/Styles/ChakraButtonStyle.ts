@@ -1,10 +1,11 @@
 import {defineStyleConfig} from '@chakra-ui/react';
+import {color} from "@/components/colors";
 
 export const ChakraButtonStyle = defineStyleConfig({
 
     variants: {
         roundedPinkButton: {
-            bg: '#DB2777',
+            bg: color.primary.main,
             color: 'white',
             minWidth: '8.4375rem',
             height: '3rem',
@@ -12,12 +13,12 @@ export const ChakraButtonStyle = defineStyleConfig({
             gap: '0rem',
             borderRadius: '62.5rem',
             _hover: {
-                bg: '#831747',
+                bg: color.primary.dark,
                 color: 'white',
             },
         },
         regularPinkButton: {
-            bg: '#DB2777',
+            bg: color.primary.main,
             color: 'white',
             minWidth: '8.25rem',
             height: '2.25rem',
@@ -25,7 +26,7 @@ export const ChakraButtonStyle = defineStyleConfig({
             gap: '0rem',
             borderRadius: '0.5rem',
             _hover: {
-                bg: '#831747',
+                bg: color.primary.dark,
                 color: 'white',
             },
         },
