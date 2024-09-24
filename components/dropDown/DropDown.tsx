@@ -1,68 +1,90 @@
 'use client';
-import React, { useState } from 'react';
-import { Box, Select, Heading } from '@chakra-ui/react';
+import {Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/menu";
+import {Box, Flex, useColorModeValue} from "@chakra-ui/react";
+import React from "react";
+import {useRouter} from "next/navigation";
+import {color} from "@/components/colors";
 
-const RoleDropdowns: React.FC = () => {
-    // State to store the selected values
-    const [adminOption, setAdminOption] = useState('');
-    const [userOption, setUserOption] = useState('');
+interface IDropDown {
+    title: string;
+    list: Array<{
+        name: string;
+        url: string;
+    }>
+}
 
-    // Admin options
-    const adminOptions = ['Manage Users', 'View Analytics', 'Configure Settings'];
+const DropDown: React.FC<IDropDown> = ({title, list}) => {
+    const router = useRouter();
+    return (<>
+        <Menu>
+            {({isOpen}) => (
+                <>
+                    <MenuButton>
+                        <Flex alignItems={"center"} gap={2}>
+                            <Box sx={{
+                                fontWeight: "400",
+                                fontSize: "1rem",
+                            }}>
+                                {title}
+                            </Box>
+                            <Box transform={isOpen ? "rotate(180deg)" : ""} transition={"all 0.6s"}>
+                                <svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.6666 0.999959L5.99996 5.66663L1.33329 0.999959"
+                                          stroke={useColorModeValue("black", "white")}
+                                          strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
 
-    // User options
-    const userOptions = ['View Profile', 'Edit Profile', 'Log Out'];
+                            </Box>
+                        </Flex>
 
-    return (
-        <Box p={4}>
-            <Heading mb={4}>Admin Role</Heading>
-            <Select
-                placeholder="Select Admin Option"
-                value={adminOption}
-                onChange={(e) => setAdminOption(e.target.value)}
-                mb={4}
-                width="169px"        // Fixed width
-                height="334px"       // Hug height
-                position="relative"  // Required for top and left
-                // Adjust left
-                padding="16px 8px"   // Padding
-                gap="16px"           // Gap
-                borderRadius="8px 0 0 0"  // Rounded top-left corner
-                border="1px solid"   // Border style
-                borderColor="gray.200"  // Border color
-                opacity="1"          // Opacity, 1 to make it visible
-            >
-                {adminOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                        {option}
-                    </option>
-                ))}
-            </Select>
+                    </MenuButton>
+                    <MenuList minWidth="10.5rem"
+                              sx={{
+                                  bgColor: color.base.side,
+                                  borderColor: color.base.textFieldStroke,
+                                  fontWeight: "400",
+                                  fontSize: "1rem",
+                                  button: {
+                                      borderRadius: "0.25rem",
+                                      fontWeight: "400",
+                                      fontSize: "1rem",
+                                      bg: color.base.side,
+                                      color: color.text.primary,
+                                      // _hover: {
+                                      //     bgColor: color.primary.main, opacity: 0.08,
+                                      //     color: color.primary.main,
+                                      // },
+                                  },
+                              }}>
 
-            <Heading mb={4}>User Role</Heading>
-            <Select
-                placeholder="Select User Option"
-                value={userOption}
-                onChange={(e) => setUserOption(e.target.value)}
-                width="169px"
-                height="334px"
-                position="relative"
+                        {list.map((item) => (
+                            <MenuItem key={item.url} sx={{
+                                width: "9.5625rem",
+                                height: "2.3125rem",
+                                paddingTop: "0.5rem",
+                                paddingBottom: "0",
+                                marginX: "0.5rem",
+                                gap: "0.625rem",
+                                borderRadius: "0.25rem 0 0 0",
+                                opacity: 1,
+                                transition: "all 0.3s",
+                                _hover: {
 
-                padding="16px 8px"
-                gap="16px"
-                borderRadius="8px 0 0 0"
-                border="1px solid"
-                borderColor="gray.200"
-                opacity="1"
-            >
-                {userOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                        {option}
-                    </option>
-                ))}
-            </Select>
-        </Box>
-    );
-};
 
-export default RoleDropdowns;
+                                    bgColor: useColorModeValue(color.primary.main, "rgba(219, 39, 119, 0.08)"),
+                                    color: color.primary.main,
+                                },
+                            }} onClick={() => router.push(item.url)}>
+                                {item.name}
+                            </MenuItem>
+                        ))}
+                    </MenuList>
+
+                </>
+            )}
+
+        </Menu>
+    </>)
+}
+export default DropDown;
