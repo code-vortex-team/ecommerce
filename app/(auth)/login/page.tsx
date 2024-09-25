@@ -5,7 +5,7 @@ import NextLink from "next/link";
 
 const Page = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
-    const onSubmit = (data) => {
+    const onSubmit = () => {
 
     }
     return (<>
