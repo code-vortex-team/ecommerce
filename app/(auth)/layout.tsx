@@ -12,9 +12,20 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
             <Box p={5}>
                 {children}
             </Box>
-            <Box position="relative">
+            <Box
+                position="relative" // Correct way to use 'position'
+                sx={{
+                    width: "69.81rem",
+                    height: "67.06rem",
+                    mt: "4rem",
+                    ml: "4rem",
+                    mr: "4rem",
+                    radius: "0.75rem", // Moved inside 'sx'
+                }}
+            >
                 <Image layout="fill" src="/images/login.png" alt="login" objectFit="cover"/>
             </Box>
+
         </Grid>
     );
 };
