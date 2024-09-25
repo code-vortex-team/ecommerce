@@ -1,16 +1,18 @@
-"use client";
+// "use client";
 import React, { useState, useEffect } from "react";
 import { Box, Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 import { color } from "../colors";
 
-export default function FilterProducts({
+export default function FilterCategory({
   title,
   categories,
   onchange,
+  resetFilters,
 }: {
   title: string;
   onchange?: (data: Array<{ name: string; active: boolean }>) => void;
   categories: Array<{ name: string; active: boolean }>;
+  resetFilters?: boolean;
 }) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
@@ -20,6 +22,20 @@ export default function FilterProducts({
       .map((cat) => cat.name);
     setSelectedCategories(initialSelected);
   }, [categories]);
+
+  useEffect(() => {
+    if (resetFilters) {
+      setSelectedCategories([]);
+      const updatedCategories = categories.map((category) => ({
+        ...category,
+        active: false,
+      }));
+
+      if (onchange) {
+        onchange(updatedCategories);
+      }
+    }
+  }, [resetFilters]);
 
   const handleChange = (values: string[]) => {
     setSelectedCategories(values);
@@ -60,7 +76,6 @@ export default function FilterProducts({
               sx={{
                 ".chakra-checkbox__control": {
                   border: "8px solid white",
-                  // borderRadius:"full"
                 },
               }}
               _checked={{

@@ -1,25 +1,47 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import FilterCategory from "../filterCategory/FilterCategory";
 import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { color } from "../colors";
-export default function Filter() {
-  const categories = [
-    { name: "Apple", active: false },
-    { name: "Microsoft", active: false },
-    { name: "Samsung", active: false },
-    { name: "Asus", active: false },
-  ];
-  function handleButtonClick(params: Array<{ name: string; active: boolean }>): undefined {
-    params.map((param) => {
-        param.active = false
-    })
-  }
+
+interface FilterProps {
+  categories: Array<{ name: string; active: boolean }>;
+}
+
+const Filter: React.FC<FilterProps> = ({ categories: initialCategories }) => {
+
+  const [categories, setCategories] = useState(initialCategories);
+  const [resetFilters, setResetFilters] = useState(false);
+  const [price, setPrice] = useState<string | number>("");
+
+
+  useEffect(() => {
+    setCategories(initialCategories);
+  }, [initialCategories]);
+
+  const handleCategoryChange = (updatedCategories: any) => {
+    setCategories(updatedCategories);
+  };
+
+  const handleResetFilters = () => {
+    setPrice(" ");
+    setResetFilters(true);
+    setTimeout(() => {
+      setResetFilters(false);
+    }, 100);
+  };
+
   return (
     <Box padding={"15px"} bg={color.base.side}>
-      <FilterCategory title="فیلتر برند" categories={categories} />
+      <FilterCategory
+        title="فیلتر برند"
+        categories={categories}
+        onchange={handleCategoryChange}
+        resetFilters={resetFilters}
+      />
       <Text
         borderRadius={"full"}
-        padding={"8px 51.97px 8px 51.97px"}
+        padding={"8px 51.97px"}
         textAlign={"center"}
         fontSize={"16px"}
         fontWeight={"400"}
@@ -30,6 +52,9 @@ export default function Filter() {
         فیلتر قیمت
       </Text>
       <Input
+        type="number"
+        onChange={(e) => setPrice(e.target.valueAsNumber)}
+        value={price}
         placeholder="قیمت را وارد نمایید"
         marginTop={"36px"}
         background={"white"}
@@ -50,10 +75,12 @@ export default function Filter() {
         border={"1px solid"}
         borderColor={color.grey._400}
         color={color.text.primary}
-        onClick={handleButtonClick(categories)}
+        onClick={handleResetFilters}
       >
         حذف فیلترها
       </Button>
     </Box>
   );
-}
+};
+
+export default Filter;
