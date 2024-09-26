@@ -1,11 +1,9 @@
-import TestDarkMode from "@/components/darkmode/testDarkMode";
-import SoheilPage from "../SoheilTestPage/page"
+export default async function Home() {
 
-export default function Home() {
-  return (
-    <div>
-      {/* <TestDarkMode /> */}
-      <SoheilPage/>
-    </div>
-  );
+
+    return (
+        <div>
+
+        </div>
+    );
 }
