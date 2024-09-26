@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import {Box, Grid} from "@chakra-ui/react";
+import {Box, Grid, useColorMode} from "@chakra-ui/react";
 import Image from "next/image";
 
 interface LayoutProps {
@@ -7,25 +8,31 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({children}) => {
+
+    const {colorMode} = useColorMode();
+
+    const imageSrc = colorMode === 'dark' ? "/images/loginDark.png" : "/images/loginLight.png";
+
     return (
         <Grid templateColumns="1fr 1fr" height="100vh">
             <Box p={5}>
                 {children}
             </Box>
             <Box
-                position="relative" // Correct way to use 'position'
+                position="relative"
                 sx={{
-                    width: "69.81rem",
-                    height: "67.06rem",
+                    width: "65vw",
+                    height: "100vh",
                     mt: "4rem",
                     ml: "4rem",
                     mr: "4rem",
-                    radius: "0.75rem", // Moved inside 'sx'
+                    borderRadius: "0.75rem",
+                    overflow: "hidden",
                 }}
             >
-                <Image layout="fill" src="/images/login.png" alt="login" objectFit="cover"/>
-            </Box>
 
+                <Image layout="fill" src={imageSrc} alt="login" objectFit="cover"/>
+            </Box>
         </Grid>
     );
 };
