@@ -3,9 +3,10 @@ import {color} from "@/components/colors";
 import Image from "next/image"
 import React from "react";
 import {Product} from "@/types/product"
+import {convertToJalali} from "@/components/utility";
 
 
-const Product: React.FC<Product> = ({image, createdAt, description, name}) => {
+const Product: React.FC<Product> = ({image, price, createdAt, description, name}) => {
 
 
     return (<Box bgColor={color.base.card} display={"flex"} p={".5rem"} mb={2} borderRadius={3}>
@@ -24,16 +25,19 @@ const Product: React.FC<Product> = ({image, createdAt, description, name}) => {
         </Box>
         <VStack flex={1} height={"auto"} justifyContent={"space-between"} p={"1rem"}>
             <HStack alignItems={"center"} justifyContent={"space-between"} width={"100%"}>
-                <Text>
+                <Text as="h2" color={color.text.primary} fontSize={20} fontWeight={500}>
                     {name}
                 </Text>
-                <Text>
-                    {createdAt}
+
+                <Text color={color.text.secondary} fontSize={16} fontWeight={400}>
+                    {convertToJalali(createdAt)}
                 </Text>
+
             </HStack>
-            <Box width={"100%"}>
+            <Box width={"100%"} color={color.text.secondary} fontSize={14} fontWeight={400}>
                 {description}
             </Box>
+
             <HStack alignItems={"center"} justifyContent={"space-between"} width={"100%"}>
                 <Button variant={"regularPinkButton"} rightIcon={
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
@@ -47,9 +51,11 @@ const Product: React.FC<Product> = ({image, createdAt, description, name}) => {
                 }>
                     مشاهده بیشتر
                 </Button>
-                <Text>
-                    {createdAt}
+                <Text color={color.text.primary} fontSize={16} fontWeight={400}>
+                    {price}
+                    {" تومان "}
                 </Text>
+
             </HStack>
         </VStack>
     </Box>)
