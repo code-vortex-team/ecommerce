@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import {color} from "@/components/colors";
-import { motion } from "framer-motion";
+import { color } from "@/components/colors";
 import { IoMdPersonAdd } from "react-icons/io";
 
 interface sideMenuType {
+  children : React.ReactNode
   list: Array<{
     title: string;
     pathName: string;
@@ -15,24 +15,30 @@ interface sideMenuType {
   }>;
 }
 
-const SideMenu: React.FC<sideMenuType> = ({ list }) => {
-  const [isOpen, setIsOpen] = useState<Boolean>(false);
+const SideMenu: React.FC<sideMenuType> = ({children, list }) => {
   const { push } = useRouter();
 
   return (
-    <Box position={"relative"}>
+    <>
+    <Box position={"relative"} zIndex="100">
       <Flex
-        onMouseEnter={() => setIsOpen(true)}
-        onMouseLeave={() => setIsOpen(false)}
         h="100vh"
         bg={color.base.menu}
         position="fixed"
         right="0"
+        top="0"
         p="16px"
         alignItems="center"
         flexDirection="column"
         dir="rtl"
         justifyContent="space-between"
+        sx={{
+          _hover: {
+            ".title-menu": {
+              width: "12.76vw",
+            },
+          },
+        }}
       >
         <Box display="flex" gap="4.8vh" flexDir="column">
           {list.map((item) => (
@@ -47,10 +53,8 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
                 color: color.primary.main,
                 ".notif-badge": {
                   color: "black",
-                  transition: "0.4s",
                 },
               }}
-              transition="0.4s"
               display="flex"
               gap="10px"
               w="100%"
@@ -83,20 +87,17 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
                 </Box>
               )}
 
-              <motion.div
-                initial={{ width: "8px", opacity: 0, x: 20 }}
-                animate={{
-                  width: isOpen ? "15vw" : "8px",
-                  x: isOpen ? 0 : 20,
-                  opacity: isOpen ? 1 : 0,
-                }}
-                transition={{ duration: 0.4, type: "spring", damping: 15 }}
-                style={{ overflow: "hidden", whiteSpace: "nowrap" }}
+              <Box
+                fontSize="16px"
+                fontWeight="400"
+                transition={"0.6s cubic-bezier(0.5, 1.5, 0.5, 1.0)"}
+                className={"title-menu"}
+                width={"0px"}
+                whiteSpace={"nowrap"}
+                overflow={"hidden"}
               >
-                <Box fontSize="16px" fontWeight="400">
-                  {item.title}
-                </Box>
-              </motion.div>
+                {item.title}
+              </Box>
             </Box>
           ))}
         </Box>
@@ -112,7 +113,6 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
             _hover={{
               color: color.primary.main,
             }}
-            transition="0.4s"
             display="flex"
             gap="10px"
             w="100%"
@@ -123,25 +123,25 @@ const SideMenu: React.FC<sideMenuType> = ({ list }) => {
             <Box fontSize="20px">
               <IoMdPersonAdd />
             </Box>
-            <motion.div
-              initial={{ width: "8px", opacity: 0, x: 20 }}
-              animate={{
-                width: isOpen ? "15vw" : "8px",
-                x: isOpen ? 0 : 20,
-                opacity: isOpen ? 1 : 0,
-              }}
-              transition={{ duration: 0.4, type: "spring", damping: 15 }}
-              style={{ overflow: "hidden", whiteSpace: "nowrap" }}
+            <Box
+              fontSize="16px"
+              fontWeight="400"
+              transition={"all 0.6s cubic-bezier(0.5, 1.5, 0.5, 1.0)"}
+              className={"title-menu"}
+              width={"0px"}
+              whiteSpace={"nowrap"}
+              overflow={"hidden"}
             >
-              <Text fontSize="16px" fontWeight="400">
-                ثبت نام
-              </Text>
-            </motion.div>
+              <Text>ثبت نام</Text>
+            </Box>
           </Box>
         </Box>
         {/* ---------------- for add drop down component ----------------- */}
       </Flex>
     </Box>
+    {children}
+    </>
+    
   );
 };
 
