@@ -1,5 +1,6 @@
 import type {Metadata} from "next";
-import "./globals.css";
+import "../styles/fontiran.css";
+import "../styles/globals.css";
 import StoreProvider from "@/lib/redux/StoreProvider";
 import ChakraProviderConfig from "@/lib/chakra/ChakraProviderConfig";
 
