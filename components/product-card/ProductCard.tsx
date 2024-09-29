@@ -12,9 +12,11 @@ import Like from "../like/Like";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaArrowLeft } from "react-icons/fa6";
 import { color } from "../colors";
+import Link from "next/link";
 
 interface ProductCardProps {
   imageAddress: string;
+  _id: string;
   information: {
     name: string;
     price: string;
@@ -26,6 +28,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({
   imageAddress,
   information,
+  _id,
 }) => {
   return (
     <Flex
@@ -91,6 +94,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
               rightIcon={<FaArrowLeft />}
               fontSize="14px"
               fontWeight="400"
+              as={Link}
+              href={`product/${_id}`}
             >
               مشاهده بیشتر
             </Button>
@@ -100,6 +105,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             display="flex"
             alignItems="center"
             justifyContent="center"
+            cursor='pointer'
+            // onClick={}
           >
             <AiOutlineShoppingCart />
           </Box>
