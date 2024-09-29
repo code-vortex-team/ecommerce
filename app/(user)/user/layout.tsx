@@ -56,10 +56,7 @@ const sidemenuList = [
 const layout: React.FC<layoutProps> = ({ children }) => {
   return (
     <Flex>
-      <SideMenu
-        list={sidemenuList}
-        dropDown={dropDownItems}
-      >
+      <SideMenu list={sidemenuList} dropDown={dropDownItems}>
         {children}
       </SideMenu>
     </Flex>
