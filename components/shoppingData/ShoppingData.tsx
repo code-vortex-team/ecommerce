@@ -1,5 +1,6 @@
 import React from 'react';
 import {Box, Flex, Heading, Text} from '@chakra-ui/react';
+import {color} from "@/components/colors";
 
 
 interface ListItem {
@@ -15,13 +16,16 @@ interface ItemListProps {
 
 const ShoppingData: React.FC<ItemListProps> = ({title, list}) => {
     return (
-        <Box>
+        <Box sx={{
+            width: "34.3rem",
+            height: "12.5rem"
+        }}>
 
             <Heading
-                mb={4}
+                mb="1.5rem"
                 textAlign="right"
                 fontWeight={500}
-                fontSize={20}
+                fontSize="20px"
             >
                 {title}
             </Heading>
@@ -33,9 +37,10 @@ const ShoppingData: React.FC<ItemListProps> = ({title, list}) => {
 
                 >
 
-                    <Text color="#58616C" fontSize={16} fontWeight={700}>{listItem.value} : </Text>
+                    <Text fontSize="1rem" fontWeight={700}
+                          sx={{color: color.text.secondary}}>{listItem.value} : </Text>
 
-                    <Text color="#000000" fontSize={16} fontWeight={400}>{listItem.item}</Text>
+                    <Text fontSize="1rem" fontWeight={400} sx={{color: color.text.primary}}>{listItem.item}</Text>
                 </Flex>
             ))}
         </Box>
