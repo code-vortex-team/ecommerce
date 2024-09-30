@@ -32,19 +32,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   return (
     <Flex
-      width="384px"
+      width="20vw"
       borderRadius="8px"
       flexDir="column"
-      m="50px"
       bg={color.base.card}
     >
       <Box pos="relative">
         <Image
-          height="170px"
+          height="17vh"
           src={imageAddress}
           alt={information.name}
           objectFit="cover"
-          width="384px"
+          width="100%"
           borderTopRadius="8px"
         />
         <Box pos="absolute" top="15px" right="15px">
@@ -58,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </Box>
 
       <Box p="20px" h="177px">
-        <Flex justifyContent="space-between" mb="8px">
+        <Flex justifyContent="space-between" mb="8px" whiteSpace='nowrap' textOverflow='ellipsis'>
           <Box>
             <Heading
               as="h5"
@@ -79,6 +78,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           fontSize="16px"
           fontWeight="400"
           color={color.text.secondary}
+          noOfLines={2}
         >
           <Text>{information.content}</Text>
         </Box>
