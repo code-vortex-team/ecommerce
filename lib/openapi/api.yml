@@ -1,0 +1,584 @@
+openapi: 3.0.0
+info:
+  title: QBC7-Front-Delta
+  version: 1.0.0
+servers:
+  - url: http://185.8.174.74:8090
+tags:
+  - name: User
+  - name: Category
+  - name: Products
+  - name: Orders
+paths:
+  /api/users:
+    post:
+      tags:
+        - User
+      summary: create user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: user
+                email: user@email.com
+                password: User123
+                confirm_Password: User123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    get:
+      tags:
+        - User
+      summary: get all users (admin auth)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/users/role/{id}:
+    patch:
+      tags:
+        - User
+      summary: change user role
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                isAdmin: true
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d1fc846d86558c99c43751
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/users/auth:
+    post:
+      tags:
+        - User
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: user@email.com
+                password: User123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/users/logout:
+    post:
+      tags:
+        - User
+      summary: logout
+      requestBody:
+        content: { }
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/users/profile:
+    get:
+      tags:
+        - User
+      summary: get user profile
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    put:
+      tags:
+        - User
+      summary: update user profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: farnam
+                email: f.e.h.farshad@gmail.com
+                password: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/users/{id}:
+    get:
+      tags:
+        - User
+      summary: get user (admin auth)
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d1fc846d86558c99c43751
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    put:
+      tags:
+        - User
+      summary: update user (admin auth)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: amir
+                email: f.e.h.farshad@gmail.com
+                isAdmin: true
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d1fc846d86558c99c43751
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    delete:
+      tags:
+        - User
+      summary: delete user (admin auth)
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d1fc846d86558c99c43751
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/category:
+    post:
+      tags:
+        - Category
+      summary: create category  (admin auth)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: my new category
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/category/{categoryId}:
+    put:
+      tags:
+        - Category
+      summary: update category  (admin auth)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: update category
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d20529134847fbb15d5057
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    delete:
+      tags:
+        - Category
+      summary: delete category  (admin auth)
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66c24b97b59dea2fb4572dc0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/category/categories:
+    get:
+      tags:
+        - Category
+      summary: list categories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/category/{id}:
+    get:
+      tags:
+        - Category
+      summary: get category
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d20529134847fbb15d5057
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/products:
+    post:
+      tags:
+        - Products
+      summary: create product (admin auth)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test product
+                description:
+                  type: string
+                  example: this is a desc
+                price:
+                  type: integer
+                  example: '150000'
+                category:
+                  type: string
+                  example: 66d20529134847fbb15d5057
+                quantity:
+                  type: integer
+                  example: '4'
+                image:
+                  type: string
+                  example: image-1725040515898.jpg
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    get:
+      tags:
+        - Products
+      summary: get all products (pagination)
+      parameters:
+        - name: size
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/products/{id}/reviews:
+    post:
+      tags:
+        - Products
+      summary: create product review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                rating: 5
+                comment: it's good
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d2083aac848291dfb24270
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/products/allproducts:
+    get:
+      tags:
+        - Products
+      summary: get all products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/products/{id}:
+    get:
+      tags:
+        - Products
+      summary: get product
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    put:
+      tags:
+        - Products
+      summary: update product (admin auth)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: update product
+                description:
+                  type: string
+                  example: this is update a desc
+                price:
+                  type: integer
+                  example: '250000'
+                category:
+                  type: string
+                  example: 66d20529134847fbb15d5057
+                quantity:
+                  type: integer
+                  example: '10'
+                image:
+                  type: string
+                  example: image-1725040515898.jpg
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d2083aac848291dfb24270
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    delete:
+      tags:
+        - Products
+      summary: delete product (admin auth)
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66c24d317c8d7b2323a13cf8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/products/sort/new:
+    get:
+      tags:
+        - Products
+      summary: get new products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/products/filtered:
+    post:
+      tags:
+        - Products
+      summary: filtered products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                categories:
+                  - 66d20529134847fbb15d5057
+                price:
+                  - 10000
+                  - 20000000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders:
+    post:
+      tags:
+        - Orders
+      summary: create order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                orderItems:
+                  - _id: 66c25010e5a5399cc81c54bd
+                    name: product_1
+                    qty: 10
+                paymentMethod: Cash
+                shippingAddress:
+                  address: karaj
+                  city: karaj
+                  postalCode: '3216549870'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+    get:
+      tags:
+        - Orders
+      summary: get all orders (admin auth)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders/mine:
+    get:
+      tags:
+        - Orders
+      summary: get all orders (mine)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders/total-sales:
+    get:
+      tags:
+        - Orders
+      summary: get total sales
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders/total-sales-by-date:
+    get:
+      tags:
+        - Orders
+      summary: get total sales by date
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders/{id}:
+    get:
+      tags:
+        - Orders
+      summary: get order
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d20d090c778300c8dd2768
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders/{id}/pay:
+    put:
+      tags:
+        - Orders
+      summary: make order paid (admin auth)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ''
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d20d090c778300c8dd2768
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/orders/{id}/deliver:
+    put:
+      tags:
+        - Orders
+      summary: make order delivered (admin auth)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ''
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 66d20d090c778300c8dd2768
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
