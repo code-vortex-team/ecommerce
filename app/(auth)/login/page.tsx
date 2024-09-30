@@ -1,7 +1,6 @@
 'use client';
 import {useForm} from "react-hook-form";
 import {Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text} from "@chakra-ui/react";
-import NextLink from "next/link";
 
 const Page = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
@@ -50,9 +49,9 @@ const Page = () => {
         </form>
         <Text mt="1.5rem" fontSize="1rem" fontWeight={400} color="text.primary">
             عضو نیستید ؟{' '}
-            <NextLink href="../register" passHref>
-                <Link color="pink.500" fontWeight="bold"> ثبت نام</Link>
-            </NextLink>
+
+            <Link href="../register" color="pink.500" fontWeight="bold"> ثبت نام</Link>
+
         </Text>
     </>)
 }
