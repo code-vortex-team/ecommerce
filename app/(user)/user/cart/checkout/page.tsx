@@ -78,6 +78,7 @@ const data = [
           maxW={"3xl"}
           border={"1px solid"}
           borderColor={color.base.textFieldStroke}
+          height={"fit-content"}
         >
           <ShopOrder columns={columns} data={data} />
         </Container>
