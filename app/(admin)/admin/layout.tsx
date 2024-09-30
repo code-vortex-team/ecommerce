@@ -1,5 +1,5 @@
 import SideMenu from "@/components/sidemenu/SideMenu";
-import { Flex, list } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import {
   AiOutlineHome,
@@ -21,11 +21,11 @@ const dropDownItems = {
     },
     {
       name: "محصول جدید",
-      url: "/admin/add-new-product",
+      url: "/admin/product/create",
     },
     {
       name: "مدیریت کاربران",
-      url: "/admin/users-management",
+      url: "/admin/users",
     },
     {
       name: "سفارشات",
@@ -33,7 +33,7 @@ const dropDownItems = {
     },
     {
       name: "پروفایل",
-      url: "/admin/profile",
+      url: "/admin/dashboard",
     },
     {
       name: "خروج از حساب",
@@ -45,25 +45,25 @@ const dropDownItems = {
 const sidemenuList = [
   {
     title: "داشبورد",
-    pathName: "/dashboard",
+    pathName: "/admin/dashboard",
     icon: <AiOutlineHome />,
     notif: null,
   },
   {
     title: "فروشگاه",
-    pathName: "/store",
+    pathName: "/shop",
     icon: <AiOutlineShopping />,
     notif: null,
   },
   {
     title: "سبد خرید",
-    pathName: "/shop-card",
+    pathName: "/user/card/checkout",
     icon: <AiOutlineShoppingCart />,
     notif: 1,
   },
   {
     title: "علاقه مندی ها",
-    pathName: "/favorite",
+    pathName: "/user/favorite",
     icon: <MdFavorite />,
     notif: null,
   },
