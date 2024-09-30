@@ -28,6 +28,7 @@ const SideMenu: React.FC<sideMenuType> = ({ children, list, dropDown }) => {
   return (
     <>
       <Box position={"relative"} zIndex="100">
+        <Box width="85px" height="100vh"></Box>
         <Flex
           h="100vh"
           bg={color.base.menu}
@@ -108,10 +109,12 @@ const SideMenu: React.FC<sideMenuType> = ({ children, list, dropDown }) => {
               </Box>
             ))}
           </Box>
-          <DropDown title={dropDown.title} list={dropDown.list} />
+          <Box pos="absolute" bottom="10px" right="10px">
+            <DropDown title={dropDown.title} list={dropDown.list} />
+          </Box>
         </Flex>
       </Box>
-      {children}
+      <Box>{children}</Box>
     </>
   );
 };
