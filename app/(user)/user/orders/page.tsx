@@ -1,15 +1,9 @@
 "use client"
 import React from "react";
 import ShopOrder from "@/components/shopOrder/CreateTable";
-import { Box, Button, Img, Text } from "@chakra-ui/react";
+import { Box, Button, Img, Text, Container } from "@chakra-ui/react";
 import { color } from "@/components/colors";
-import SideMenu from "@/components/sidemenu/SideMenu";
 import { FC } from "react";
-import { HiOutlineHome } from "react-icons/hi";
-import { RiShoppingBagLine } from "react-icons/ri";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaHeart } from "react-icons/fa";
-// import color from "@/components/colors"
 
 const columns = [
   {
@@ -117,41 +111,11 @@ const data = [
   },
 ];
 
-const sideMenuList = [
-  {
-    title: "home",
-    pathName: "string",
-    icon: <HiOutlineHome />,
-    notif: null,
-  }, 
-  {
-    title: "shoppingBag",
-    pathName: "string",
-    icon: <RiShoppingBagLine />,
-    notif: null,
-  },
-  {
-    title: "shoppingCart",
-    pathName: "string",
-    icon: <AiOutlineShoppingCart />,
-    notif: 2,
-  },
-  {
-    title: "lovedItems",
-    pathName: "string",
-    icon: <FaHeart />,
-    notif: null,
-  }
-]
-
 const App: FC = () => (
-  <Box bg={color.base.background}  height={"100vh"}>
-    <aside >
-      <SideMenu list={sideMenuList} />
-    </aside>
-    <main style={{paddingRight: "100px", paddingLeft: "60px", paddingTop: "40px"}}>
+  <Box >
+    <Container maxW={"6xl"} paddingTop={"40px"}>
       <ShopOrder columns={columns} data={data} />
-    </main>
+    </Container>
   </Box>
 );
 
