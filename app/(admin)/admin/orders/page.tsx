@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import ShopOrder from "@/components/shopOrder/CreateTable";
-import { Button, Img, Text } from "@chakra-ui/react";
+import { Button, Container, Img, Text } from "@chakra-ui/react";
 import { color } from "@/components/colors";
 
 const columns = [
@@ -118,7 +118,11 @@ const data = [
 ];
 
 const App = () => (
-  <ShopOrder columns={columns} data={data}/>
+  <main>
+    <Container maxW={"7xl"} paddingTop={"40px"}>
+      <ShopOrder columns={columns} data={data} />
+    </Container>
+  </main>
 );
 
 export default App;
