@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button} from '@chakra-ui/react';
+import {Box} from '@chakra-ui/react';
 import ShoppingData from "@/components/shoppingData/ShoppingData";
 import Like from "@/components/like/Like";
 import DropDown from "@/components/dropDown/DropDown";
@@ -27,8 +27,8 @@ const Page: React.FC = () => {
 
     return (
         <div>
-            <Button variant="roundedPinkButton">فروشگاه</Button>
-            <Button variant="regularPinkButton">مشاهده بیشتر</Button>
+            {/*<Button variant="roundedPinkButton">فروشگاه</Button>*/}
+            {/*<Button variant="regularPinkButton">مشاهده بیشتر</Button>*/}
             <Like/>
             <Box p={4}>
                 <ShoppingData title="My List" list={data}/>

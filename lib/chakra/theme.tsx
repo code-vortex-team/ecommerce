@@ -1,15 +1,35 @@
-import { ChakraButtonStyle } from '@/components/styles/ChakraButtonStyle' 
-import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
+import BadgeStyleConfig from '@/components/styles/BadgeConfigStyle'
+import {extendTheme, type ThemeConfig, ThemeOverride} from '@chakra-ui/react'
+import {color} from "@/components/colors";
+import {ColorVariable, replaceDotsWithVar} from "@/components/styles/ChakraColorStyle";
+import {Input} from "@/components/styles/ChakraInputStyle";
 
 const config: ThemeConfig = {
     initialColorMode: 'light',
     useSystemColorMode: false,
 }
 
-const theme = extendTheme({ config,
-    components: {
-        Button: ChakraButtonStyle,
-    }
-})
 
-export default theme;
+const ThemeConfig: ThemeOverride = {
+    styles: {
+        global: (props) => ({
+            ...ColorVariable(props)
+        }),
+    },
+    colors: {
+        ...replaceDotsWithVar(color),
+    },
+    components: {
+        Input,
+        Badge: BadgeStyleConfig,
+        // Button: ChakraButtonStyle,
+
+    }
+
+}
+
+
+const theme = extendTheme({config, ...ThemeConfig})
+
+
+export default theme
