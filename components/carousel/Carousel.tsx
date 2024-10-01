@@ -87,7 +87,6 @@ const Carousel = ({ images }: { images: Array<string> }) => {
               //   border: "1px solid red",
               overflow: "hidden",
             }}
-            alt="product images carousel"
             key={currentIndex}
             src={images[currentIndex]}
             variants={slideVariants}
