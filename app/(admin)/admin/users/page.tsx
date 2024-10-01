@@ -17,6 +17,8 @@ const App = () => {
       isAdmin: true,
       isEditingName: false,
       isEditingEmail: false,
+      tempName: "Ali",
+      tempEmail: "myemail@gmail.com",
     },
     {
       userID: "565432131",
@@ -25,6 +27,8 @@ const App = () => {
       isAdmin: false,
       isEditingName: false,
       isEditingEmail: false,
+      tempName: "Mehdi Hoseini",
+      tempEmail: "mahdi@gmail.com",
     },
   ]);
 
@@ -34,10 +38,16 @@ const App = () => {
     setData(updatedData);
   };
 
-  const handleSave = (index: number, field: string, newValue: string) => {
+  const handleSave = (index: number, field: string) => {
     const updatedData = [...data];
-    updatedData[index][field.toLowerCase()] = newValue;
+    updatedData[index][field.toLowerCase()] = updatedData[index][`temp${field}`];
     updatedData[index][`isEditing${field}`] = false;
+    setData(updatedData);
+  };
+
+  const handleInputChange = (index: number, field: string, newValue: string) => {
+    const updatedData = [...data];
+    updatedData[index][`temp${field}`] = newValue;
     setData(updatedData);
   };
 
@@ -49,7 +59,7 @@ const App = () => {
 
   const handleDeleteRow = (index: number) => {
     const updatedData = [...data];
-    updatedData.splice(index, 1); // Remove the row
+    updatedData.splice(index, 1);
     setData(updatedData);
   };
 
@@ -70,17 +80,21 @@ const App = () => {
           <Flex gap={"3px"} justify={"start"}>
             {user.isEditingName ? (
               <Flex gap={"5px"}>
-                <Button onClick={() => handleSave(index, "Name", user.name)} bg={color.info.main} color={color.text.button}>
+                <Button
+                  onClick={() => handleSave(index, "Name")}
+                  bg={color.info.main}
+                  color={color.text.button}
+                >
                   <FaCheck />
                 </Button>
                 <Input
                   size="sm"
-                  value={user.name}
+                  value={user.tempName}
+                  onChange={(e) => handleInputChange(index, "Name", e.target.value)}
                   height={"inherit"}
                   bg={color.base.textField}
                   borderColor={color.base.textFieldStroke}
                   borderRadius={"8px"}
-                //   onChange={(e) => handleSave(index, "Name", e.target.value)}
                 />
               </Flex>
             ) : (
@@ -93,7 +107,7 @@ const App = () => {
                 >
                   <CiEdit />
                 </Button>
-                <Text>{info.getValue()}</Text>
+                <Text>{user.name}</Text>
               </>
             )}
           </Flex>
@@ -111,17 +125,21 @@ const App = () => {
           <Flex gap={"3px"} justify={"start"}>
             {user.isEditingEmail ? (
               <Flex gap={"5px"}>
-                <Button onClick={() => handleSave(index, "Email", user.email)} bg={color.info.main} color={color.text.button}>
+                <Button
+                  onClick={() => handleSave(index, "Email")}
+                  bg={color.info.main}
+                  color={color.text.button}
+                >
                   <FaCheck />
                 </Button>
                 <Input
                   size="sm"
-                  value={user.email}
+                  value={user.tempEmail}
+                  onChange={(e) => handleInputChange(index, "Email", e.target.value)}
                   height={"inherit"}
                   bg={color.base.textField}
                   borderColor={color.base.textFieldStroke}
                   borderRadius={"8px"}
-                //   onChange={(e) => handleSave(index, "Email", e.target.value)}
                 />
               </Flex>
             ) : (
@@ -134,7 +152,7 @@ const App = () => {
                 >
                   <CiEdit />
                 </Button>
-                <Text>{info.getValue()}</Text>
+                <Text>{user.email}</Text>
               </>
             )}
           </Flex>
@@ -154,7 +172,7 @@ const App = () => {
             color={user.isAdmin ? color.success.main : color.error.main}
             onClick={() => handleToggleAdmin(index)}
           >
-            {user.isAdmin ? <FaCheck style={{fontSize:"20px"}}/> : <RxCross2 style={{fontSize:"20px"}}/>}
+            {user.isAdmin ? <FaCheck style={{ fontSize: "20px" }} /> : <RxCross2 style={{ fontSize: "20px" }} />}
           </Button>
         );
       },
@@ -172,7 +190,7 @@ const App = () => {
             onClick={() => handleDeleteRow(index)}
             padding={"0"}
           >
-            <MdDeleteForever style={{fontSize:"30px"}} />
+            <MdDeleteForever style={{ fontSize: "30px" }} />
           </Button>
         );
       },
