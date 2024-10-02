@@ -1,10 +1,10 @@
 import { defineStyleConfig } from "@chakra-ui/react";
-
+import {color} from "@/components/colors"
 const BadgeStyleConfig = defineStyleConfig({
   variants: {
     pink: {
-      color: "#F8D4E4",
-      bg: "#831747",
+      color: color.primary.lighter,
+      bg: color.primary.dark,
       borderRadius: "9999px",
       p: "2px 8px",
       fontWeight: "400",
@@ -12,8 +12,8 @@ const BadgeStyleConfig = defineStyleConfig({
       lineHeight: "16px",
     },
     pinkLg: {
-      color: "#F8D4E4",
-      bg: "#831747",
+      color: color.primary.lighter,
+      bg: color.primary.dark,
       borderRadius: "9999px",
       fontWeight: "400",
       p: "2px 10px",
