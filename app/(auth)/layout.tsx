@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
             <Box
                 position="relative"
                 sx={{
-                    width: "65vw",
+                    width: "60vw",
                     height: "100vh",
                     mt: "4rem",
                     ml: "4rem",
