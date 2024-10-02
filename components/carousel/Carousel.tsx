@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Box, Icon, Flex } from "@chakra-ui/react";
+import { Box, Icon, Flex, Text } from "@chakra-ui/react";
 import { color } from "../colors";
 
-const Carousel = ({ images }: { images: Array<string> }) => {
+const Carousel = ({ products }: { products: Array<object> }) => {
 
   // test url
   // const images = [
@@ -16,7 +16,19 @@ const Carousel = ({ images }: { images: Array<string> }) => {
   //     "https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   //   ];
 
+  const images = products.map((product) => product?.image)
+  const name = products.map((product) => product?.name)
+  const price = products.map((product) => product?.price)
+  const description = products.map((product) => product?.description)
+  const rate = products.map((product) => product?.rate)
+  const quantity = products.map((product) => product?.quantity)
+  const number = products.map((product) => product?.number)
+  const brand = products.map((product) => product?.brand)
+  const updateTime = products.map((product) => product?.updateTime)
+  const reviews = products.map((product) => product?.reviews)
 
+  
+  // const name = products.map(())
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState("initial");
 
@@ -60,6 +72,7 @@ const Carousel = ({ images }: { images: Array<string> }) => {
   };
 
   return (
+    <>
     <Box
       position={"relative"}
       // mx={"auto"}
@@ -163,6 +176,24 @@ const Carousel = ({ images }: { images: Array<string> }) => {
         </Icon>
       </Flex>
     </Box>
+    <Box display={"flex"} flexDirection={"row"}>
+    <Box display={"flex"} flexDirection={"column"}>    
+      <Text>{name[currentIndex]} </Text>
+      <Text>{price[currentIndex]} </Text>
+      <Text>{description[currentIndex]} </Text>
+    </Box>
+    <Box display={"flex"} flexDirection={"column"}>
+      <Text>{rate[currentIndex]} </Text>
+      <Text>{quantity[currentIndex]} </Text>
+      <Text>{number[currentIndex]} </Text>
+    </Box>
+    <Box display={"flex"} flexDirection={"column"}>
+      <Text>{brand[currentIndex]} </Text>
+      <Text>{updateTime[currentIndex]} </Text>
+      <Text>{reviews[currentIndex]} </Text>
+    </Box>
+    </Box>
+    </>
   );
 };
 

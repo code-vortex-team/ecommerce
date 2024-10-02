@@ -3,19 +3,26 @@ import { color } from "@/components/colors";
 import Product from "@/components/product/Product";
 import { Box, Button, Container, Flex, Grid, Text } from "@chakra-ui/react";
 
-const images = [
-  "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/773471/pexels-photo-773471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/672532/pexels-photo-672532.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/632522/pexels-photo-632522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-];
-
 const productsInfo = [
   {
     size: "small",
     name: "Asus ROG Zephyrus",
+    price: "10000",
+    image:
+      "https://dkstatics-public.digikala.com/digikala-products/c21eaca05b81008db9ac584d53a650e9aad86a24_1704788292.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90",
+    _id: "54653232",
+  },
+  {
+    size: "small",
+    name: "Asus ROG Zephyrus 2",
+    price: "11000",
+    image:
+      "https://dkstatics-public.digikala.com/digikala-products/c21eaca05b81008db9ac584d53a650e9aad86a24_1704788292.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90",
+    _id: "54653232",
+  },
+  {
+    size: "small",
+    name: "Asus ROG Zephyrus 3",
     price: "12000",
     image:
       "https://dkstatics-public.digikala.com/digikala-products/c21eaca05b81008db9ac584d53a650e9aad86a24_1704788292.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90",
@@ -23,24 +30,8 @@ const productsInfo = [
   },
   {
     size: "small",
-    name: "Asus ROG Zephyrus",
-    price: "12000",
-    image:
-      "https://dkstatics-public.digikala.com/digikala-products/c21eaca05b81008db9ac584d53a650e9aad86a24_1704788292.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90",
-    _id: "54653232",
-  },
-  {
-    size: "small",
-    name: "Asus ROG Zephyrus",
-    price: "12000",
-    image:
-      "https://dkstatics-public.digikala.com/digikala-products/c21eaca05b81008db9ac584d53a650e9aad86a24_1704788292.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90",
-    _id: "54653232",
-  },
-  {
-    size: "small",
-    name: "Asus ROG Zephyrus",
-    price: "12000",
+    name: "Asus ROG Zephyrus 4",
+    price: "13000",
     image:
       "https://dkstatics-public.digikala.com/digikala-products/c21eaca05b81008db9ac584d53a650e9aad86a24_1704788292.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90",
     _id: "54653232",
@@ -80,6 +71,7 @@ const productsInfo = [
 ];
 
 export default function Home() {
+
   return (
     <main>
       <Container maxW="7xl" py={8}>
@@ -97,7 +89,7 @@ export default function Home() {
             ))}
           </Grid>
           <Box>
-            <Carousel images={images} />
+            <Carousel products={productsInfo.slice(0, 4)} />
           </Box>
         </Grid>
 
