@@ -4,11 +4,11 @@ import { Box, Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 import { color } from "../colors";
 
 export default function FilterCategory({
-  title,
-  categories,
-  onchange,
-  resetFilters,
-}: {
+                                         title,
+                                         categories,
+                                         onchange,
+                                         resetFilters,
+                                       }: {
   title: string;
   onchange?: (data: Array<{ name: string; active: boolean }>) => void;
   categories: Array<{ name: string; active: boolean }>;
@@ -18,8 +18,8 @@ export default function FilterCategory({
 
   useEffect(() => {
     const initialSelected = categories
-      .filter((cat) => cat.active)
-      .map((cat) => cat.name);
+        .filter((cat) => cat.active)
+        .map((cat) => cat.name);
     setSelectedCategories(initialSelected);
   }, [categories]);
 
@@ -51,42 +51,42 @@ export default function FilterCategory({
   };
 
   return (
-    <Box>
-      <Box
-        borderRadius={"full"}
-        padding={"8px 51.97px 8px 51.97px"}
-        textAlign={"center"}
-        fontSize={"16px"}
-        fontWeight={"400"}
-        bg={color.base.menu}
-        color={color.text.primary}
-      >
-        {title}
+      <Box>
+        <Box
+            borderRadius={"full"}
+            padding={"8px 51.97px 8px 51.97px"}
+            textAlign={"center"}
+            fontSize={"16px"}
+            fontWeight={"400"}
+            bg={color.base.menu}
+            color={color.text.primary}
+        >
+          {title}
+        </Box>
+        <CheckboxGroup value={selectedCategories} onChange={handleChange}>
+          <Stack marginTop={12} spacing={"8px"} direction="column">
+            {categories.map((item, index) => (
+                <Checkbox
+                    key={index}
+                    value={item.name}
+                    fontSize={"14px"}
+                    fontWeight={"400"}
+                    color={color.text.primary}
+                    colorScheme="blue"
+                    sx={{
+                      ".chakra-checkbox__control": {
+                        border: "8px solid white",
+                      },
+                    }}
+                    _checked={{
+                      border: "none"
+                    }}
+                >
+                  {item.name}
+                </Checkbox>
+            ))}
+          </Stack>
+        </CheckboxGroup>
       </Box>
-      <CheckboxGroup value={selectedCategories} onChange={handleChange}>
-        <Stack marginTop={12} spacing={"8px"} direction="column">
-          {categories.map((item, index) => (
-            <Checkbox
-              key={index}
-              value={item.name}
-              fontSize={"14px"}
-              fontWeight={"400"}
-              color={color.text.primary}
-              colorScheme="blue"
-              sx={{
-                ".chakra-checkbox__control": {
-                  border: "8px solid white",
-                },
-              }}
-              _checked={{
-                border: "none"
-              }}
-            >
-              {item.name}
-            </Checkbox>
-          ))}
-        </Stack>
-      </CheckboxGroup>
-    </Box>
   );
 }
