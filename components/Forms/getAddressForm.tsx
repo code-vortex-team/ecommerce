@@ -35,48 +35,48 @@ const GetAddressForm: React.FC<Interface> = ({onSubmit}) => {
 
         </Heading>
         <VStack as="form" pt={5} gap={3} onSubmit={handleSubmit(onSubmit)}>
-            <FormControl isInvalid={!!errors.firstName} mb={4}>
-                <FormLabel htmlFor="firstName">آدرس</FormLabel>
+            <FormControl isInvalid={!!errors.address} mb={4}>
+                <FormLabel htmlFor="address">آدرس</FormLabel>
                 <Input
                     id="firstName"
                     placeholder="آدرس را وارد نمایید"
-                    {...register('firstName', {required: 'First name is required'})}
+                    {...register('address', {required: 'آدرس خود را در این قسمت وارد کنید'})}
                 />
                 <FormErrorMessage>
-                    {errors.firstName && errors.firstName.message}
+                    {errors.address && errors.address.message}
                 </FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={!!errors.firstName} mb={4}>
-                <FormLabel htmlFor="firstName">شهر</FormLabel>
+            <FormControl isInvalid={!!errors.city} mb={4}>
+                <FormLabel htmlFor="city">شهر</FormLabel>
                 <Input
-                    id="firstName"
+                    id="city"
                     placeholder="شهر را وارد نمایید"
-                    {...register('firstName', {required: 'First name is required'})}
+                    {...register('city', {required: 'شهر خود را در این قسمت وارد کنید'})}
                 />
                 <FormErrorMessage>
-                    {errors.firstName && errors.firstName.message}
+                    {errors.city && errors.city.message}
                 </FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={!!errors.firstName} mb={4}>
-                <FormLabel htmlFor="firstName">کشور</FormLabel>
+            <FormControl isInvalid={!!errors.country} mb={4}>
+                <FormLabel htmlFor="country">کشور</FormLabel>
                 <Input
-                    id="firstName"
+                    id="country"
                     placeholder="کشور را وارد نمایید"
-                    {...register('firstName', {required: 'First name is required'})}
+                    {...register('country', {required: 'کشور خود را در این قسمت وارد کنید'})}
                 />
                 <FormErrorMessage>
-                    {errors.firstName && errors.firstName.message}
+                    {errors.country && errors.country.message}
                 </FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={!!errors.firstName} mb={4}>
-                <FormLabel htmlFor="firstName">کدپستی</FormLabel>
+            <FormControl isInvalid={!!errors.zipcode} mb={4}>
+                <FormLabel htmlFor="zipcode">کدپستی</FormLabel>
                 <Input
-                    id="firstName"
+                    id="zipcode"
                     placeholder="کدپستی را وارد نمایید"
-                    {...register('firstName', {required: 'First name is required'})}
+                    {...register('zipcode', {required: 'کدپستی خود را در این قسمت وارد کنید'})}
                 />
                 <FormErrorMessage>
-                    {errors.firstName && errors.firstName.message}
+                    {errors.zipcode && errors.zipcode.message}
                 </FormErrorMessage>
             </FormControl>
             <Box width={"100%"}>
@@ -85,7 +85,7 @@ const GetAddressForm: React.FC<Interface> = ({onSubmit}) => {
                 </Text>
                 <Box py={3}>
                     <RadioGroup>
-                        <Radio name="form-name" colorScheme={"pink"}> درگاه پرداخت پاسارگاد</Radio>
+                        <Radio name="form-name" colorScheme={"pink"} isChecked={true}> درگاه پرداخت پاسارگاد</Radio>
                     </RadioGroup>
                 </Box>
             </Box>
