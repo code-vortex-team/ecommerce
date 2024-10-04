@@ -1,3 +1,4 @@
+'use client'
 import { color } from "@/components/colors";
 import FilterProducts from "@/components/filterCategory/FilterCategory";
 import ProductCard from "@/components/product-card/ProductCard";
