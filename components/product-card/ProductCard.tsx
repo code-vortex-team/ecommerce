@@ -1,3 +1,4 @@
+'use client'
 import {
   Badge,
   Box,
@@ -13,6 +14,8 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaArrowLeft } from "react-icons/fa6";
 import { color } from "../colors";
 import Link from "next/link";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { addItem } from "@/lib/redux/features/Basket/basketSlice";
 
 interface ProductCardProps {
   imageAddress: string;
@@ -30,6 +33,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   information,
   _id,
 }) => {
+
+
+  const dispatch = useAppDispatch()
+
+
   return (
     <Flex
       width="20vw"
@@ -106,7 +114,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alignItems="center"
             justifyContent="center"
             cursor='pointer'
-            // onClick={}
+            onClick={()=>{dispatch(addItem({
+              _id: _id,
+              name: information.name,
+              price: information.price,
+              image: imageAddress
+            }))}}
           >
             <AiOutlineShoppingCart />
           </Box>
