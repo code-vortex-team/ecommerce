@@ -1,4 +1,3 @@
-"use client";
 import { color } from "@/components/colors";
 import FilterProducts from "@/components/filterCategory/FilterCategory";
 import ProductCard from "@/components/product-card/ProductCard";
@@ -12,7 +11,6 @@ import {
   GridItem,
   Input,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 
 interface itemProps {
   image: string;
@@ -23,21 +21,9 @@ interface itemProps {
   category: string;
 }
 
-const Page = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res: any = await new ProductsApi().apiProductsAllproductsGet();
-        setProducts(res.data);
-      } catch (error) {
-        console.error("error fetching products");
-      }
-    };
-    fetchData();
-  }, []);
-
+const Page = async () => {
+  const res: any = await new ProductsApi().apiProductsAllproductsGet();
+  const products = res.data;
   return (
     <Box>
       <Container display="flex" m="32px" gap="64px">
