@@ -1,6 +1,5 @@
 'use client';
-import {Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/menu";
-import {Box, Flex, useColorModeValue} from "@chakra-ui/react";
+import {Box, Flex, Menu, MenuButton, MenuItem, MenuList, useColorModeValue} from "@chakra-ui/react";
 import React from "react";
 import {useRouter} from "next/navigation";
 import {color} from "@/components/colors";

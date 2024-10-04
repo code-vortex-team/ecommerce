@@ -1,8 +1,141 @@
+'use client';
+import { useForm } from "react-hook-form";
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { UserApi } from "@/lib/openapi/generated-client";
+import { useState } from "react";
+
 const Page = () => {
+    const { register, formState: { errors }, handleSubmit, watch } = useForm();
+    const [isLoading, setIsLoading] = useState(false);
+    const password = watch("Password");
 
-    return (<>
+    const onSubmit = (data) => {
+        setIsLoading(true);
 
-    </>)
-}
+        new UserApi().apiUsersPost({
+            name: data.Name,
+            email: data.Email,
+            password: data.Password,
+        })
+            .then((response) => {
+                alert("ثبت نام شما با موفقیت انجام شد!");
+                console.log(response.data, "دیتای ثبت نام شده");
+            })
+            .catch((error) => {
+                alert("متاسفانه ثبت نام شما با مشکل مواجه شد!");
+                console.error(error.response?.data || error.message, "ارور ثبت نام");
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
+
+    return (
+        <>
+            <Text color="text.primary" mb={2} fontWeight={500} fontSize="1.5rem">
+                ثبت نام
+            </Text>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <FormControl isInvalid={errors.Name != null}>
+                    <FormLabel mt="2rem" mb="0.5rem" color="text.primary" fontSize="1rem">
+                        نام
+                    </FormLabel>
+                    <Input
+                        placeholder="نام خود را وارد نمایید"
+                        color="text.secondary"
+                        fontSize="1rem"
+                        bg="base.textField"
+                        borderColor="base.textFieldStroke"
+                        _focusVisible={{ border: "none" }}
+                        {...register("Name", {
+                            required: "فیلد ضروری میباشد",
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.Name && `${errors.Name.message}`}
+                    </FormErrorMessage>
+                </FormControl>
+
+                <FormControl isInvalid={errors.Email != null}>
+                    <FormLabel mt="2rem" mb="0.5rem" color="text.primary" fontSize="1rem">
+                        ایمیل
+                    </FormLabel>
+                    <Input
+                        type="email"
+                        placeholder="ایمیل خود را وارد نمایید"
+                        color="text.secondary"
+                        fontSize="1rem"
+                        bg="base.textField"
+                        borderColor="base.textFieldStroke"
+                        _focusVisible={{ border: "none" }}
+                        {...register("Email", {
+                            required: "فیلد ضروری میباشد",
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.Email && `${errors.Email.message}`}
+                    </FormErrorMessage>
+                </FormControl>
+
+                <FormControl isInvalid={errors.Password != null}>
+                    <FormLabel mt="1.5rem" mb="0.5rem" color="text.primary" fontSize="1rem">
+                        رمزعبور
+                    </FormLabel>
+                    <Input
+                        type="password"
+                        placeholder="رمزعبور خود را وارد نمایید"
+                        color="text.secondary"
+                        fontSize="1rem"
+                        bg="base.textField"
+                        borderColor="base.textFieldStroke"
+                        _focusVisible={{ border: "none" }}
+                        {...register("Password", {
+                            required: "فیلد ضروری میباشد",
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.Password && `${errors.Password.message}`}
+                    </FormErrorMessage>
+                </FormControl>
+
+                <FormControl isInvalid={errors.ConfirmPassword != null}>
+                    <FormLabel mt="1.5rem" mb="0.5rem" color="text.primary" fontSize="1rem">
+                        تکرار رمزعبور
+                    </FormLabel>
+                    <Input
+                        type="password"
+                        placeholder="رمزعبور خود را دوباره وارد نمایید"
+                        color="text.secondary"
+                        fontSize="1rem"
+                        bg="base.textField"
+                        borderColor="base.textFieldStroke"
+                        _focusVisible={{ border: "none" }}
+                        {...register("ConfirmPassword", {
+                            required: "فیلد ضروری میباشد",
+                            validate: (value) =>
+                                value === password || "رمزعبور و تأیید آن یکسان نیستند",
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.ConfirmPassword && `${errors.ConfirmPassword.message}`}
+                    </FormErrorMessage>
+                </FormControl>
+
+                <Button width="auto" mt="2rem" variant="regularPinkButton" type="submit" isLoading={isLoading}>
+                    ثبت نام
+                </Button>
+            </form>
+
+            <Text mt="1.5rem" fontSize="1rem" fontWeight={400} color="text.primary">
+                عضو هستید؟{' '}
+                <NextLink href="../login" passHref>
+                    <Link color="pink.500" fontWeight="bold"> ورود</Link>
+                </NextLink>
+            </Text>
+        </>
+    );
+};
 
 export default Page;
