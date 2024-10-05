@@ -4,6 +4,7 @@ import {color} from "@/components/colors";
 import {ColorVariable, replaceDotsWithVar} from "@/components/styles/ChakraColorStyle";
 import {Input} from "@/components/styles/ChakraInputStyle";
 import {ChakraButtonStyle} from "@/components/styles/ChakraButtonStyle";
+import {mode} from "@chakra-ui/theme-tools";
 
 const config: ThemeConfig = {
     initialColorMode: 'light',
@@ -14,7 +15,10 @@ const config: ThemeConfig = {
 const ThemeConfig: ThemeOverride = {
     styles: {
         global: (props) => ({
-            ...ColorVariable(props)
+            ...ColorVariable(props),
+            body: {
+                backgroundColor: mode("#EEEFF1", "#0F0F10")(props)
+            }
         }),
     },
     colors: {

@@ -3,48 +3,37 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Box, Icon, Flex, Text } from "@chakra-ui/react";
 import { color } from "../colors";
+import { FaShoppingCart, FaStar, FaBox} from "react-icons/fa";
+import { AiFillShop } from "react-icons/ai";
+import { MdAccessTimeFilled } from "react-icons/md";
+
 
 const Carousel = ({ products }: { products: Array<object> }) => {
-
-  // test url
-  // const images = [
-  //     "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //     "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     "https://images.pexels.com/photos/773471/pexels-photo-773471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     "https://images.pexels.com/photos/672532/pexels-photo-672532.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     "https://images.pexels.com/photos/632522/pexels-photo-632522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     "https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //   ];
 
   const images = products.map((product) => product?.image)
   const name = products.map((product) => product?.name)
   const price = products.map((product) => product?.price)
   const description = products.map((product) => product?.description)
-  const rate = products.map((product) => product?.rate)
+  const rate = products.map((product) => product?.rating)
   const quantity = products.map((product) => product?.quantity)
-  const number = products.map((product) => product?.number)
-  const brand = products.map((product) => product?.brand)
-  const updateTime = products.map((product) => product?.updateTime)
-  const reviews = products.map((product) => product?.reviews)
-
+  const number = products.map((product) => product?.countInStock)
+  const brand = products.map((product) => product?.name)
+  const updateTime = products.map((product) =>  new Date(product?.updatedAt).toLocaleDateString())
+  const reviews = products.map((product) => product?.numReviews)
   
-  // const name = products.map(())
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState("initial");
 
-  const handleNext = () => {
-    setDirection("right");
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 === images.length ? 0 : prevIndex + 1
-    );
-  };
+    // const name = products.map(())
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState("initial");
 
-  const handlePrevious = () => {
-    setDirection("left");
-    setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
+    const handleNext = () => {
+        setDirection("right");
+        setCurrentIndex((prevIndex) =>
+            prevIndex + 1 === images.length ? 0 : prevIndex + 1
+        );
+    };
 
   const slideVariants = {
     hiddenRight: {
@@ -62,13 +51,13 @@ const Carousel = ({ products }: { products: Array<object> }) => {
         duration: 0.6,
       },
     },
-    exit: {
-      opacity: 0,
-      scale: 0.9,
-      transition: {
-        duration: 0,
-      },
-    },
+    // exit: {
+    //   opacity: 0,
+    //   scale: 0.9,
+    //   transition: {
+    //     duration: 0,
+    //   },
+    // },
   };
 
   return (
@@ -77,9 +66,9 @@ const Carousel = ({ products }: { products: Array<object> }) => {
       position={"relative"}
       // mx={"auto"}
       // border={"1px solid red"}
-      height={"480px"}
-      maxWidth={"800px"}
-      width={"800px"}
+      height={"30rem"}
+      maxWidth={"100%"}
+      width={"50rem"}
       borderRadius="8px"
     >
       <Box
@@ -127,7 +116,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
           color={color.text.primary}
           boxSize={"20px"}
           position={"absolute"}
-          left={"-25px"}
+          left={"0px"}
           top={"67%"}
           transform={"translateY(-50%)"}
           //   pointerEvents="auto"
@@ -145,8 +134,8 @@ const Carousel = ({ products }: { products: Array<object> }) => {
             1.13281 5.14844C0.351562 6.4375 0 7.88281 0 9.44531C0 11.0078 0.351562 12.4531 1.13281 13.7422C1.91406 15.0703 
             2.92969 16.0859 4.25781 16.8672C5.54688 17.6484 6.99219 18 8.55469 18C10.1172 18 11.5625 17.6484 12.8516 
             16.8672C14.1797 16.0859 15.1953 15.0703 15.9766 13.7422C16.7578 12.4531 17.1094 11.0078 17.1094 9.44531Z"
-          ></path>
-        </Icon>
+                        ></path>
+                    </Icon>
 
         <Icon
           onClick={handleNext}
@@ -154,7 +143,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
           color={color.text.primary}
           boxSize={"20px"}
           position={"absolute"}
-          right={"-25px"}
+          right={"0px"}
           top={"67%"}
           transform={"translateY(-50%)"}
           //   pointerEvents="auto"
@@ -176,22 +165,22 @@ const Carousel = ({ products }: { products: Array<object> }) => {
         </Icon>
       </Flex>
     </Box>
-    <Box display={"flex"} flexDirection={"row"}>
-    <Box display={"flex"} flexDirection={"column"}>    
-      <Text>{name[currentIndex]} </Text>
-      <Text>{price[currentIndex]} </Text>
-      <Text>{description[currentIndex]} </Text>
-    </Box>
-    <Box display={"flex"} flexDirection={"column"}>
-      <Text>{rate[currentIndex]} </Text>
-      <Text>{quantity[currentIndex]} </Text>
-      <Text>{number[currentIndex]} </Text>
-    </Box>
-    <Box display={"flex"} flexDirection={"column"}>
-      <Text>{brand[currentIndex]} </Text>
-      <Text>{updateTime[currentIndex]} </Text>
-      <Text>{reviews[currentIndex]} </Text>
-    </Box>
+    <Box display={"flex"} flexDirection={"row"} width={"100%"} gap={"10px"} justifyContent={"space-between"}>
+      <Box display={"flex"} flexDirection={"column"} gap={"10px"} width={"50%"}>    
+        <Text display={"flex"} flexDirection={"row"} gap={"8px"}>{name[currentIndex]} </Text>
+        <Text display={"flex"} flexDirection={"row"} gap={"8px"} width={"100%"} justifyContent={"end"}>{price[currentIndex]} تومان </Text>
+        <Text display={"flex"} flexDirection={"row"} gap={"8px"}>{description[currentIndex]} </Text>
+      </Box>
+      <Box display={"flex"} flexDirection={"column"} gap={"20px"} width={"max-content"}>
+        <Box display={"flex"} flexDirection={"row"} gap={"8px"}><FaStar /><Text color={color.text.secondary}>امتیاز: </Text>{rate[currentIndex]} </Box>
+        <Box display={"flex"} flexDirection={"row"} gap={"8px"}><FaShoppingCart /><Text color={color.text.secondary}>تعداد: </Text>{quantity[currentIndex]} </Box>
+        <Box display={"flex"} flexDirection={"row"} gap={"8px"}><FaBox /><Text color={color.text.secondary}>موجودی:</Text> {number[currentIndex]} </Box>
+      </Box>
+      <Box display={"flex"} flexDirection={"column"} gap={"20px"} width={"max-content"}>
+        <Box display={"flex"} flexDirection={"row"} gap={"8px"}><AiFillShop /><Text color={color.text.secondary}>برند: </Text> {brand[currentIndex]} </Box>
+        <Box display={ "flex"} gap={"8px"}><MdAccessTimeFilled /><Text color={color.text.secondary}>زمان بروزرسانی: </Text> {updateTime[currentIndex]} </Box>
+        <Box display={"flex"} flexDirection={"row"} gap={"8px"}><FaStar /><Text color={color.text.secondary}> نظرات: </Text> {reviews[currentIndex]} </Box>
+      </Box>
     </Box>
     </>
   );

@@ -1,11 +1,13 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShopOrder from "@/components/shopOrder/CreateTable";
 import { Button, Container, Img, Text } from "@chakra-ui/react";
 import { color } from "@/components/colors";
 import { FC } from "react";
 import ShopAddress from "@/components/shopAddress/ShopAddress";
 import ShoppingData from "@/components/shoppingData/ShoppingData";
+import Link from "next/link";
+import { UserApi } from "@/lib/openapi/apiClient";
 
 const columns = [
   {
@@ -65,7 +67,16 @@ const data = [
   const shoppingDataTitle = "خلاصه خرید"
   const shoppingDataList = [{value: "قیمت محصول", item: "10000 تمومان"}, {value: "هزینه ارسال", item: "1000 تومان"}]
 
-  const App: FC = () => (
+  const App: FC = async () => {
+    const [data, setData] = useState([])
+    // useEffect(() => {
+    //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
+    //       setData(r.data)
+    //     })
+  
+    // }, [])
+
+    return(
       <main
         style={{
           paddingRight: "100px",
@@ -100,6 +111,8 @@ const data = [
           </Text>
           <ShoppingData title={shoppingDataTitle} list={shoppingDataList} />
           <Button
+            as={Link}
+            href={"../orders"}
             width={"100%"}
             marginTop={"20px"}
             bg={color.primary.main}
@@ -111,6 +124,7 @@ const data = [
           </Button>
         </Container>
       </main>
-  );
+      )
+  };
 
 export default App;
