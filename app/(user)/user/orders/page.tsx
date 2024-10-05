@@ -75,8 +75,7 @@ const columns = [
             );
         },
     },
-<<<<<<< HEAD
-  },
+  
   {
     id: "operations",
     header: () => "عملیات",
@@ -92,28 +91,11 @@ const columns = [
           توضیحات
         </Button>
       );
-=======
-    {
-        id: "operations",
-        header: () => "عملیات",
-        accessorKey: "operations",
-        cell: (info: any) => {
-            return (
-                <Button
-                    bg={color.primary.main} color={color.text.button} fontSize={"0.875rem"} fontWeight={"400"} _hover={{cursor: "pointer", background: color.primary.light}}
-                    style={{ padding: "8px 12px", borderRadius: "8px", width: "fit-content", marginInline: "auto"}}
-                >
-                    توضیحات
-                </Button>
-            );
-        },
->>>>>>> 4db77542ff019273b590dc13ce414653e85f6bbd
-    },
+    },}
 ];
 
 const photoAddress = "https://dkstatics-public.digikala.com/digikala-products/9ec5e6fc915b58db69a363a1769d57a8aa89d5ae_1705485533.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90";
 const data = [
-<<<<<<< HEAD
   {
     image: photoAddress,
     name: "Apple iPhone 14 Pro",
@@ -135,7 +117,7 @@ const data = [
 ];
 
 const App = async () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   // useEffect(() => {
   //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
   //       setData(r.data)
@@ -149,28 +131,5 @@ const App = async () => {
     </main>
   );
 };
-=======
-    {
-        image: photoAddress,
-        name: "Apple iPhone 14 Pro",
-        date: "۱۴۰۱/۰۶/۳۱",
-        finalPrice: "999.00",
-        paymentStatus: "پرداخت شده",
-        shippingStatus: "در حال ارسال",
-    },
-    {
-        image: photoAddress,
-        name: "Apple MacBook Air M2",
-        date: "۱۴۰۱/۰۶/۳۱",
-        finalPrice: "999.00",
-        paymentStatus: "پرداخت شده",
-        shippingStatus: "ارسال شده",
-    },
-];
-
-const App = () => (
-    <ShopOrder columns={columns} data={data}/>
-);
->>>>>>> 4db77542ff019273b590dc13ce414653e85f6bbd
 
 export default App;

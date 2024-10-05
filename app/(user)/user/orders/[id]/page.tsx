@@ -83,7 +83,7 @@ const shoppingDataList = [
 ];
 
 const App: FC = async () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   // useEffect(() => {
   //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
   //       setData(r.data)

@@ -75,7 +75,6 @@ const productsInfo = [
 
 export default async function Home() {
 
-<<<<<<< HEAD
   const [data, setData] = useState([])
   useEffect(() => {
       new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
@@ -114,28 +113,6 @@ export default async function Home() {
             </Box>
           </GridItem>
         </SimpleGrid>
-=======
-    return (
-        <main>
-            <Container maxW="7xl" py={8}>
-                <Grid templateColumns={{ base: "1fr", lg: "2fr 1fr" }} gap={6}>
-                    <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-                        {productsInfo.slice(0, 4).map((product, index) => (
-                            <Product
-                                key={index}
-                                size="small"
-                                name={product.name}
-                                price={product.price}
-                                _id={product._id}
-                                image={product.image}
-                            />
-                        ))}
-                    </Grid>
-                    <Box>
-                        <Carousel products={productsInfo.slice(0, 4)} />
-                    </Box>
-                </Grid>
->>>>>>> 4db77542ff019273b590dc13ce414653e85f6bbd
 
                 <Box
                     my={12}
@@ -155,7 +132,6 @@ export default async function Home() {
                     </Button>
                 </Box>
 
-<<<<<<< HEAD
         <Grid
           templateColumns={{
             base: "repeat(2, 1fr)",
@@ -178,28 +154,4 @@ export default async function Home() {
       </Box>
     </main>
   );
-=======
-                <Grid
-                    templateColumns={{
-                        base: "repeat(2, 1fr)",
-                        md: "repeat(3, 1fr)",
-                        lg: "repeat(4, 1fr)",
-                    }}
-                    gap={6}
-                >
-                    {productsInfo.map((product, index) => (
-                        <Product
-                            key={index}
-                            size="small"
-                            name={product.name}
-                            price={product.price}
-                            _id={product._id}
-                            image={product.image}
-                        />
-                    ))}
-                </Grid>
-            </Container>
-        </main>
-    );
->>>>>>> 4db77542ff019273b590dc13ce414653e85f6bbd
 }

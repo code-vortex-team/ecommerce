@@ -21,8 +21,8 @@ const Carousel = ({ products }: { products: Array<object> }) => {
   const updateTime = products.map((product) =>  new Date(product?.updatedAt).toLocaleDateString())
   const reviews = products.map((product) => product?.numReviews)
   
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState("initial");
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  // const [direction, setDirection] = useState("initial");
 
     // const name = products.map(())
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,6 +34,13 @@ const Carousel = ({ products }: { products: Array<object> }) => {
             prevIndex + 1 === images.length ? 0 : prevIndex + 1
         );
     };
+
+    const handlePrevious = () => {
+      setDirection("left");
+      setCurrentIndex((prevIndex) =>
+          prevIndex  === 0 ? images.length - 1 : prevIndex - 1
+      );
+  };
 
   const slideVariants = {
     hiddenRight: {
