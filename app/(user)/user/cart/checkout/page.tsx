@@ -14,16 +14,13 @@ import { UserApi } from "@/lib/openapi/apiClient";
   const shoppingDataTitle = "خلاصه خرید"
   const shoppingDataList = [{value: "قیمت محصول", item: "10000 تمومان"}, {value: "هزینه ارسال", item: "1000 تومان"}]
 
-  const App: FC = () => {
-    // async function getFromApi() {
-    //   new UserApi().apiProductsAllproductsGet().then((r: any) => {
-    //     setData(r.data)
-    //   })
-    // }
-  
+  const App: FC = async () => {
     // const [data, setData] = useState([])
     // useEffect(() => {
-    //   getFromApi()
+    //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
+    //       setData(r.data)
+    //     })
+  
     // }, [])
 
     return(

@@ -73,16 +73,14 @@ const productsInfo = [
     },
 ];
 
-export default function Home() {
+export default async function Home() {
 
-  async function getFromApi() {
-    new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
-      setData(r.data)
-    })
-  }
   const [data, setData] = useState([])
   useEffect(() => {
-    getFromApi()
+      new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
+        setData(r.data)
+      })
+
   }, [])
   return (
     <main>

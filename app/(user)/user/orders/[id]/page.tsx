@@ -82,16 +82,13 @@ const shoppingDataList = [
   { value: "هزینه ارسال", item: "1000 تومان" },
 ];
 
-const App: FC = () => {
-  // async function getFromApi() {
-  //   new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
-  //     setData(r.data)
-  //   })
-  // }
-
-  // const [data, setData] = useState([])
+const App: FC = async () => {
+  // const [data, setData] = useState([]);
   // useEffect(() => {
-  //   getFromApi()
+  //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
+  //       setData(r.data)
+  //     })
+
   // }, [])
   return (
     <main

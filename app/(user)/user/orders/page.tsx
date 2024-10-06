@@ -116,16 +116,13 @@ const data = [
   },
 ];
 
-const App = () => {
-  // async function getFromApi() {
-  //   new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
-  //     setData(r.data)
-  //   })
-  // }
-
-  // const [data, setData] = useState([])
+const App = async () => {
+  // const [data, setData] = useState([]);
   // useEffect(() => {
-  //   getFromApi()
+  //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
+  //       setData(r.data)
+  //     })
+
   // }, [])
 
   return (
