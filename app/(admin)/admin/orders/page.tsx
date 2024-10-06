@@ -1,8 +1,10 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShopOrder from "@/components/shopOrder/CreateTable";
 import { Button, Container, Img, Text } from "@chakra-ui/react";
 import { color } from "@/components/colors";
+import Link from "next/link";
+import { UserApi } from "@/lib/openapi/apiClient";
 
 const columns = [
     {
@@ -78,21 +80,23 @@ const columns = [
             );
         },
     },
-    {
-        id: "operations",
-        header: () => "عملیات",
-        accessorKey: "operations",
-        cell: (info: any) => {
-            return (
-                <Button
-                    bg={color.primary.main} color={color.text.button} fontSize={"0.875rem"} fontWeight={"400"} _hover={{cursor: "pointer", background: color.primary.light}}
-                    style={{ padding: "8px 12px", borderRadius: "8px", width: "fit-content", marginInline: "auto"}}
-                >
-                    توضیحات
-                </Button>
-            );
-        },
+  {
+    id: "operations",
+    header: () => "عملیات",
+    accessorKey: "id",
+    cell: (info: any) => {
+      return (
+        <Button
+        as={Link}
+        href={`./orders/${info.getValue()}`}
+        bg={color.primary.main} color={color.text.button} fontSize={"0.875rem"} fontWeight={"400"} _hover={{cursor: "pointer", background: color.primary.light}}
+          style={{ padding: "8px 12px", borderRadius: "8px", width: "fit-content", marginInline: "auto"}}
+        >
+          توضیحات
+        </Button>
+      );
     },
+  }
 ];
 
 const photoAddress = "https://dkstatics-public.digikala.com/digikala-products/9ec5e6fc915b58db69a363a1769d57a8aa89d5ae_1705485533.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90";
@@ -117,12 +121,22 @@ const data = [
     },
 ];
 
-const App = () => (
-    <main>
-        <Container maxW={"7xl"} paddingTop={"40px"}>
-            <ShopOrder columns={columns} data={data} />
-        </Container>
+const App = () => {
+  // async function getFromApi() {
+  //   new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
+  //     setData(r.data)
+  //   })
+  // }
+
+  // const [data, setData] = useState([])
+  // useEffect(() => {
+  //   getFromApi()
+  // }, [])
+  return (
+    <main style={{ width: "90vw", paddingTop: "3rem" }}>
+      <ShopOrder columns={columns} data={data} />
     </main>
-);
+  );
+};
 
 export default App;
