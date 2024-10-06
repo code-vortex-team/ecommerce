@@ -7,8 +7,18 @@ import { CiEdit } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
+import { UserApi } from "@/lib/openapi/apiClient";
 
-const App = () => {
+const App = async () => {
+
+  // const [data, setData] = useState([])
+  // useEffect(() => {
+  //     new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
+  //       setData(r.data)
+  //     })
+
+  // }, [])
+
   const [data, setData] = useState([
     {
       userID: "565432130",
@@ -32,17 +42,17 @@ const App = () => {
     },
   ]);
 
-  const handleToggleEdit = (index: number, field: string) => {
-    const updatedData = [...data];
-    updatedData[index][`isEditing${field}`] = !updatedData[index][`isEditing${field}`];
-    setData(updatedData);
-  };
+    </>)
+}
 
   const handleSave = (index: number, field: string) => {
     const updatedData = [...data];
     updatedData[index][field.toLowerCase()] = updatedData[index][`temp${field}`];
     updatedData[index][`isEditing${field}`] = false;
     setData(updatedData);
+    // new UserApi().apiUsersIdPut( ,{
+
+    // })
   };
 
   const handleInputChange = (index: number, field: string, newValue: string) => {
@@ -198,10 +208,8 @@ const App = () => {
   ];
 
   return (
-    <main>
-      <Container maxW={"7xl"} paddingTop={"40px"}>
-        <ShopOrder columns={columns} data={data} />
-      </Container>
+    <main style={{ width: "90vw", paddingTop: "3rem" }}>
+      <ShopOrder columns={columns} data={data} />
     </main>
   );
 };

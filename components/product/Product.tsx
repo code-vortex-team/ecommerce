@@ -16,8 +16,8 @@ interface productTypes {
 const Product: React.FC<productTypes> = ({ size, name, price, image, _id }) => {
   const productSize =
     size === "small"
-      ? { maxWidth: "18.229vw", height: "33.6vh" }
-      : { maxWidth: "21.042vw", height: "36.8vh" };
+      ? { width: "100%", height: "336px" }
+      : { width: "100%", height: "368px" };
 
   return (
     <Flex {...productSize} gap="16px" flexDir="column">

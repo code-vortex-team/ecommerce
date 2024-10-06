@@ -1,8 +1,10 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShopOrder from "@/components/shopOrder/CreateTable";
-import { Button, Img, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Img, Text } from "@chakra-ui/react";
 import { color } from "@/components/colors";
+import Link from "next/link";
+import { UserApi } from "@/lib/openapi/apiClient";
 
 const columns = [
     {
@@ -73,45 +75,61 @@ const columns = [
             );
         },
     },
-    {
-        id: "operations",
-        header: () => "عملیات",
-        accessorKey: "operations",
-        cell: (info: any) => {
-            return (
-                <Button
-                    bg={color.primary.main} color={color.text.button} fontSize={"0.875rem"} fontWeight={"400"} _hover={{cursor: "pointer", background: color.primary.light}}
-                    style={{ padding: "8px 12px", borderRadius: "8px", width: "fit-content", marginInline: "auto"}}
-                >
-                    توضیحات
-                </Button>
-            );
-        },
-    },
+  
+  {
+    id: "operations",
+    header: () => "عملیات",
+    accessorKey: "id",
+    cell: (info: any) => {
+      return (
+        <Button
+        as={Link}
+        href={`./orders/${info.getValue()}`}
+        bg={color.primary.main} color={color.text.button} fontSize={"0.875rem"} fontWeight={"400"} _hover={{cursor: "pointer", background: color.primary.light}}
+          style={{ padding: "8px 12px", borderRadius: "8px", width: "fit-content", marginInline: "auto"}}
+        >
+          توضیحات
+        </Button>
+      );
+    },}
 ];
 
 const photoAddress = "https://dkstatics-public.digikala.com/digikala-products/9ec5e6fc915b58db69a363a1769d57a8aa89d5ae_1705485533.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90";
 const data = [
-    {
-        image: photoAddress,
-        name: "Apple iPhone 14 Pro",
-        date: "۱۴۰۱/۰۶/۳۱",
-        finalPrice: "999.00",
-        paymentStatus: "پرداخت شده",
-        shippingStatus: "در حال ارسال",
-    },
-    {
-        image: photoAddress,
-        name: "Apple MacBook Air M2",
-        date: "۱۴۰۱/۰۶/۳۱",
-        finalPrice: "999.00",
-        paymentStatus: "پرداخت شده",
-        shippingStatus: "ارسال شده",
-    },
+  {
+    image: photoAddress,
+    name: "Apple iPhone 14 Pro",
+    date: "۱۴۰۱/۰۶/۳۱",
+    finalPrice: "999.00",
+    paymentStatus: "پرداخت شده",
+    shippingStatus: "در حال ارسال",
+    id: "645655"
+  },
+  {
+    image: photoAddress,
+    name: "Apple MacBook Air M2",
+    date: "۱۴۰۱/۰۶/۳۱",
+    finalPrice: "999.00",
+    paymentStatus: "پرداخت شده",
+    shippingStatus: "ارسال شده",
+    id: "645658"
+  },
 ];
 
-const App = () => (
-    <ShopOrder columns={columns} data={data}/>
-);
+const App = async () => {
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
+  //       setData(r.data)
+  //     })
+
+  // }, [])
+
+  return (
+    <main style={{ width: "90vw", paddingTop: "3rem" }}>
+      <ShopOrder columns={columns} data={data} />
+    </main>
+  );
+};
 
 export default App;
