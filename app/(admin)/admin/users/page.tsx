@@ -9,15 +9,7 @@ import { FaCheck } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import { UserApi } from "@/lib/openapi/apiClient";
 
-const App = async () => {
-
-  // const [data, setData] = useState([])
-  // useEffect(() => {
-  //     new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
-  //       setData(r.data)
-  //     })
-
-  // }, [])
+const App = () => {
 
   const [data, setData] = useState([
     {

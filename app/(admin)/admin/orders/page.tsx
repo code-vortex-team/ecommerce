@@ -121,13 +121,16 @@ const data = [
     },
 ];
 
-const App = async () => {
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
-  //       setData(r.data)
-  //     })
+const App = () => {
+  // async function getFromApi() {
+  //   new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
+  //     setData(r.data)
+  //   })
+  // }
 
+  // const [data, setData] = useState([])
+  // useEffect(() => {
+  //   getFromApi()
   // }, [])
   return (
     <main style={{ width: "90vw", paddingTop: "3rem" }}>
