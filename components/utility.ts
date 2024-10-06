@@ -1,3 +1,5 @@
+import moment from "jalali-moment";
+
 export const timeAgo = (date: string) => {
     const now = new Date();
     const diffInSeconds = Math.floor((now - new Date(date)) / 1000);
@@ -34,7 +36,6 @@ export const formatToToman = (number) => {
     return number.toLocaleString('fa-IR');
 }
 
-import moment from "jalali-moment";
 
 export const convertToJalali = (dateString) => {
     const gregorianMoment = moment(dateString, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
@@ -50,3 +51,23 @@ export const convertToJalali = (dateString) => {
 
     return `${parseInt(day)} ${persianMonths[parseInt(month) - 1]} ${year}`;
 }
+
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts: any = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+export const checkUserStatus = () => {
+    const isAdmin = getCookie('isAdmin');
+    const isLoggedIn = !!getCookie('isAdmin');
+
+    return {
+        isLoggedIn: isLoggedIn,
+        isAdmin: isAdmin === 'true',
+    };
+}
+
+
