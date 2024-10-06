@@ -20,6 +20,7 @@
     "jalali-moment": "^3.3.11",
     "chart.js": "^4.4.4",
     "framer-motion": "^11.8.0",
+    "dayjs": "^1.11.13",
     "@tanstack/react-table": "^8.20.5",
 
     "next": "14.2.9",
