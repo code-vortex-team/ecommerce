@@ -1,7 +1,6 @@
 'use client';
 import {useForm} from "react-hook-form";
 import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text, useToast} from "@chakra-ui/react";
-import {UserApi} from "@/lib/openapi/apiClient";
 import {color} from "@/components/colors";
 import {ReactNode, useState} from "react";
 import {useRouter} from "next/navigation";
@@ -15,36 +14,40 @@ const Page = () => {
     const toast = useToast()
     const {push} = useRouter()
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+
         setIsLoading(true);
-        new UserApi().apiUsersAuthPost({
-            "email": data.email,
-            "password": data.password
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "email": data.email,
+                "password": data.password
+            }),
         })
-            .then((r) => {
-                toast({
-                    title: 'ورود انجام شد',
-                    description: "ورود شما با موفقیت انجام شد!",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                })
-                push("/")
+        if (res.ok) {
+            toast({
+                title: 'ورود انجام شد',
+                description: "ورود شما با موفقیت انجام شد!",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
             })
-            .catch((e) => {
+            push("/")
+        } else {
 
-                toast({
-                    title: 'ورود انجام نشد',
-                    description: e?.response?.data?.message || "ورود شما انجام نشد",
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                })
-
+            let data = await res.json()
+            toast({
+                title: 'ورود انجام نشد',
+                description: data.message || "",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
             })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        }
+        setIsLoading(false);
     };
 
     return (
