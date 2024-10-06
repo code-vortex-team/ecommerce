@@ -1,7 +1,6 @@
 'use client';
 import {useForm} from "react-hook-form";
 import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text, useToast} from "@chakra-ui/react";
-import {UserApi} from "@/lib/openapi/generated-client";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 
@@ -11,38 +10,45 @@ const Page = () => {
     const password = watch("Password");
     const toast = useToast()
     const {push} = useRouter()
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         setIsLoading(true);
 
-        new UserApi().apiUsersPost({
-            "username": data.Name,
-            "email": data.Email,
-            "password": data.Password,
-            "confirm_Password": data.ConfirmPassword
-        })
-            .then((response) => {
-                toast({
-                    title: 'ثبت نام انجام شد',
-                    description: "ثبت نام شما با موفقیت انجام شد!",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                })
-                push("/")
-            })
-            .catch((e) => {
-                toast({
-                    title: 'ثبت نام انجام نشد!!',
-                    description: e?.response?.data?.message || "متاسفانه ثبت نام شما با مشکل مواجه شد!",
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                })
 
+        const res = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "username": data.Name,
+                "email": data.Email,
+                "password": data.Password,
+                "confirm_Password": data.ConfirmPassword
+            }),
+        })
+        if (res.ok) {
+            toast({
+                title: 'ثبت نام انجام شد',
+                description: "ثبت نام شما با موفقیت انجام شد!",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
             })
-            .finally(() => {
-                setIsLoading(false);
-            });
+            push("/")
+        } else {
+
+            let data = await res.json()
+
+            toast({
+                title: 'ثبت نام انجام نشد!!',
+                description: data.message || "",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            })
+        }
+        setIsLoading(false);
+
     };
 
     return (
