@@ -20,7 +20,7 @@ const Product: React.FC<Product> = ({image, price, createdAt, description, name}
                 }
             }}
         >
-            <Image src={`${image}`.replace("http://localhost:5000", "http://185.8.174.74:8090")} alt={name} width={160}
+            <Image src={`${image}`} alt={name} width={160}
                    height={160}/>
         </Box>
         <VStack flex={1} height={"auto"} justifyContent={"space-between"} p={"1rem"}>
