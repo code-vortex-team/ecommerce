@@ -1,8 +1,7 @@
 import axios from "axios";
 
-
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://185.8.174.74:8090"
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
 axios.interceptors.request.use(
     async (request) => {
