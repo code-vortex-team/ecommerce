@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
 import {Bar} from 'react-chartjs-2'
-import { Chart, CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend, scales } from 'chart.js'
-import { color } from '../colors'
+import { Chart, CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend } from 'chart.js'
+import dayjs from 'dayjs'
 
 Chart.register(
     CategoryScale,
@@ -13,14 +13,30 @@ Chart.register(
     Tooltip,
     Legend
 )
-interface SalesChartProps {
-    saleData : Number[]
+
+interface order {
+    createdAt : string
 }
-const SalesChart : React.FC <SalesChartProps> = ({saleData}) => {
+
+interface SalesChartProps {
+    orders : order[]
+}
+
+const SalesChart : React.FC <SalesChartProps> = ({orders}) => {
+
+    const orderCountByDate = orders.reduce<Record<string, number>>((acc, order) => {
+        const formattedDate = dayjs(order.createdAt).format('YYYY-MM-DD');
+        acc[formattedDate] = (acc[formattedDate] || 0) + 1;
+        return acc
+    }, {})
+
+    const labels = Object.keys(orderCountByDate)
+    const saleData = Object.values(orderCountByDate)
+
     const data = {
-        labels : Array.from({ length: saleData.length }, (_, i) =>i + 1),
+        labels,
         datasets : [{
-            lable: "مقدار فروش",
+            label: "مقدار فروش",
             data : saleData,
             backgroundColor: '#DB2777',
             fill: true,
@@ -37,20 +53,20 @@ const SalesChart : React.FC <SalesChartProps> = ({saleData}) => {
                 display: true,
                 text: "نمودار فروش روزانه"
             },
-            scales : {
-                x: {
-                    title: {
-                        display: true,
-                        text: "روز"
-                    },
+        },
+        scales : {
+            x: {
+                title: {
+                    display: true,
+                    text: "روز"
                 },
-                y: {
-                    title: {
-                        display: true,
-                        text: " فروش"
-                    },
-                    beginAtZero: true
-                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: "سفارشات"
+                },
+                beginAtZero: true
             }
         }
     }

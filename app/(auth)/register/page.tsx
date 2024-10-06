@@ -1,13 +1,48 @@
 'use client';
 import {useForm} from "react-hook-form";
-import {Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text} from "@chakra-ui/react";
-import NextLink from "next/link";
+import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text, useToast} from "@chakra-ui/react";
+import {UserApi} from "@/lib/openapi/generated-client";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
 
 const Page = () => {
     const {register, formState: {errors}, handleSubmit, watch} = useForm();
+    const [isLoading, setIsLoading] = useState(false);
     const password = watch("Password");
+    const toast = useToast()
+    const {push} = useRouter()
+    const onSubmit = (data) => {
+        setIsLoading(true);
 
-    const onSubmit = () => {
+        new UserApi().apiUsersPost({
+            "username": data.Name,
+            "email": data.Email,
+            "password": data.Password,
+            "confirm_Password": data.ConfirmPassword
+        })
+            .then((response) => {
+                toast({
+                    title: 'ثبت نام انجام شد',
+                    description: "ثبت نام شما با موفقیت انجام شد!",
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+                push("/")
+            })
+            .catch((e) => {
+                toast({
+                    title: 'ثبت نام انجام نشد!!',
+                    description: e?.response?.data?.message || "متاسفانه ثبت نام شما با مشکل مواجه شد!",
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                })
+
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
     return (
@@ -102,17 +137,19 @@ const Page = () => {
                     </FormErrorMessage>
                 </FormControl>
 
-                <Button width="4px" mt="2rem" variant="regularPinkButton">
+                <Button width="auto" mt="2rem" variant="regularPinkButton" type="submit" isLoading={isLoading}>
                     ثبت نام
                 </Button>
             </form>
 
             <Text mt="1.5rem" fontSize="1rem" fontWeight={400} color="text.primary">
-                عضو هستید ؟{' '}
-                <NextLink href="../login" passHref>
-                    <Link color="pink.500" fontWeight="bold"> ورود</Link>
-                </NextLink>
+                عضو هستید؟{' '}
+
+
             </Text>
+            <Box>
+                <Link href={"/login"} color="pink.500" fontWeight="bold"> ورود</Link>
+            </Box>
         </>
     );
 };
