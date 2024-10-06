@@ -1,4 +1,4 @@
-import BadgeStyleConfig from '@/components/styles/BadgeConfigStyle'
+import BadgeStyleConfig from '@/components/Styles/BadgeConfigStyle'
 import {extendTheme, type ThemeConfig, ThemeOverride} from '@chakra-ui/react'
 import {color} from "@/components/colors";
 import {ColorVariable, replaceDotsWithVar} from "@/components/styles/ChakraColorStyle";
