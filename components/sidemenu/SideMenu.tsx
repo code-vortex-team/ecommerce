@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import {Box, Flex} from "@chakra-ui/react";
+import {Box, Flex, Switch, useColorMode} from "@chakra-ui/react";
 import {useRouter} from "next/navigation";
 import {color} from "@/components/colors";
 import DropDown from "../dropDown/DropDown";
@@ -24,7 +24,7 @@ interface sideMenuType {
 
 const SideMenu: React.FC<sideMenuType> = ({children, list, dropDown}) => {
     const {push} = useRouter();
-
+    const {colorMode, toggleColorMode} = useColorMode()
     return (
         <>
             <Box position={"relative"} zIndex="100">
@@ -112,6 +112,7 @@ const SideMenu: React.FC<sideMenuType> = ({children, list, dropDown}) => {
                     <Box pos="absolute" bottom="10px" right="10px">
                         <DropDown title={dropDown.title} list={dropDown.list}/>
                     </Box>
+                    <Box pos="absolute" bottom="50px" right="20px"> <Switch colorScheme='pink' size='sm' isChecked={colorMode === 'dark'} onChange={toggleColorMode} /> </Box>
                 </Flex>
             </Box>
             <Box width={"100%"}>{children}</Box>
