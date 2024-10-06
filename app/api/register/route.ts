@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
         const nextRes = NextResponse.json(res.data, {status: 200});
         nextRes.headers.set('Set-Cookie', setCookieHeader)
         const serverCookies = cookies();
+        serverCookies.set("isAdmin", res.data.isAdmin)
 
 
         return nextRes

@@ -14,11 +14,11 @@ export async function POST(req: NextRequest) {
         const nextRes = NextResponse.json(res.data, {status: 200});
         nextRes.headers.set('Set-Cookie', setCookieHeader)
         const serverCookies = cookies();
-
+        serverCookies.set("isAdmin", res.data.isAdmin)
 
         return nextRes
     } catch (e) {
-        return NextResponse.json({message: e.response.data}, {status: 400});
+        return NextResponse.json({message: e.response.data.message}, {status: 400});
 
     }
 }
