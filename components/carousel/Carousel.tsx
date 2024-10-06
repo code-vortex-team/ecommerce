@@ -6,6 +6,7 @@ import { color } from "../colors";
 import { FaShoppingCart, FaStar, FaBox} from "react-icons/fa";
 import { AiFillShop } from "react-icons/ai";
 import { MdAccessTimeFilled } from "react-icons/md";
+import Link from "next/link";
 
 
 const Carousel = ({ products }: { products: Array<object> }) => {
@@ -20,6 +21,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
   const brand = products.map((product) => product?.name)
   const updateTime = products.map((product) =>  new Date(product?.updatedAt).toLocaleDateString())
   const reviews = products.map((product) => product?.numReviews)
+  const id = products.map((product) => product?.id)
   
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState("initial");
@@ -119,7 +121,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
           color={color.text.primary}
           boxSize={"20px"}
           position={"absolute"}
-          left={"0px"}
+          left={"-18px"}
           top={"67%"}
           transform={"translateY(-50%)"}
           //   pointerEvents="auto"
@@ -146,7 +148,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
           color={color.text.primary}
           boxSize={"20px"}
           position={"absolute"}
-          right={"0px"}
+          right={"-18px"}
           top={"67%"}
           transform={"translateY(-50%)"}
           //   pointerEvents="auto"
@@ -170,9 +172,9 @@ const Carousel = ({ products }: { products: Array<object> }) => {
     </Box>
     <Box display={"flex"} flexDirection={"row"} width={"100%"} gap={"10px"} justifyContent={"space-between"}>
       <Box display={"flex"} flexDirection={"column"} gap={"10px"} width={"50%"}>    
-        <Text display={"flex"} flexDirection={"row"} gap={"8px"}>{name[currentIndex]} </Text>
+        <Text display={"flex"} flexDirection={"row"} gap={"8px"} as={Link} href={`/product/${id[currentIndex]}`} cursor={"pointer"}>{name[currentIndex]} </Text>
         <Text display={"flex"} flexDirection={"row"} gap={"8px"} width={"100%"} justifyContent={"end"}>{price[currentIndex]} تومان </Text>
-        <Text display={"flex"} flexDirection={"row"} gap={"8px"}>{description[currentIndex]} </Text>
+        <Text display={"flex"} flexDirection={"row"} gap={"8px"} maxHeight={"2rem"} overflow={"hidden"}>{description[currentIndex]} </Text>
       </Box>
       <Box display={"flex"} flexDirection={"column"} gap={"20px"} width={"max-content"}>
         <Box display={"flex"} flexDirection={"row"} gap={"8px"}><FaStar /><Text color={color.text.secondary}>امتیاز: </Text>{rate[currentIndex]} </Box>
