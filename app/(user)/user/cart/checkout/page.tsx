@@ -9,59 +9,6 @@ import ShoppingData from "@/components/shoppingData/ShoppingData";
 import Link from "next/link";
 import { UserApi } from "@/lib/openapi/apiClient";
 
-const columns = [
-  {
-    id: "image",
-    header: () => "عکس",
-    accessorKey: "image",
-    cell: (info: any) => <Img src={info.getValue()} alt="product image" minWidth={"64px"} boxSize={"64px"} marginInline={"auto"}/>,
-  },
-  {
-    id: "name",
-    header: () => "نام محصول",
-    accessorKey: "name",
-  },
-  {
-    id: "quantity",
-    header: () => "تعداد",
-    accessorKey: "quantity",
-  },
-  {
-    id: "price",
-    header: () => "قیمت",
-    accessorKey: "price",
-  },
-  {
-    id: "finalPrice",
-    header: () => "قیمت نهایی",
-    accessorKey: "finalPrice",
-  },
-];
-
-const photoAddress = "https://dkstatics-public.digikala.com/digikala-products/9ec5e6fc915b58db69a363a1769d57a8aa89d5ae_1705485533.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90";
-const data = [
-  {
-    image: photoAddress,
-    name: "Apple iPhone 14 Pro",
-    date: "۱۴۰۱/۰۶/۳۱",
-    finalPrice: "999.00",
-    paymentStatus: "پرداخت شده",
-    shippingStatus: "در حال ارسال",
-    quantity: "2",
-    price: "1000"
-  },
-  {
-    image: photoAddress,
-    name: "Apple MacBook Air M2",
-    date: "۱۴۰۱/۰۶/۳۱",
-    finalPrice: "999.00",
-    paymentStatus: "پرداخت شده",
-    shippingStatus: "ارسال شده",
-    quantity: "2",
-    price: "1000"
-  },
-];
-
   const shopAddressTitle = "آدرس دریافت";
   const shopAddressData = [{title: "شماره سفارش", value: 235465}, {title: "نام", value: "علی"}, {title: "ایمیل", value: "myemail@gmail.com"}];
   const shoppingDataTitle = "خلاصه خرید"

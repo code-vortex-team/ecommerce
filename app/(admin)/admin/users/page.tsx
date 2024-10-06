@@ -34,11 +34,8 @@ const App = () => {
     },
   ]);
 
-  const handleToggleEdit = (index: number, field: string) => {
-    const updatedData = [...data];
-    updatedData[index][`isEditing${field}`] = !updatedData[index][`isEditing${field}`];
-    setData(updatedData);
-  };
+    </>)
+}
 
   const handleSave = (index: number, field: string) => {
     const updatedData = [...data];
