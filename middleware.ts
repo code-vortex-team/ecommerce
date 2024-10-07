@@ -9,10 +9,10 @@ export function middleware(req: NextRequest) {
     // const token = req.cookies.get(cookiesName)?.value
     const serverCookies = cookies();
     const pathname = req.nextUrl.pathname;
-    if (pathname.startsWith('/user/cart')) {
-
-        return NextResponse.next()
-    }
+    // if (pathname.startsWith('/user/cart')) {
+    //
+    //     return NextResponse.next()
+    // }
 
     if (!serverCookies.has("jwt")) {
 

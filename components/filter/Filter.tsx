@@ -5,7 +5,7 @@ import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { color } from "../colors";
 
 interface FilterProps {
-  categories: Array<{ name: string; active: boolean }>;
+  categories: Array<{ name: string; active: boolean, _id: string }>;
 }
 
 const Filter: React.FC<FilterProps> = ({ categories: initialCategories }) => {

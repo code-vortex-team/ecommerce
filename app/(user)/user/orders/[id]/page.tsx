@@ -1,7 +1,7 @@
 "use client"
 import React, {FC, useEffect, useState} from "react";
 import ShopOrder from "@/components/shopOrder/CreateTable";
-import {Button, Container, Img, Text, useToast} from "@chakra-ui/react";
+import {Button, Container, Flex, Img, Spinner, Text, useToast} from "@chakra-ui/react";
 import {color} from "@/components/colors";
 import ShopAddress from "@/components/shopAddress/ShopAddress";
 import ShoppingData from "@/components/shoppingData/ShoppingData";
@@ -51,10 +51,12 @@ const App: FC = () => {
 
     const {id} = useParams()
     const [ApiData, setData] = useState<unknown>({})
+    const [loading, setIsLoading] = useState<unknown>(true)
 
     const callApi = async () => {
         const res = await new OrdersApi().apiOrdersIdGet(id.toString())
         setData(res.data)
+        setIsLoading(false)
     }
     useEffect(() => {
         callApi()
@@ -72,6 +74,13 @@ const App: FC = () => {
             callApi()
         })
     }
+
+    if (loading) {
+        return <Flex width={"full"} height={"100vh"} alignItems={"center"} justifyContent={"center"}>
+            <Spinner/>
+        </Flex>
+    }
+
     return (
         <main
             style={{

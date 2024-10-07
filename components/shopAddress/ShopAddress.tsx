@@ -1,5 +1,6 @@
 "use client";
-import { Box, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { color } from "../colors";
 
 interface propsType {
   title: string;
@@ -7,12 +8,10 @@ interface propsType {
 }
 
 const ShopAddress = ({ title, data }: propsType) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <Box dir="rtl" width="28.594vw" h="fit-content">
       <Text
-        color={colorMode === "light" ? "black" : "white"}
+        color={color.text.primary}
         mb="24px"
         fontSize="20px"
         fontWeight="500"
@@ -24,7 +23,7 @@ const ShopAddress = ({ title, data }: propsType) => {
         <Box key={index} mb="16px">
           <Text
             display="inline"
-            color="#DB2777"
+            color={color.primary.main}
             fontSize="16px"
             fontWeight="700"
             lineHeight="24px"
@@ -36,7 +35,7 @@ const ShopAddress = ({ title, data }: propsType) => {
             fontWeight="400"
             lineHeight="24px"
             display="inline"
-            color={colorMode === "light" ? "black" : "white"}
+            color={color.text.primary}
           >
             {item.value}
           </Text>

@@ -1,17 +1,18 @@
 "use client"
 import {Box, Button, Container, Img, useToast} from "@chakra-ui/react";
 import BasicStepper from "@/components/UI/Stepper/BasicStepper";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import GetAddressForm from "@/components/Forms/getAddressForm";
 import ShopOrder from "@/components/shopOrder/CreateTable";
 import {useAppDispatch, useAppSelector} from "@/lib/redux/hooks";
-import {OrdersApi, ProductsApi} from "@/lib/openapi/generated-client";
-import {addItem, clearAll} from "@/lib/redux/features/Basket/basketSlice";
+import {OrdersApi} from "@/lib/openapi/generated-client";
+import {clearAll} from "@/lib/redux/features/Basket/basketSlice";
 import OrderDetails from "@/components/orderdetails/OrderDetails";
 import {useRouter} from "next/navigation";
 
 const Page = (props) => {
     const [index, setIndex] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState<unknown>({})
     const {
         list: data,
@@ -72,18 +73,9 @@ const Page = (props) => {
     ];
 
 
-    useEffect(() => {
-        new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
-            r.data?.map(item => {
-                dispatch(addItem({
-                    ...item,
-                }))
-            })
-        })
-    }, []);
-
     const createOrder = () => {
         console.log(formData)
+        setIsLoading(true)
         new OrdersApi().apiOrdersPost({
             orderItems: data.map(item => ({
                 _id: item._id,
@@ -106,6 +98,8 @@ const Page = (props) => {
             })
             dispatch(clearAll())
             push("/user/orders")
+        }).finally(() => {
+            setIsLoading(false)
         })
     }
 
@@ -139,7 +133,7 @@ const Page = (props) => {
             </Box>
         </Container>
 
-        <Container maxW={"100%"}>
+        <Container maxW={"100%"} pb={"200px"}>
             {index === 2 &&
                 <>
                     <Box>
@@ -148,8 +142,9 @@ const Page = (props) => {
 
                     <Box>
                         <OrderDetails  {...formData}  />
-                        <Box pt={5}>
-                            <Button variant="roundedPinkButton" minWidth={"100%"} onClick={createOrder}>ثبت
+                        <Box pt={20}>
+                            <Button variant="roundedPinkButton" isLoading={isLoading} minWidth={"100%"}
+                                    onClick={createOrder}>ثبت
                                 سفارش</Button>
                         </Box>
                     </Box>
