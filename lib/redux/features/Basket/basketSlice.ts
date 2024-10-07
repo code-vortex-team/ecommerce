@@ -42,25 +42,39 @@ const BasketSlice = createSlice({
 
         },
         removeItem: (state, action) => {
-            const {_id} = action.payload
-            const isInList = state.list.filter(item => item._id === _id)
+            const {_id, price} = action.payload
+            const itemInList = state.list.find(item => item._id === _id)
 
-            if (isInList.length > 0) {
-                state.totalPrice -= parseInt(isInList[0].price)
-                if (isInList[0].count >= 2) {
-                    state.list = state.list.map(item => {
-                        if (item => item._id === _id) {
-                            item.count--
-                        }
-                    })
+            if (itemInList) {
+                if (itemInList.count > 1) {
+                    itemInList.count--
                 } else {
-                    state.list = state.list.filter(item => item._id != _id)
+                    state.list = state.list.filter(item => item._id !== _id)
                 }
 
+                // کاهش قیمت کل
+                state.totalPrice -= parseInt(price)
             }
 
             setLocalStorage("basket", state)
+        },
+        clearItem: (state, action) => {
+            const {_id} = action.payload
+            const itemInList = state.list.find(item => item._id === _id)
 
+            if (itemInList) {
+                state.totalPrice -= parseInt(itemInList.price) * itemInList.count
+
+                state.list = state.list.filter(item => item._id !== _id)
+            }
+
+            setLocalStorage("basket", state)
+        },
+        clearAll: (state, action) => {
+            state.list = []
+            state.totalPrice = 0
+
+            setLocalStorage("basket", state)
         },
         setLocalData: (state) => {
             const data = getLocalStorage("basket", initialState)
@@ -73,6 +87,6 @@ const BasketSlice = createSlice({
     initialState,
 
 })
-export const {addItem, removeItem, setLocalData} = BasketSlice.actions
+export const {addItem, clearItem, clearAll, removeItem, setLocalData} = BasketSlice.actions
 
 export default BasketSlice.reducer
