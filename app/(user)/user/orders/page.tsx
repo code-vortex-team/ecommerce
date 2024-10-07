@@ -4,48 +4,60 @@ import ShopOrder from "@/components/shopOrder/CreateTable";
 import { Box, Button, Container, Img, Text } from "@chakra-ui/react";
 import { color } from "@/components/colors";
 import Link from "next/link";
-import { UserApi } from "@/lib/openapi/apiClient";
+import { OrdersApi } from "@/lib/openapi/apiClient";
 
 const columns = [
-  {
-    id: "image",
-    header: () => "عکس",
-    accessorKey: "image",
-    cell: (info: any) => (
-      <Img
-        src={info.getValue()}
-        alt="product image"
-        minWidth={"64px"}
-        boxSize={"64px"}
-        marginInline={"auto"}
-      />
-    ),
-  },
-  {
-    id: "name",
-    header: () => "نام محصول",
-    accessorKey: "name",
-  },
+//   {
+//     id: "image",
+//     header: () => "عکس",
+//     accessorKey: "orderItems",
+//     cell: (info: any) => (
+//       <Img
+//         src={info.getValue()[0]?.image}
+//         alt="product image"
+//         minWidth={"64px"}
+//         boxSize={"64px"}
+//         marginInline={"auto"}
+//       />
+//     ),
+//   },
+//   {
+//     id: "name",
+//     header: () => "نام محصول",
+//     accessorKey: "orderItems",
+//     cell: (info: any) => {
+//       const value = info.getValue()[0]?.name;
+//       return <Text>{value}</Text>;
+//     },
+//   },
   {
     id: "date",
     header: () => "تاریخ",
-    accessorKey: "date",
+    accessorKey: "createdAt",
+    cell: (info: any) => {
+      const value = new Date(info.getValue()).toLocaleString();
+      return <Text>{value}</Text>;
+    },
   },
   {
     id: "finalPrice",
     header: () => "قیمت نهایی",
-    accessorKey: "finalPrice",
+    accessorKey: "totalPrice",
+    cell: (info: any) => {
+      const value = info.getValue();
+      return <Text>{value} تومان</Text>;
+    },
   },
   {
     id: "paymentStatus",
     header: () => "پرداخت",
-    accessorKey: "paymentStatus",
+    accessorKey: "isPaid",
     cell: (info: any) => {
       const status = info.getValue();
       const statusColor =
-        status === "پرداخت شده" ? color.success.main : color.error.main;
+        status === true ? color.success.main : color.error.main;
       const textColor =
-        status === "پرداخت شده" ? color.success.lighter : color.error.lighter;
+        status === true ? color.success.lighter : color.error.lighter;
       return (
         <Text
           bg={statusColor}
@@ -58,7 +70,7 @@ const columns = [
             marginInline: "auto",
           }}
         >
-          {status}
+          {status === false ? "پرداخت نشده" : "پرداخت شده"}
         </Text>
       );
     },
@@ -66,22 +78,22 @@ const columns = [
   {
     id: "shippingStatus",
     header: () => "ارسال",
-    accessorKey: "shippingStatus",
+    accessorKey: "isDelivered",
     cell: (info: any) => {
       const status = info.getValue();
       const statusColor =
-        status === "در حال ارسال"
-          ? color.info.main
-          : status === "ارسال شده"
+        status === false
+          ? color.error.main
+          : status === true
           ? color.success.main
-          : color.error.main;
+          : color.info.main;
 
       const textusColor =
-        status === "در حال ارسال"
-          ? color.info.lighter
-          : status === "ارسال شده"
+        status === false
+          ? color.error.lighter
+          : status === true
           ? color.success.lighter
-          : color.error.lighter;
+          : color.info.lighter;
       return (
         <Text
           bg={statusColor}
@@ -94,7 +106,7 @@ const columns = [
             marginInline: "auto",
           }}
         >
-          {status}
+          {status === false ? "ارسال نشده" : "ارسال شده"}
         </Text>
       );
     },
@@ -103,7 +115,7 @@ const columns = [
   {
     id: "operations",
     header: () => "عملیات",
-    accessorKey: "id",
+    accessorKey: "_id",
     cell: (info: any) => {
       return (
         <Button
@@ -128,37 +140,36 @@ const columns = [
   },
 ];
 
-const photoAddress =
-  "https://dkstatics-public.digikala.com/digikala-products/9ec5e6fc915b58db69a363a1769d57a8aa89d5ae_1705485533.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90";
-const data = [
-  {
-    image: photoAddress,
-    name: "Apple iPhone 14 Pro",
-    date: "۱۴۰۱/۰۶/۳۱",
-    finalPrice: "999.00",
-    paymentStatus: "پرداخت شده",
-    shippingStatus: "در حال ارسال",
-    id: "645655",
-  },
-  {
-    image: photoAddress,
-    name: "Apple MacBook Air M2",
-    date: "۱۴۰۱/۰۶/۳۱",
-    finalPrice: "999.00",
-    paymentStatus: "پرداخت شده",
-    shippingStatus: "ارسال شده",
-    id: "645658",
-  },
-];
+// const photoAddress =
+//   "https://dkstatics-public.digikala.com/digikala-products/9ec5e6fc915b58db69a363a1769d57a8aa89d5ae_1705485533.jpg?x-oss-process=image/resize,m_lfit,h_800,w_800/format,webp/quality,q_90";
+// const data = [
+//   {
+//     image: photoAddress,
+//     name: "Apple iPhone 14 Pro",
+//     date: "۱۴۰۱/۰۶/۳۱",
+//     finalPrice: "999.00",
+//     paymentStatus: "پرداخت شده",
+//     shippingStatus: "در حال ارسال",
+//     id: "645655",
+//   },
+//   {
+//     image: photoAddress,
+//     name: "Apple MacBook Air M2",
+//     date: "۱۴۰۱/۰۶/۳۱",
+//     finalPrice: "999.00",
+//     paymentStatus: "پرداخت شده",
+//     shippingStatus: "ارسال شده",
+//     id: "645658",
+//   },
+// ];
 
 const App = () => {
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //     new UserApi().apiProductsAllproductsGet().then((r: any) => {
-  //       setData(r.data)
-  //     })
-
-  // }, [])
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    new OrdersApi().apiOrdersMineGet().then((r: any) => {
+      setData(r.data);
+    });
+  }, []);
 
   return (
     <main style={{ width: "90vw", paddingTop: "3rem" }}>
