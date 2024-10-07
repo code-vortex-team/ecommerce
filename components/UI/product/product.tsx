@@ -4,11 +4,12 @@ import Image from "next/image"
 import React from "react";
 import {Product} from "@/types/product"
 import {convertToJalali} from "@/components/utility";
+import {useRouter} from "next/navigation";
 
 
-const Product: React.FC<Product> = ({image, price, createdAt, description, name}) => {
+const Product: React.FC<Product> = ({image, _id, price, createdAt, description, name}) => {
 
-
+    const {push} = useRouter()
     return (<Box bgColor={color.base.card} display={"flex"} p={".5rem"} mb={2} borderRadius={3}>
         <Box
             width={160} height={160}
@@ -39,7 +40,10 @@ const Product: React.FC<Product> = ({image, price, createdAt, description, name}
             </Box>
 
             <HStack alignItems={"center"} justifyContent={"space-between"} width={"100%"}>
-                <Button variant={"regularPinkButton"} rightIcon={
+                <Button
+
+                    onClick={() => push(`/admin/product/edit/${_id}`)}
+                    variant={"regularPinkButton"} rightIcon={
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <Box as="path" d="M13 5H1M1 5L5 1M1 5L5 9"
