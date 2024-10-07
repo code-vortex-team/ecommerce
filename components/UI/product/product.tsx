@@ -35,7 +35,8 @@ const Product: React.FC<Product> = ({image, _id, price, createdAt, description, 
                 </Text>
 
             </HStack>
-            <Box width={"100%"} color={color.text.secondary} fontSize={14} fontWeight={400}>
+            <Box width={"100%"} color={color.text.secondary} fontSize={14} fontWeight={400} maxH={"38px"}
+                 overflow={"hidden"}>
                 {description}
             </Box>
 

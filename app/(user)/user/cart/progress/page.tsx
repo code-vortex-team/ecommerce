@@ -12,6 +12,7 @@ import {useRouter} from "next/navigation";
 
 const Page = (props) => {
     const [index, setIndex] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState<unknown>({})
     const {
         list: data,
@@ -74,6 +75,7 @@ const Page = (props) => {
 
     const createOrder = () => {
         console.log(formData)
+        setIsLoading(true)
         new OrdersApi().apiOrdersPost({
             orderItems: data.map(item => ({
                 _id: item._id,
@@ -96,6 +98,8 @@ const Page = (props) => {
             })
             dispatch(clearAll())
             push("/user/orders")
+        }).finally(() => {
+            setIsLoading(false)
         })
     }
 
@@ -139,7 +143,8 @@ const Page = (props) => {
                     <Box>
                         <OrderDetails  {...formData}  />
                         <Box pt={20}>
-                            <Button variant="roundedPinkButton" minWidth={"100%"} onClick={createOrder}>ثبت
+                            <Button variant="roundedPinkButton" isLoading={isLoading} minWidth={"100%"}
+                                    onClick={createOrder}>ثبت
                                 سفارش</Button>
                         </Box>
                     </Box>

@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import {color} from "@/components/colors";
 import {UserApi} from "@/lib/openapi/generated-client";
+import {useRouter} from "next/navigation";
 
 
 const Page = () => {
@@ -29,6 +30,7 @@ const Page = () => {
 
     const password = watch("password");
     const toast = useToast()
+    const {push} = useRouter()
 
     useEffect(() => {
         new UserApi().apiUsersProfileGet().then((r) => {
@@ -64,7 +66,7 @@ const Page = () => {
     return (<Container pt={"10vh"} maxW={640}>
 
         <Box fontSize={24} fontWeight={500} color={color.text.primary}>
-            آدرس دریافت
+            پروفایل
         </Box>
         <VStack as="form" pt={5} gap={3} onSubmit={onSubmit}>
             <FormControl isInvalid={!!errors.username} mb={4}>
@@ -122,7 +124,12 @@ const Page = () => {
                 </FormErrorMessage>
             </FormControl>
             <HStack justifyContent={"space-between"} width={"full"}>
-                <Button minWidth={"auto"} display={"inline-block"} variant="regularPinkButton">سفارشات
+                <Button minWidth={"auto"} display={"inline-block"} variant="regularPinkButton"
+                        onClick={() => {
+                            push("/user/orders")
+                        }}
+
+                >سفارشات
                     من</Button>
                 <Button type="submit" minWidth={"auto"} display={"inline-block"}
                         variant="regularPinkButton">بروزرسانی</Button>
