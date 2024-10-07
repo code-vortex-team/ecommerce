@@ -7,6 +7,7 @@ import {
   Text,
   Heading,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import Like from "../like/Like";
@@ -37,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
 
   const dispatch = useAppDispatch()
-
+  const toast = useToast()
 
   return (
     <Flex width="20vw" borderRadius="8px" flexDir="column" bg={color.base.card}>
@@ -120,7 +121,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
               name: name,
               price: price,
               image: imageAddress
-            }))}}
+            })), toast({
+              position: 'bottom-left',
+              render: () => (
+                <Box color='white' p={3} bg={color.primary.main}>
+                  محصول با موفقیت به سبد خرید اضافه شد
+                </Box>
+              ),
+            })}}
           >
             <AiOutlineShoppingCart />
           </Box>
