@@ -93,4 +93,7 @@ export const ColorVariable = (props) => ({
         [varNameConfig(color.base.textFieldDisabled)]: mode('#CED2D7', '#3F4043')(props),
         [varNameConfig(color.base.textFieldStroke)]: mode('#CED2D7', '#3F4043')(props),
     },
+    body: {
+        backgroundColor: mode('#EEEFF1', '#0F0F10')(props),
+    }
 })

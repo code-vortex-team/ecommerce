@@ -1,34 +1,54 @@
 'use client';
-import { useForm } from "react-hook-form";
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { UserApi } from "@/lib/openapi/generated-client";
-import { useState } from "react";
+import {useForm} from "react-hook-form";
+import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text, useToast} from "@chakra-ui/react";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
 
 const Page = () => {
-    const { register, formState: { errors }, handleSubmit, watch } = useForm();
+    const {register, formState: {errors}, handleSubmit, watch} = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const password = watch("Password");
-
-    const onSubmit = (data) => {
+    const toast = useToast()
+    const {push} = useRouter()
+    const onSubmit = async (data) => {
         setIsLoading(true);
 
-        new UserApi().apiUsersPost({
-            name: data.Name,
-            email: data.Email,
-            password: data.Password,
+
+        const res = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "username": data.Name,
+                "email": data.Email,
+                "password": data.Password,
+                "confirm_Password": data.ConfirmPassword
+            }),
         })
-            .then((response) => {
-                alert("ثبت نام شما با موفقیت انجام شد!");
-                console.log(response.data, "دیتای ثبت نام شده");
+        if (res.ok) {
+            toast({
+                title: 'ثبت نام انجام شد',
+                description: "ثبت نام شما با موفقیت انجام شد!",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
             })
-            .catch((error) => {
-                alert("متاسفانه ثبت نام شما با مشکل مواجه شد!");
-                console.error(error.response?.data || error.message, "ارور ثبت نام");
+            push("/")
+        } else {
+
+            let data = await res.json()
+
+            toast({
+                title: 'ثبت نام انجام نشد!!',
+                description: data.message || "",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
             })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        }
+        setIsLoading(false);
+
     };
 
     return (
@@ -48,7 +68,7 @@ const Page = () => {
                         fontSize="1rem"
                         bg="base.textField"
                         borderColor="base.textFieldStroke"
-                        _focusVisible={{ border: "none" }}
+                        _focusVisible={{border: "none"}}
                         {...register("Name", {
                             required: "فیلد ضروری میباشد",
                         })}
@@ -69,7 +89,7 @@ const Page = () => {
                         fontSize="1rem"
                         bg="base.textField"
                         borderColor="base.textFieldStroke"
-                        _focusVisible={{ border: "none" }}
+                        _focusVisible={{border: "none"}}
                         {...register("Email", {
                             required: "فیلد ضروری میباشد",
                         })}
@@ -90,7 +110,7 @@ const Page = () => {
                         fontSize="1rem"
                         bg="base.textField"
                         borderColor="base.textFieldStroke"
-                        _focusVisible={{ border: "none" }}
+                        _focusVisible={{border: "none"}}
                         {...register("Password", {
                             required: "فیلد ضروری میباشد",
                         })}
@@ -111,7 +131,7 @@ const Page = () => {
                         fontSize="1rem"
                         bg="base.textField"
                         borderColor="base.textFieldStroke"
-                        _focusVisible={{ border: "none" }}
+                        _focusVisible={{border: "none"}}
                         {...register("ConfirmPassword", {
                             required: "فیلد ضروری میباشد",
                             validate: (value) =>
@@ -130,10 +150,12 @@ const Page = () => {
 
             <Text mt="1.5rem" fontSize="1rem" fontWeight={400} color="text.primary">
                 عضو هستید؟{' '}
-                <NextLink href="../login" passHref>
-                    <Link color="pink.500" fontWeight="bold"> ورود</Link>
-                </NextLink>
+
+
             </Text>
+            <Box>
+                <Link href={"/login"} color="pink.500" fontWeight="bold"> ورود</Link>
+            </Box>
         </>
     );
 };

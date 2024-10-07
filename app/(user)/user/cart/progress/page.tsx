@@ -1,13 +1,14 @@
 "use client"
-import {Box, Button, Container, Img} from "@chakra-ui/react";
+import {Box, Button, Container, Img, useToast} from "@chakra-ui/react";
 import BasicStepper from "@/components/UI/Stepper/BasicStepper";
 import React, {useEffect, useState} from "react";
 import GetAddressForm from "@/components/Forms/getAddressForm";
 import ShopOrder from "@/components/shopOrder/CreateTable";
 import {useAppDispatch, useAppSelector} from "@/lib/redux/hooks";
 import {OrdersApi, ProductsApi} from "@/lib/openapi/generated-client";
-import {addItem} from "@/lib/redux/features/Basket/basketSlice";
+import {addItem, clearAll} from "@/lib/redux/features/Basket/basketSlice";
 import OrderDetails from "@/components/orderdetails/OrderDetails";
+import {useRouter} from "next/navigation";
 
 const Page = (props) => {
     const [index, setIndex] = useState(1)
@@ -18,8 +19,8 @@ const Page = (props) => {
     } = useAppSelector(s => s.basket)
 
     const dispatch = useAppDispatch()
-
-
+    const toast = useToast()
+    const {push} = useRouter()
     const list = [
         {
             title: "ورود"
@@ -82,11 +83,12 @@ const Page = (props) => {
     }, []);
 
     const createOrder = () => {
+        console.log(formData)
         new OrdersApi().apiOrdersPost({
             orderItems: data.map(item => ({
                 _id: item._id,
                 name: item.name,
-                quy: item.count
+                qty: item.count
             })),
             paymentMethod: "Cash",
             shippingAddress: {
@@ -96,6 +98,14 @@ const Page = (props) => {
             }
         }).then((r) => {
             console.log(r)
+            toast({
+                title: 'سفارش شما با موفقیت ثبت شد',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            })
+            dispatch(clearAll())
+            push("/user/orders")
         })
     }
 
@@ -120,6 +130,7 @@ const Page = (props) => {
                                 trackingFee: 10000,
 
                             },
+                            ...data
                         })
                     }}/>
                 }

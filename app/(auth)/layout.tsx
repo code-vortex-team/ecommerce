@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
                 }}
             >
 
-                <Image src={imageSrc} alt="login" objectFit="cover" width="1117" height="1073"/>
+                <Image src={imageSrc} alt="login" width="1117" height="1073"/>
             </Box>
         </Grid>
     );

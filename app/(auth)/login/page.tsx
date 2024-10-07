@@ -1,9 +1,9 @@
 'use client';
 import {useForm} from "react-hook-form";
-import {Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text} from "@chakra-ui/react";
-import {UserApi} from "@/lib/openapi/apiClient";
+import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Link, Text, useToast} from "@chakra-ui/react";
 import {color} from "@/components/colors";
 import {ReactNode, useState} from "react";
+import {useRouter} from "next/navigation";
 
 const Page = () => {
     const {register, formState: {errors}, handleSubmit}: ReactNode | unknown = useForm<{
@@ -11,24 +11,43 @@ const Page = () => {
         password: string;
     }>();
     const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast()
+    const {push} = useRouter()
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+
         setIsLoading(true);
-        new UserApi().apiUsersAuthPost({
-            "email": data.email,
-            "password": data.password
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "email": data.email,
+                "password": data.password
+            }),
         })
-            .then((r) => {
-                console.log(r.data, "دیتات اینه");
+        if (res.ok) {
+            toast({
+                title: 'ورود انجام شد',
+                description: "ورود شما با موفقیت انجام شد!",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            })
+            push("/")
+        } else {
 
+            let data = await res.json()
+            toast({
+                title: 'ورود انجام نشد',
+                description: data.message || "",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
             })
-            .catch((e) => {
-                alert("تو نتونستی وارد بشی متاسفم!");
-                console.log(e.response?.data || e.message, "ارورت اینه");
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        }
+        setIsLoading(false);
     };
 
     return (
@@ -71,9 +90,11 @@ const Page = () => {
             <Text mt="1.5rem" fontSize="1rem" fontWeight={400} color={color.text.primary}>
                 عضو نیستید؟{' '}
 
-                <Link href={"/register"} color="pink.500" fontWeight="bold"> ثبت نام</Link>
 
             </Text>
+            <Box>
+                <Link href={"/register"} color="pink.500" fontWeight="bold"> ثبت نام</Link>
+            </Box>
         </>
     );
 }
