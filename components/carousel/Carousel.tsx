@@ -87,7 +87,8 @@ const Carousel = ({ products }: { products: Array<object> }) => {
         <AnimatePresence>
           <motion.img
             style={{
-              objectFit: "contain",
+              objectFit: "cover",
+              width: "100%",
               borderRadius: "8px",
               //   display: "flex",
               //   alignSelf:"center",
@@ -148,7 +149,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
           color={color.text.primary}
           boxSize={"20px"}
           position={"absolute"}
-          right={"-18px"}
+          right={"-23px"}
           top={"67%"}
           transform={"translateY(-50%)"}
           //   pointerEvents="auto"
