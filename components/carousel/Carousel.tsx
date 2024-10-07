@@ -21,7 +21,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
   const brand = products.map((product) => product?.name)
   const updateTime = products.map((product) =>  new Date(product?.updatedAt).toLocaleDateString())
   const reviews = products.map((product) => product?.numReviews)
-  const id = products.map((product) => product?.id)
+  const id = products.map((product) => product?._id)
   
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState("initial");
@@ -174,7 +174,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
       <Box display={"flex"} flexDirection={"column"} gap={"10px"} width={"50%"}>    
         <Text display={"flex"} flexDirection={"row"} gap={"8px"} as={Link} href={`/product/${id[currentIndex]}`} cursor={"pointer"}>{name[currentIndex]} </Text>
         <Text display={"flex"} flexDirection={"row"} gap={"8px"} width={"100%"} justifyContent={"end"}>{price[currentIndex]} تومان </Text>
-        <Text display={"flex"} flexDirection={"row"} gap={"8px"} maxHeight={"2rem"} overflow={"hidden"}>{description[currentIndex]} </Text>
+        <Text display={"flex"} flexDirection={"row"} gap={"8px"} maxHeight={"4.4rem"} sx={{scrollbarWidth: "thin" }} overflowY={"auto"}>{description[currentIndex]} </Text>
       </Box>
       <Box display={"flex"} flexDirection={"column"} gap={"20px"} width={"max-content"}>
         <Box display={"flex"} flexDirection={"row"} gap={"8px"}><FaStar /><Text color={color.text.secondary}>امتیاز: </Text>{rate[currentIndex]} </Box>
