@@ -33,7 +33,7 @@ export const timeAgo = (date: string) => {
 }
 
 export const formatToToman = (number) => {
-    return number.toLocaleString('fa-IR');
+    return number?.toLocaleString('fa-IR') || "";
 }
 
 
