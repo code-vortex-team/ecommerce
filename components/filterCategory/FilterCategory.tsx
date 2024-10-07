@@ -11,7 +11,7 @@ export default function FilterCategory({
                                        }: {
   title: string;
   onchange?: (data: Array<{ name: string; active: boolean }>) => void;
-  categories: Array<{ name: string; active: boolean }>;
+  categories: Array<{ name: string; active: boolean, _id: string }>;
   resetFilters?: boolean;
 }) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);

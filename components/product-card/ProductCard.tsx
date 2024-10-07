@@ -1,3 +1,4 @@
+'use client'
 import {
   Badge,
   Box,
@@ -13,35 +14,38 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaArrowLeft } from "react-icons/fa6";
 import { color } from "../colors";
 import Link from "next/link";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { addItem } from "@/lib/redux/features/Basket/basketSlice";
 
 interface ProductCardProps {
   imageAddress: string;
   _id: string;
-  information: {
-    name: string;
-    price: string;
-    content: string;
-    category: string;
-  };
+  name: string;
+  price: string;
+  content: string;
+  category: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   imageAddress,
-  information,
   _id,
+  name,
+  price,
+  content,
+  category,
 }) => {
+
+
+  const dispatch = useAppDispatch()
+
+
   return (
-    <Flex
-      width="20vw"
-      borderRadius="8px"
-      flexDir="column"
-      bg={color.base.card}
-    >
+    <Flex width="20vw" borderRadius="8px" flexDir="column" bg={color.base.card}>
       <Box pos="relative">
         <Image
           height="17vh"
           src={imageAddress}
-          alt={information.name}
+          alt={name}
           objectFit="cover"
           width="100%"
           borderTopRadius="8px"
@@ -51,13 +55,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </Box>
         <Box pos="absolute" bottom="15px" right="15px">
           <Badge variant="pinkLg" textTransform="none">
-            {information.category}
+            {category}
           </Badge>
         </Box>
       </Box>
 
       <Box p="20px" h="177px">
-        <Flex justifyContent="space-between" mb="8px" whiteSpace='nowrap' textOverflow='ellipsis'>
+        <Flex
+          justifyContent="space-between"
+          mb="8px"
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+        >
           <Box>
             <Heading
               as="h5"
@@ -65,11 +74,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
               fontWeight="400"
               color={color.text.primary}
             >
-              {information.name}
+              {name}
             </Heading>
           </Box>
           <Box fontSize="16px" fontWeight="700">
-            <Text color={color.primary.main}>{information.price} تومان</Text>
+            <Text color={color.primary.main}>{price} تومان</Text>
           </Box>
         </Flex>
 
@@ -80,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           color={color.text.secondary}
           noOfLines={2}
         >
-          <Text>{information.content}</Text>
+          <Text>{content}</Text>
         </Box>
 
         <Flex
@@ -106,7 +115,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alignItems="center"
             justifyContent="center"
             cursor='pointer'
-            // onClick={}
+            onClick={()=>{dispatch(addItem({
+              _id: _id,
+              name: name,
+              price: price,
+              image: imageAddress
+            }))}}
           >
             <AiOutlineShoppingCart />
           </Box>

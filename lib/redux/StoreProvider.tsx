@@ -1,7 +1,8 @@
 'use client'
-import {useRef} from 'react'
 import {Provider} from 'react-redux'
-import {AppStore, makeStore} from '@/lib/redux/store'
+import {store} from '@/lib/redux/store'
+import {useEffect} from "react";
+import {setLocalData} from "@/lib/redux/features/Basket/basketSlice";
 
 export default function StoreProvider({
                                           children
@@ -9,14 +10,12 @@ export default function StoreProvider({
 
     children: React.ReactNode
 }) {
-    const storeRef = useRef<AppStore>(null)
-    // if (!storeRef.current) {
-    //     storeRef.current = makeStore()
-    //     storeRef.current.dispatch(initializeCount(count))
-    // }
 
-    if (!storeRef.current) {
-        storeRef.current = makeStore()
-    }
-    return <Provider store={storeRef.current}>{children}</Provider>
+
+    useEffect(() => {
+        setTimeout(() => {
+            store.dispatch(setLocalData())
+        }, 1000)
+    }, []);
+    return <Provider store={store}>{children}</Provider>
 }
