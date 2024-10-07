@@ -71,3 +71,21 @@ export const checkUserStatus = () => {
 }
 
 
+export const setLocalStorage = (key: string, value: unknown) => {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+        console.error({e});
+    }
+};
+
+export const getLocalStorage = (key: string, initialValue: unknown) => {
+    try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : initialValue;
+    } catch (e) {
+        console.error(e);
+        return initialValue;
+    }
+};
+
