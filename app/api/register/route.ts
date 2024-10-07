@@ -5,9 +5,9 @@ import {cookies} from "next/headers";
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const res: any = await new UserApi().apiUsersAuthPost(body)
-        if (res.status != 200) {
-            return NextResponse.json({message: 'Login failed'}, {status: 500});
+        const res: any = await new UserApi().apiUsersPost(body)
+        if (!(res.status == 200 || res.status == 201)) {
+            return NextResponse.json({message: 'Register failed'}, {status: 500});
         }
         const setCookieHeader = res.headers.get('set-cookie');
 
@@ -16,9 +16,11 @@ export async function POST(req: NextRequest) {
         const serverCookies = cookies();
         serverCookies.set("isAdmin", res.data.isAdmin)
 
+
         return nextRes
     } catch (e) {
-        return NextResponse.json({message: e.response.data.message}, {status: 400});
+        console.log(e.response.data)
+        return NextResponse.json({message: e.response.data}, {status: 400});
 
     }
 }

@@ -1,4 +1,4 @@
-import {Box, Flex, GridItem, HStack, SimpleGrid} from "@chakra-ui/react";
+import {Box, Flex, GridItem, HStack, SimpleGrid, Text} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import {useParams} from "next/navigation";
 import {ProductsApi} from "@/lib/openapi/generated-client";
@@ -27,9 +27,15 @@ const Related = () => {
         {/*"createdAt": "2024-10-06T08:23:59.965Z",*/}
         {/*"updatedAt": "2024-10-06T08:23:59.965Z"*/}
         <SimpleGrid gap={3} columns={1}>
+            {data.length == 0 && <Box bg={color.base.side} p={"16px"} borderRadius={6} textAlign="center">
+                <Text color={color.text.primary}>
+                    هیچ نظری برای این محصول ثبت نشده است
+                </Text>
+            </Box>}
             {
-                data.map(item => <GridItem bg={color.base.side} p={"16px"} borderRadius={6} display={"flex"}
-                                           flexDirection="column" gap={3}>
+                data.map((item, index) => <GridItem key={index} bg={color.base.side} p={"16px"} borderRadius={6}
+                                                    display={"flex"}
+                                                    flexDirection="column" gap={3}>
                     <HStack justifyContent={"space-between"}>
                         <Box color={color.text.secondary} fontSize={14} fontWeight={400}>
                             {item.name}

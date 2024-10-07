@@ -1,9 +1,9 @@
-import {Box, Button, Container, Flex, GridItem, HStack, Select, SimpleGrid, Text, VStack} from "@chakra-ui/react";
+import {Box, Container, Flex, GridItem, HStack, SimpleGrid, Text, VStack} from "@chakra-ui/react";
 import {CategoryApi, ProductsApi} from "@/lib/openapi/generated-client";
 import Image from "next/image"
 import {color} from "@/components/colors";
-import Rating from "@/components/Rating/Rating";
 import {formatToToman, timeAgo} from "@/components/utility";
+import AddBasket from "@/app/(home)/product/[id]/@productData/addBasket";
 
 const Page = async ({params: {id}}) => {
 
@@ -187,39 +187,8 @@ const Page = async ({params: {id}}) => {
                             </GridItem>
                         </SimpleGrid>
                     </Flex>
-                    <SimpleGrid columns={2} gap={5} py={50}>
-                        <GridItem>
-                            <Box display={"flex"} alignItems={"center"}>
-                                <Text color={color.text.primary} fontSize={16} fontWeight={400}>
-                                    {data.numReviews}
-                                    {" نظر "}
-                                </Text>
-                                <Box pr={3}>
-                                    <Rating defaultRating={data.rating} maxRating={5}/>
-                                </Box>
-                            </Box>
-                        </GridItem>
-                        <GridItem>
-                            <Box>
-                                <Box display={"inline-block"} dir={"ltr"}>
-                                    <Select width="96px">
-                                        <option value={1}>
-                                            1
-                                        </option>
-                                        <option value={2}>
-                                            2
-                                        </option>
-                                        <option value={3}>
-                                            3
-                                        </option>
-                                    </Select>
-                                </Box>
-                            </Box>
-                        </GridItem>
-                    </SimpleGrid>
-                    <Button variant={"regularPinkButton"}>
-                        افزودن به سبد خرید
-                    </Button>
+
+                    <AddBasket data={data}/>
 
                 </GridItem>
             </SimpleGrid>

@@ -16,8 +16,8 @@ interface ItemListProps {
 const ShoppingData: React.FC<ItemListProps> = ({title, list}) => {
     return (
         <Box sx={{
-            width: "34.3125rem",
-            height: " 12.5rem",
+            // width: "34.3125rem",
+            // height: " 12.5rem",
             gap: "1.5rem",
         }}>
 
