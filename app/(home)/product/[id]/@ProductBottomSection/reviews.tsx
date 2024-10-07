@@ -33,8 +33,9 @@ const Related = () => {
                 </Text>
             </Box>}
             {
-                data.map(item => <GridItem bg={color.base.side} p={"16px"} borderRadius={6} display={"flex"}
-                                           flexDirection="column" gap={3}>
+                data.map((item, index) => <GridItem key={index} bg={color.base.side} p={"16px"} borderRadius={6}
+                                                    display={"flex"}
+                                                    flexDirection="column" gap={3}>
                     <HStack justifyContent={"space-between"}>
                         <Box color={color.text.secondary} fontSize={14} fontWeight={400}>
                             {item.name}

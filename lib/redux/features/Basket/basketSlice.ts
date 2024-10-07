@@ -61,12 +61,18 @@ const BasketSlice = createSlice({
 
             setLocalStorage("basket", state)
 
+        },
+        setLocalData: (state) => {
+            const data = getLocalStorage("basket", initialState)
+            state.list = data.list
+            state.totalPrice = data.totalPrice
         }
+
     },
     name: "basket",
-    initialState: getLocalStorage("basket", initialState),
+    initialState,
 
 })
-export const {addItem, removeItem} = BasketSlice.actions
+export const {addItem, removeItem, setLocalData} = BasketSlice.actions
 
 export default BasketSlice.reducer
