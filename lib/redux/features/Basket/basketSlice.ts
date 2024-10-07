@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {getLocalStorage, setLocalStorage} from "@/components/utility";
 
 interface Interface {
     totalPrice: number
@@ -37,6 +38,7 @@ const BasketSlice = createSlice({
             }
             state.totalPrice += parseInt(price)
 
+            setLocalStorage("basket", state)
 
         },
         removeItem: (state, action) => {
@@ -57,11 +59,12 @@ const BasketSlice = createSlice({
 
             }
 
+            setLocalStorage("basket", state)
 
         }
     },
     name: "basket",
-    initialState,
+    initialState: getLocalStorage("basket", initialState),
 
 })
 export const {addItem, removeItem} = BasketSlice.actions
