@@ -10,7 +10,7 @@ export default function FilterCategory({
                                          resetFilters,
                                        }: {
   title: string;
-  onchange?: (data: Array<{ name: string; active: boolean }>) => void;
+  onchange?: (data: Array<{ name: string; active: boolean, _id: string }>) => void;
   categories: Array<{ name: string; active: boolean }>;
   resetFilters?: boolean;
 }) {
