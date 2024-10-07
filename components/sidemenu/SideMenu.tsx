@@ -100,7 +100,7 @@ const SideMenu: React.FC<sideMenuType> = ({ children }) => {
         },
         {
           name: "پروفایل",
-          url: "/admin/dashboard",
+          url: "/user/profile",
         },
         {
           name: "خروج از حساب",
@@ -113,8 +113,8 @@ const SideMenu: React.FC<sideMenuType> = ({ children }) => {
 
   const sidemenuList = [
     {
-      title: userStatus.isAdmin ? "داشبورد" : "خانه",
-      pathName: userStatus.isAdmin ? "/admin/dashboard" : "/",
+      title: "خانه",
+      pathName: "/",
       icon: <AiOutlineHome />,
       notif: null,
     },
