@@ -170,7 +170,7 @@ const Carousel = ({ products }: { products: Array<object> }) => {
         </Icon>
       </Flex>
     </Box>
-    <Box display={"flex"} flexDirection={"row"} width={"100%"} gap={"10px"} justifyContent={"space-between"}>
+    <Box display={"flex"} flexDirection={"row"} width={"100%"} gap={"10px"} justifyContent={"space-between"} marginTop={"1.5rem"} height={"8.5rem"}>
       <Box display={"flex"} flexDirection={"column"} gap={"10px"} width={"50%"}>    
         <Text display={"flex"} flexDirection={"row"} gap={"8px"} as={Link} href={`/product/${id[currentIndex]}`} cursor={"pointer"}>{name[currentIndex]} </Text>
         <Text display={"flex"} flexDirection={"row"} gap={"8px"} width={"100%"} justifyContent={"end"}>{price[currentIndex]} تومان </Text>
