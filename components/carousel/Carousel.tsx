@@ -8,8 +8,21 @@ import { AiFillShop } from "react-icons/ai";
 import { MdAccessTimeFilled } from "react-icons/md";
 import Link from "next/link";
 
+interface Product {
+  image: string;
+  name: string;
+  price: string;
+  description: string;
+  rating: number;
+  quantity: number;
+  countInStock: number;
+  brand: string;
+  updatedAt: string;
+  numReviews: number;
+  _id: string;
+}
 
-const Carousel = ({ products }: { products: Array<object> }) => {
+const Carousel = ({ products }: { products: Array<Product> }) => {
 
   const images = products.map((product) => product?.image)
   const name = products.map((product) => product?.name)
