@@ -78,7 +78,7 @@ const Page: React.FC = () => {
                                required: "فیلد ضروری میباشد"
                            })}
                     />
-                    <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
+                    <FormErrorMessage>{errors.productName && errors.productName.message}</FormErrorMessage>
                 </FormControl>
                 <Grid templateColumns="1fr 1fr" gap={4} mt={4}>
                     <FormControl mt={4} isInvalid={!!errors.price}>
@@ -93,16 +93,16 @@ const Page: React.FC = () => {
                         <FormErrorMessage>{errors.price && errors.price.message}</FormErrorMessage>
                     </FormControl>
 
-                    <FormControl mt={4} isInvalid={!!errors.category}>
+                    <FormControl mt={4} isInvalid={!!errors.brand}>
                         <FormLabel htmlFor="category">برند</FormLabel>
                         <Input placeholder={"برند محصول را وارد نمایید"} color="text.secondary" fontSize='1rem'
                                bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{border: "none"}}
 
-                               {...register("category", {
+                               {...register("brand", {
                                    required: "فیلد ضروری میباشد"
                                })}
                         />
-                        <FormErrorMessage>{errors.category && errors.category.message}</FormErrorMessage>
+                        <FormErrorMessage>{errors.brand && errors.brand.message}</FormErrorMessage>
                     </FormControl>
                 </Grid>
 
@@ -121,19 +121,25 @@ const Page: React.FC = () => {
                 </FormControl>
 
                 <Grid templateColumns="1fr 1fr" gap={4} mt={4}>
-                    <FormControl mt={4} isInvalid={!!errors.quantity}>
+                    <FormControl mt={4} isInvalid={!!errors.customerLimit}>
                         <FormLabel htmlFor="customerLimit">تعداد قابل خرید</FormLabel>
                         <Input placeholder={"تعداد قابل خرید را وارد نمایید"} color="text.secondary" fontSize='1rem'
                                bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{border: "none"}}
 
-                               {...register("quantity", {
+                               {...register("customerLimit", {
                                    required: "فیلد ضروری میباشد"
                                })}
                         />
-                        <FormErrorMessage>{errors.quantity && errors.quantity.message}</FormErrorMessage>
+                        <FormErrorMessage>{errors.customerLimit && errors.customerLimit.message}</FormErrorMessage>
                     </FormControl>
 
-
+                    <FormControl mt={4} isInvalid={!!errors.stockQuantity}>
+                        <FormLabel htmlFor="stockQuantity">موجودی</FormLabel>
+                        <Input placeholder={"موجودی"} color="text.secondary" fontSize='1rem'
+                               bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                               {...register("stockQuantity", { required: "فیلد ضروری میباشد", valueAsNumber: true, validate: (value) => value >= 0 || "موجودی نمیتواند منفی باشد" })} />
+                        <FormErrorMessage>{errors.stockQuantity && errors.stockQuantity.message}</FormErrorMessage>
+                    </FormControl>
                 </Grid>
 
                 <Button mt='2rem' type={"submit"} variant="regularPinkButton">ویرایش محصول </Button>
