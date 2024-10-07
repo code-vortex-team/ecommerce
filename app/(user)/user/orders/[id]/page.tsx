@@ -128,7 +128,7 @@ const App: FC = () => {
                     {value: "قیمت محصول", item: `  ${formatToToman(ApiData?.itemsPrice)} تومان `},
                     {value: "هزینه ارسال", item: `  ${formatToToman(ApiData?.shippingPrice)} تومان `},
                     {value: "مالیات", item: `  ${formatToToman(ApiData?.taxPrice)} تومان `},
-                    {value: "مبلغ نهایی", item: `  ${formatToToman(ApiData?.taxPrice)} تومان `},
+                    {value: "مبلغ نهایی", item: `  ${formatToToman(ApiData?.totalPrice)} تومان `},
                 ]}/>
 
                 <Button variant={"regularPinkButton"} minWidth={"100%"} isDisabled={ApiData?.isPaid} onClick={PayApi}>
