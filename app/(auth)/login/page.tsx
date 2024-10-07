@@ -5,11 +5,12 @@ import {color} from "@/components/colors";
 import {ReactNode, useState} from "react";
 import {useRouter} from "next/navigation";
 
-const Page = () => {
+const Page = ({searchParams}) => {
     const {register, formState: {errors}, handleSubmit}: ReactNode | unknown = useForm<{
         email: string;
         password: string;
     }>();
+
     const [isLoading, setIsLoading] = useState(false);
     const toast = useToast()
     const {push} = useRouter()
@@ -35,7 +36,12 @@ const Page = () => {
                 duration: 3000,
                 isClosable: true,
             })
-            push("/")
+            if (searchParams?.redirect) {
+                push(searchParams?.redirect)
+            } else {
+                push("/")
+            }
+
         } else {
 
             let data = await res.json()
