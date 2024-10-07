@@ -9,6 +9,10 @@ export function middleware(req: NextRequest) {
     // const token = req.cookies.get(cookiesName)?.value
     const serverCookies = cookies();
     const pathname = req.nextUrl.pathname;
+    if (pathname.startsWith('/user/cart')) {
+
+        return NextResponse.next()
+    }
 
     if (!serverCookies.has("jwt")) {
 
@@ -19,6 +23,7 @@ export function middleware(req: NextRequest) {
 
         return NextResponse.redirect(new URL('/login', req.url));
     }
+
     if (pathname.startsWith('/user') && !serverCookies.has("jwt")) {
 
 
