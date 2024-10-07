@@ -74,9 +74,22 @@ import { useEffect, useState } from "react";
 //     },
 // ];
 
+interface Product {
+  image: string;
+  name: string;
+  price: string;
+  description: string;
+  rating: number;
+  quantity: number;
+  countInStock: number;
+  brand: string;
+  updatedAt: string;
+  numReviews: number;
+  _id: string;
+}
 export default function Home() {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Product[]>([])
   useEffect(() => {
       new ProductsApi().apiProductsAllproductsGet().then((r: any) => {
         setData(r.data)
