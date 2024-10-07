@@ -4,6 +4,7 @@ import { color } from "@/components/colors";
 import Product from "@/components/product/Product";
 import { ProductsApi } from "@/lib/openapi/apiClient";
 import { Box, Button, Grid, Text, SimpleGrid, GridItem } from "@chakra-ui/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // const productsInfo = [
@@ -122,6 +123,8 @@ export default function Home() {
                 >
                     <Text fontSize="30px">محصولات ویژه</Text>
                     <Button
+                        as={Link}
+                        href={"/shop"}
                         bg={color.primary.main}
                         color={color.text.button}
                         borderRadius={"full"}

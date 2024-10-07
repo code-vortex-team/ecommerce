@@ -16,18 +16,18 @@ export function middleware(req: NextRequest) {
 
     if (!serverCookies.has("jwt")) {
 
-        return NextResponse.redirect(new URL('/login', req.url));
+        return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, req.url));
     }
     if (pathname.startsWith('/admin') && serverCookies.get("isAdmin")?.value == "false") {
 
 
-        return NextResponse.redirect(new URL('/login', req.url));
+        return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, req.url));
     }
 
     if (pathname.startsWith('/user') && !serverCookies.has("jwt")) {
 
 
-        return NextResponse.redirect(new URL('/login', req.url));
+        return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, req.url));
     }
 
 
