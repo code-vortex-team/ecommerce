@@ -21,16 +21,26 @@ const Page: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const onSubmit = (data: ProductFormInputs) => {
-        const { productName, description, price, brand, customerLimit, stockQuantity } = data;
+        const { productName, description, price, brand, customerLimit, stockQuantity, photo } = data;
+        const formData = new FormData();
+
+        formData.append("photo", photo[0]);
+        formData.append("productName", productName);
+        formData.append("description", description);
+        formData.append("price", price.toString());
+        formData.append("brand", brand);
+        formData.append("stockQuantity", stockQuantity.toString());
+        formData.append("customerLimit", customerLimit.toString());
+
         setIsLoading(true);
 
-        new ProductsApi().apiProductsPost(productName, description, price, brand, stockQuantity, customerLimit)
+        new ProductsApi().apiProductsPost(formData)
             .then((response) => {
-                alert("محصول جدید با موفقیت ایجاد شد.");
+                alert("محصول جدید با موفقیت ایجاد شد!");
                 console.log(response.data);
             })
             .catch((error) => {
-                setErrorMessage(error.response?.data.message || "خطایی پیش آمد!");
+                setErrorMessage(error.response?.data.message || "خطایی پیش آمد");
                 console.error(error);
             })
             .finally(() => {
@@ -40,114 +50,69 @@ const Page: React.FC = () => {
 
     return (
         <>
-            <Box
-                as="form"
-                width="68.375rem"
-                height="47.75rem"
-                mt="6.625rem"
-                ml="25.8125rem"
-                position="relative"
-                onSubmit={handleSubmit(onSubmit)}
-                encType="multipart/form-data"
-                p={5}
-                boxShadow="md"
-            >
-                <Text color="text.primary" mb="2rem" fontWeight={500} fontSize='1.5rem'>
-                    محصول جدید
-                </Text>
+            <Box as="form" width="68.375rem" height="auto" mt="6.625rem" ml="25.8125rem" position="relative" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data" p={5} boxShadow="md">
+                <Text color="text.primary" mb="2rem" fontWeight={500} fontSize='1.5rem'>محصول جدید</Text>
                 <UploadImage />
+
+                <FormControl mt={4} isInvalid={!!errors.photo}>
+                    <FormLabel htmlFor="photo">عکس محصول</FormLabel>
+                    <Input type="file" accept="image/*" {...register("photo", { required: "فیلد ضروری میباشد" })} />
+                    <FormErrorMessage>{errors.photo && errors.photo.message}</FormErrorMessage>
+                </FormControl>
 
                 <FormControl mt={4} isInvalid={!!errors.productName}>
                     <FormLabel htmlFor="productName">نام</FormLabel>
-                    <Input
-                        placeholder="نام محصول را وارد نمایید"
-                        color="text.secondary"
-                        fontSize="1rem"
-                        bg="base.textField"
-                        borderColor="base.textFieldStroke"
-                        _focusVisible={{ border: "none" }}
-                        {...register("productName", { required: "فیلد ضروری میباشد" })}
-                    />
-                    <FormErrorMessage>{errors.productName?.message}</FormErrorMessage>
+                    <Input placeholder={"نام محصول را وارد نمایید"} color="text.secondary" fontSize='1rem'
+                           bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                           {...register("productName", { required: "فیلد ضروری میباشد" })} />
+                    <FormErrorMessage>{errors.productName && errors.productName.message}</FormErrorMessage>
                 </FormControl>
 
                 <Grid templateColumns="1fr 1fr" gap={4} mt={4}>
-                    <FormControl isInvalid={!!errors.price}>
+                    <FormControl mt={4} isInvalid={!!errors.price}>
                         <FormLabel htmlFor="price">قیمت</FormLabel>
-                        <Input
-                            placeholder="قیمت محصول را وارد نمایید"
-                            color="text.secondary"
-                            fontSize="1rem"
-                            bg="base.textField"
-                            borderColor="base.textFieldStroke"
-                            _focusVisible={{ border: "none" }}
-                            {...register("price", { required: "فیلد ضروری میباشد" })}
-                        />
-                        <FormErrorMessage>{errors.price?.message}</FormErrorMessage>
+                        <Input placeholder={"قیمت محصول را وارد نمایید"} color="text.secondary" fontSize='1rem'
+                               bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                               {...register("price", { required: "فیلد ضروری میباشد", valueAsNumber: true, validate: (value) => value > 0 || "قیمت باید بیشتر از 0 باشد" })} />
+                        <FormErrorMessage>{errors.price && errors.price.message}</FormErrorMessage>
                     </FormControl>
 
-                    <FormControl isInvalid={!!errors.brand}>
+                    <FormControl mt={4} isInvalid={!!errors.brand}>
                         <FormLabel htmlFor="brand">برند</FormLabel>
-                        <Input
-                            placeholder="برند محصول را وارد نمایید"
-                            color="text.secondary"
-                            fontSize="1rem"
-                            bg="base.textField"
-                            borderColor="base.textFieldStroke"
-                            _focusVisible={{ border: "none" }}
-                            {...register("brand", { required: "فیلد ضروری میباشد" })}
-                        />
-                        <FormErrorMessage>{errors.brand?.message}</FormErrorMessage>
+                        <Input placeholder={"برند محصول را وارد نمایید"} color="text.secondary" fontSize='1rem'
+                               bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                               {...register("brand", { required: "فیلد ضروری میباشد" })} />
+                        <FormErrorMessage>{errors.brand && errors.brand.message}</FormErrorMessage>
                     </FormControl>
                 </Grid>
 
                 <FormControl mt={4} isInvalid={!!errors.description}>
                     <FormLabel htmlFor="description">توضیحات</FormLabel>
-                    <Textarea
-                        placeholder="توضیحات محصول را وارد نمایید"
-                        color="text.secondary"
-                        fontSize="1rem"
-                        bg="base.textField"
-                        borderColor="base.textFieldStroke"
-                        _focusVisible={{ border: "none" }}
-                        {...register("description", { required: "فیلد ضروری میباشد" })}
-                    />
-                    <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+                    <Textarea placeholder={"توضیحات محصول را وارد نمایید"} color="text.secondary" fontSize='1rem'
+                              bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                              {...register("description", { required: "فیلد ضروری میباشد" })} />
+                    <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
                 </FormControl>
 
                 <Grid templateColumns="1fr 1fr" gap={4} mt={4}>
-                    <FormControl isInvalid={!!errors.customerLimit}>
+                    <FormControl mt={4} isInvalid={!!errors.customerLimit}>
                         <FormLabel htmlFor="customerLimit">تعداد قابل خرید</FormLabel>
-                        <Input
-                            placeholder="تعداد قابل خرید را وارد نمایید"
-                            color="text.secondary"
-                            fontSize="1rem"
-                            bg="base.textField"
-                            borderColor="base.textFieldStroke"
-                            _focusVisible={{ border: "none" }}
-                            {...register("customerLimit", { required: "فیلد ضروری میباشد" })}
-                        />
-                        <FormErrorMessage>{errors.customerLimit?.message}</FormErrorMessage>
+                        <Input placeholder={"تعداد قابل خرید را وارد نمایید"} color="text.secondary" fontSize='1rem'
+                               bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                               {...register("customerLimit", { required: "فیلد ضروری میباشد", valueAsNumber: true, validate: (value) => value > 0 || "تعداد باید بیشتر از 0 باشد" })} />
+                        <FormErrorMessage>{errors.customerLimit && errors.customerLimit.message}</FormErrorMessage>
                     </FormControl>
 
-                    <FormControl isInvalid={!!errors.stockQuantity}>
+                    <FormControl mt={4} isInvalid={!!errors.stockQuantity}>
                         <FormLabel htmlFor="stockQuantity">موجودی</FormLabel>
-                        <select
-                            placeholder="موجودی"
-                            color="text.secondary"
-                            fontSize="1rem"
-                            width="100%"
-                            {...register("stockQuantity", {required: "فیلد ضروری میباشد"})}
-                        >
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                            <option value="300">300</option>
-                        </select>
-                        <FormErrorMessage>{errors.stockQuantity?.message}</FormErrorMessage>
+                        <Input placeholder={"موجودی"} color="text.secondary" fontSize='1rem'
+                               bg="base.textField" borderColor="base.textFieldStroke" _focusVisible={{ border: "none" }}
+                               {...register("stockQuantity", { required: "فیلد ضروری میباشد", valueAsNumber: true, validate: (value) => value >= 0 || "موجودی نمیتواند منفی باشد" })} />
+                        <FormErrorMessage>{errors.stockQuantity && errors.stockQuantity.message}</FormErrorMessage>
                     </FormControl>
                 </Grid>
 
-                <Button mt="2rem" variant="regularPinkButton" type="submit" isLoading={isLoading}>
+                <Button mt='2rem' variant="regularPinkButton" type="submit" isLoading={isLoading}>
                     ساخت محصول جدید
                 </Button>
 
