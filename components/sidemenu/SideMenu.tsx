@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Switch, useColorMode, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { color } from "@/components/colors";
@@ -17,13 +17,26 @@ interface sideMenuType {
   children: React.ReactNode;
 }
 
+interface userStatusType {
+  isAdmin: boolean;
+  isLoggedIn: boolean;
+}
+
 const SideMenu: React.FC<sideMenuType> = ({ children }) => {
   const { push } = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isLoggedIn } = checkUserStatus();
-  const { isAdmin } = checkUserStatus();
+  const [userStatus, setUserStatus] = useState<userStatusType>({
+    isAdmin: false,
+    isLoggedIn: false,
+  });
   const state = useAppSelector((r) => r.basket.list);
   const toast = useToast();
+
+  useEffect(() => {
+    const { isLoggedIn } = checkUserStatus();
+    const { isAdmin } = checkUserStatus();
+    setUserStatus({ isAdmin: isAdmin, isLoggedIn: isLoggedIn });
+  }, []);
 
   const logoutHandler = () => {
     if (typeof window !== "undefined") {
@@ -100,8 +113,8 @@ const SideMenu: React.FC<sideMenuType> = ({ children }) => {
 
   const sidemenuList = [
     {
-      title: isAdmin ? "داشبورد" : "خانه",
-      pathName: isAdmin ? "/admin/dashboard" : "/",
+      title: userStatus.isAdmin ? "داشبورد" : "خانه",
+      pathName: userStatus.isAdmin ? "/admin/dashboard" : "/",
       icon: <AiOutlineHome />,
       notif: null,
     },
@@ -210,19 +223,19 @@ const SideMenu: React.FC<sideMenuType> = ({ children }) => {
             ))}
           </Box>
           <Box pos="absolute" bottom="10px" right="10px">
-            {!isLoggedIn && (
+            {!userStatus.isLoggedIn && (
               <DropDown
                 title={dropDownItems.enterDropdown.title}
                 list={dropDownItems.enterDropdown.list}
               />
             )}
-            {isLoggedIn && isAdmin && (
+            {userStatus.isLoggedIn && userStatus.isAdmin && (
               <DropDown
                 title={dropDownItems.adminDropDown.title}
                 list={dropDownItems.adminDropDown.list}
               />
             )}
-            {isLoggedIn && !isAdmin && (
+            {userStatus.isLoggedIn && !userStatus.isAdmin && (
               <DropDown
                 title={dropDownItems.userDropDown.title}
                 list={dropDownItems.userDropDown.list}
