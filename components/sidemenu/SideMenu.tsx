@@ -26,19 +26,22 @@ const SideMenu: React.FC<sideMenuType> = ({ children }) => {
   const toast = useToast();
 
   const logoutHandler = () => {
-    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/";
-    document.cookie = "isAdmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/";
-    toast({
-      position: "bottom-left",
-      render: () => (
-        <Box color={color.text.primary} p={3} bg={color.primary.main}>
-          شما با موفقیت خارج شدید
-        </Box>
-      ),
-    });
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    if (typeof window !== "undefined") {
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/";
+      document.cookie =
+        "isAdmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/";
+      toast({
+        position: "bottom-left",
+        render: () => (
+          <Box color={color.text.primary} p={3} bg={color.primary.main}>
+            شما با موفقیت خارج شدید
+          </Box>
+        ),
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   };
 
   const dropDownItems = {
