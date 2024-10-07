@@ -25,11 +25,11 @@ const Page: React.FC = () => {
         const formData = new FormData();
 
         formData.append("photo", photo[0]);
-        formData.append("productName", productName);
+        formData.append("name", productName);
         formData.append("description", description);
         formData.append("price", price.toString());
         formData.append("brand", brand);
-        formData.append("stockQuantity", stockQuantity.toString());
+        formData.append("countInStock", stockQuantity.toString());
         formData.append("customerLimit", customerLimit.toString());
 
         setIsLoading(true);
