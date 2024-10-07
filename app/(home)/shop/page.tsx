@@ -58,8 +58,9 @@ const Page = () => {
             w="13.75vw"
             gap="40px"
             h="81vh"
-            borderTopRadius='20px'
+            borderTopRadius="20px"
             bg={color.base.side}
+            padding='15px'
           >
             <Box>
               <FilterProducts
