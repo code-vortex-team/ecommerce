@@ -126,7 +126,7 @@ const SideMenu: React.FC<sideMenuType> = ({ children }) => {
     },
     {
       title: "سبد خرید",
-      pathName: "/user/cart/checkout",
+      pathName: "/user/cart",
       icon: <AiOutlineShoppingCart />,
       notif: state.length,
     },
