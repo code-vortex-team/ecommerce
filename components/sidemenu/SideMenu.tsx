@@ -1,29 +1,142 @@
 "use client";
-import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Box, Flex, Switch, useColorMode, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { color } from "@/components/colors";
 import DropDown from "../dropDown/DropDown";
+import { checkUserStatus } from "../utility";
+import {
+  AiOutlineHome,
+  AiOutlineShopping,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
+import { MdFavorite } from "react-icons/md";
+import { useAppSelector } from "@/lib/redux/hooks";
 
 interface sideMenuType {
   children: React.ReactNode;
-  list: Array<{
-    title: string;
-    pathName: string;
-    icon: React.ReactNode;
-    notif: number | null;
-  }>;
-  dropDown: {
-    title: string;
-    list: Array<{
-      name: string;
-      url: string;
-    }>;
-  };
 }
 
-const SideMenu: React.FC<sideMenuType> = ({ children, list, dropDown }) => {
+interface userStatusType {
+  isAdmin: boolean;
+  isLoggedIn: boolean;
+}
+
+const SideMenu: React.FC<sideMenuType> = ({ children }) => {
   const { push } = useRouter();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [userStatus, setUserStatus] = useState<userStatusType>({
+    isAdmin: false,
+    isLoggedIn: false,
+  });
+  const state = useAppSelector((r) => r.basket.list);
+  const toast = useToast();
+
+  useEffect(() => {
+    const { isLoggedIn } = checkUserStatus();
+    const { isAdmin } = checkUserStatus();
+    setUserStatus({ isAdmin: isAdmin, isLoggedIn: isLoggedIn });
+  }, []);
+
+  const logoutHandler = () => {
+    if (typeof window !== "undefined") {
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/";
+      document.cookie =
+        "isAdmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/";
+      toast({
+        position: "bottom-left",
+        render: () => (
+          <Box color={color.text.primary} p={3} bg={color.primary.main}>
+            شما با موفقیت خارج شدید
+          </Box>
+        ),
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  };
+
+  const dropDownItems = {
+    enterDropdown: {
+      title: "ورود",
+      list: [
+        { name: "ورود", url: "/login" },
+        { name: "ثبت نام", url: "/register" },
+      ],
+    },
+    userDropDown: {
+      title: "کاربر",
+      list: [
+        {
+          name: "پروفایل",
+          url: "/user/profile",
+        },
+        {
+          name: "خروج از حساب",
+          url: "/",
+          onClick: () => logoutHandler(),
+        },
+      ],
+    },
+    adminDropDown: {
+      title: "ادمین",
+      list: [
+        {
+          name: "داشبود",
+          url: "/admin/dashboard",
+        },
+        {
+          name: "محصول جدید",
+          url: "/admin/product/create",
+        },
+        {
+          name: "مدیریت کاربران",
+          url: "/admin/users",
+        },
+        {
+          name: "سفارشات",
+          url: "/admin/orders",
+        },
+        {
+          name: "پروفایل",
+          url: "/user/profile",
+        },
+        {
+          name: "خروج از حساب",
+          url: "/",
+          onClick: () => logoutHandler(),
+        },
+      ],
+    },
+  };
+
+  const sidemenuList = [
+    {
+      title: "خانه",
+      pathName: "/",
+      icon: <AiOutlineHome />,
+      notif: null,
+    },
+    {
+      title: "فروشگاه",
+      pathName: "/shop",
+      icon: <AiOutlineShopping />,
+      notif: null,
+    },
+    {
+      title: "سبد خرید",
+      pathName: "/user/cart",
+      icon: <AiOutlineShoppingCart />,
+      notif: state.length,
+    },
+    {
+      title: "علاقه مندی ها",
+      pathName: "/user/favorite",
+      icon: <MdFavorite />,
+      notif: null,
+    },
+  ];
 
   return (
     <>
@@ -49,7 +162,7 @@ const SideMenu: React.FC<sideMenuType> = ({ children, list, dropDown }) => {
           }}
         >
           <Box display="flex" gap="4.8vh" flexDir="column">
-            {list.map((item) => (
+            {sidemenuList.map((item) => (
               <Box
                 key={item.pathName}
                 alignItems="center"
@@ -110,11 +223,36 @@ const SideMenu: React.FC<sideMenuType> = ({ children, list, dropDown }) => {
             ))}
           </Box>
           <Box pos="absolute" bottom="10px" right="10px">
-            <DropDown title={dropDown.title} list={dropDown.list} />
+            {!userStatus.isLoggedIn && (
+              <DropDown
+                title={dropDownItems.enterDropdown.title}
+                list={dropDownItems.enterDropdown.list}
+              />
+            )}
+            {userStatus.isLoggedIn && userStatus.isAdmin && (
+              <DropDown
+                title={dropDownItems.adminDropDown.title}
+                list={dropDownItems.adminDropDown.list}
+              />
+            )}
+            {userStatus.isLoggedIn && !userStatus.isAdmin && (
+              <DropDown
+                title={dropDownItems.userDropDown.title}
+                list={dropDownItems.userDropDown.list}
+              />
+            )}
+          </Box>
+          <Box pos="absolute" bottom="50px" right="20px">
+            <Switch
+              colorScheme="pink"
+              size="sm"
+              isChecked={colorMode === "dark"}
+              onChange={toggleColorMode}
+            />
           </Box>
         </Flex>
       </Box>
-      <Box>{children}</Box>
+      <Box width={"100%"}>{children}</Box>
     </>
   );
 };
